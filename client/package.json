@@ -3,18 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@types/jest": "24.0.15",
-    "@types/node": "12.0.12",
-    "@types/react": "^16.8.23",
-    "@types/react-dom": "16.8.4",
-    "poststylus": "^1.0.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.1",
     "socket.io-client": "^2.2.0",
-    "stylus": "^0.54.5",
-    "stylus-loader": "^3.0.2",
-    "typescript": "3.5.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -38,6 +30,15 @@
     ]
   },
   "devDependencies": {
-    "@types/socket.io-client": "^1.4.32"
+    "@types/socket.io-client": "^1.4.32",
+    "@types/jest": "24.0.15",
+    "@types/node": "12.0.12",
+    "@types/react": "^16.8.23",
+    "@types/react-dom": "16.8.4",
+    "autoprefixer": "^9.6.0",
+    "poststylus": "^1.0.0",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.2",
+    "typescript": "3.5.2"
   }
 }
