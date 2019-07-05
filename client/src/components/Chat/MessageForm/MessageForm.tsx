@@ -1,6 +1,8 @@
 import React, { FunctionComponent, useState, createRef } from "react";
 import useSocket from "../../../hooks/useSocket";
 
+import './_message-form.styl';
+
 type Props = {
   userId: string
 }
