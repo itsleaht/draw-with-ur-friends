@@ -1,5 +1,7 @@
 import React, { FunctionComponent } from "react";
 
+import './svg-sprite.styl';
+
 const SVGSprite: FunctionComponent = () => {
 
   return(
