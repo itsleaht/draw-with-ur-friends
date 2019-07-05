@@ -4,6 +4,8 @@ import MessageForm from "./MessageForm/MessageForm";
 
 import useSocketOn from "../../hooks/useSocketOn";
 
+import './_chat.styl';
+
 type User = {
   id: ''
 }
