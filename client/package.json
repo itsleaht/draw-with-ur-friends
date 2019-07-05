@@ -12,6 +12,7 @@
     "react-scripts": "3.0.1",
     "socket.io-client": "^2.2.0",
     "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.2",
     "typescript": "3.5.2"
   },
   "scripts": {
