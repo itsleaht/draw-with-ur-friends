@@ -4,6 +4,8 @@ import {MessageI} from '../../../@types';
 
 import useSocketOn from "../../../hooks/useSocketOn";
 
+import './_message-list.styl'
+
 type Props = {
   userId: string
 }
