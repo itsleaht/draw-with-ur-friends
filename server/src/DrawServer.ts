@@ -1,3 +1,8 @@
+
+const addLog = (type: string, message: string, params: any) => {
+  console.log(`[ ${type.toUpperCase()} ] [ ${message} ] ${params}`);
+};
+
 export class DrawServer {
   private io: SocketIO.Server;
   private port: string | number;
