@@ -1,0 +1,11 @@
+{
+  "name": "draw-with-your-friends-server",
+  "version": "1.0.0",
+  "description": "Draw with your friends server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
