@@ -2,6 +2,8 @@ import express = require('express');
 import { createServer, Server } from 'http';
 import socketIO  = require('socket.io');
 
+import { DrawServer } from './DrawServer';
+
 export class DrawServerManager {
   public static readonly PORT: number = 3030;
   private app: express.Application;
@@ -43,6 +45,9 @@ export class DrawServerManager {
     this.server.listen(this.port, () => {
       console.log(`Running server on port ${this.port}`);
     });
+
+    const drawServer = new DrawServer(this.io, this.port);
+    drawServer.connect();
   }
 
 
