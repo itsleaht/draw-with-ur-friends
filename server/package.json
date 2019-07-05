@@ -15,5 +15,7 @@
     "tslint": "^5.18.0",
     "typescript": "^3.5.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "express": "^4.15.2"
+  }
 }
