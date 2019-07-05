@@ -7,7 +7,6 @@ const SVGSprite: FunctionComponent = () => {
   return(
     <svg className="svg-sprite">
       <defs>
-
       <symbol id="icon-message-notification" viewBox="0 0 60 48">
         <path fillRule="evenodd" clipRule="evenodd" d="M10 0C4.477 0 0 4.477 0 10v15c0 5.523 4.477 10 10 10h17l25.5 12.5L42 35h8c5.523 0 10-4.477 10-10V10c0-5.523-4.477-10-10-10H10z"/>
       </symbol>

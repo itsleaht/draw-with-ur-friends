@@ -50,7 +50,6 @@ export class DrawServerManager {
     drawServer.connect();
   }
 
-
 }
 
 export default DrawServerManager;
