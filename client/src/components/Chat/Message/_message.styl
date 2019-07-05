@@ -1,0 +1,25 @@
+@import '../../../styles/global.styl'
+
+.message
+  max-width 22rem
+  display flex
+  flex-direction column
+  align-items flex-start
+
+  &__body
+    background $c-grey
+    border-radius 2rem
+    padding 1rem 2rem
+    font-size 1.2rem
+
+  &__bottom
+    padding .8rem 1rem
+    font-size 1rem
+    color $c-grey-dark
+
+
+  &.is-mine
+    .message
+      &__body
+        background $c-blue-light
+        color $c-white

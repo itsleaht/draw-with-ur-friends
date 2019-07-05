@@ -1,6 +1,8 @@
 import React, { FunctionComponent } from "react";
 import { MessageI } from '../../../@types';
 
+import './_message.styl';
+
 type Props = {
   message: MessageI,
   isMine: boolean,
