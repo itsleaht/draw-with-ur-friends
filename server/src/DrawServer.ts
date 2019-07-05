@@ -49,9 +49,9 @@ export class DrawServer {
 
       socket.on(events.SERVER_GET_EVENTS, () => this.io.emit(events.SERVER_GET_EVENTS, events));
 
-      socket.on(events.USER_NAME, this.onUserName);
+      socket.on(events.USER_NAME, this.onUserName.bind(this));
 
-      socket.on(events.CHAT_USER_MESSAGE, this.onUserMessage);
+      socket.on(events.CHAT_USER_MESSAGE, this.onUserMessage.bind(this));
 
       socket.on('disconnect', () => {
         console.log('Client disconnected');
