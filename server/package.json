@@ -4,7 +4,10 @@
   "description": "Draw with your friends server",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
+    "build": "tsc",
+    "prestart": "npm run build",
+    "start": "node dist/index.js"
   },
   "author": "",
   "license": "ISC",
