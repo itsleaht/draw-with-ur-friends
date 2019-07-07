@@ -15,6 +15,7 @@ type User = {
 const Chat: FunctionComponent = () => {
   const [user, setUser] = useState<User>({id: ''});
   const [isMinified, setisMinified] = useState<boolean>(true);
+  const [isNotified, setisNotified] = useState<boolean>(false);
   const [counterNotification, setCounterNotification] = useState<number>(0);
   const maxCounterNotification = 99
 
@@ -24,7 +25,7 @@ const Chat: FunctionComponent = () => {
     const timeout = setTimeout(() => {
       clearTimeout(timeout);
       setCounterNotification(0);
-
+      setisNotified(false);
     }, 350)
   }
 
@@ -35,11 +36,14 @@ const Chat: FunctionComponent = () => {
   useSocketOn('chat:message', userInfo => {
     if (isMinified && counterNotification <= maxCounterNotification) {
       setCounterNotification(counterNotification + 1);
+      if (!isNotified) {
+        setisNotified(true);
+      }
     }
   });
 
   return (
-    <div className={`chat ${isMinified ? 'is-minified' : ''}`}>
+    <div className={`chat ${isMinified ? 'is-minified' : ''} ${isNotified ? 'is-notified' : ''}`}>
       <div className="chat__inner">
         <div className="chat__header">
           <div className="chat__header__left">

@@ -30,9 +30,11 @@
   &:after
     position absolute
     box-shadow 0px .4rem .8rem rgba(95, 95, 95, 0.09)
+    z-index 0
 
   &__inner
     position relative
+    z-index 1
     height 100%
     border-radius 2rem
     overflow hidden
@@ -147,13 +149,15 @@
         &__bottom
           opacity 0
 
-    &.is-new-message
+    &.is-notified
       &:before,
       &:after
         opacity 1
-        animation-name halo()
-        animation-duration 1s
-        animation-delay .1s
+        animation-name halo
+        animation-duration 2s
+        animation-delay 5s
+        animation-iteration-count infinite
+        animation-direction alternate-reverse
 
   @keyframes halo {
     0% {
