@@ -8,7 +8,9 @@ const Header: FunctionComponent = () => {
     <header className="header">
       <div className="header__inner">
         <div className="header__left">
-          <img src={`${process.env.PUBLIC_URL}/assets/logo.svg`} className="header__logo" alt="logo" />
+          <a className="header__logo" href="/">
+            <img src={`${process.env.PUBLIC_URL}/assets/logo.svg`} className="header__logo__image" alt="logo" />
+          </a>
         </div>
         <div className="header__middle"></div>
         <div className="header__right"></div>
