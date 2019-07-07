@@ -14,7 +14,9 @@ const MessageForm: FunctionComponent<Props>  = ({userId}) => {
   const formMessage = createRef<HTMLFormElement>();
 
   const onFormSubmit = () => {
-    socket!.emit('chat:message', { content, userId });
+    if (content.length > 0) {
+      socket!.emit('chat:message', { content, userId });
+    }
     setContent('');
   }
 
@@ -33,12 +35,17 @@ const MessageForm: FunctionComponent<Props>  = ({userId}) => {
     setContent(message);
   }
 
+  const onClickButton = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    onFormSubmit();
+  }
+
   return (
     <form className="form form--message" onSubmit={onFormSubmit} ref={formMessage}>
       <div className="form__wrapper">
         <textarea onChange={onInputChange} className="form__textarea" value={content} onKeyPress={onTextareaKeyPress}></textarea>
       </div>
-      <button type="submit" className="form__submit">Send</button>
+      <button type="submit" className="form__submit" onClick={onClickButton}>Send</button>
     </form>
   );
 }
