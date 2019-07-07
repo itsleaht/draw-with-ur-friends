@@ -23,11 +23,13 @@ const Chat: FunctionComponent = () => {
       <div className="chat__inner">
         <div className="chat__header">
           <div className="chat__header__left">
-            <Icon name="message-notification" fill="#4A5CFF" width={50} height={37}  />
+            <Icon name="message-notification" fill="#4A5CFF" width={40} height={27}  />
             <span className="heading-3">The artist team</span>
           </div>
           <div className="chat__header__right">
-            <Icon name="arrow-down" fill="#000" width={19} height={10}  />
+            <button className="chat__toggle">
+              <Icon name="arrow-down" fill="#000" width={15} height={6}  />
+            </button>
           </div>
         </div>
         <div className="chat__body">

@@ -4,8 +4,8 @@
   position absolute
   bottom 4rem
   right 4rem
-  height 54rem
-  width 37rem
+  height 42rem
+  width 31rem
 
   &__inner
     height 100%
@@ -16,8 +16,9 @@
   &__header
     display flex
     justify-content space-between
+    padding 1rem 2rem
     background $c-purple-pale-2
-    padding 1.3rem 2rem
+    box-shadow 0 .3rem .5rem rgba(183, 183, 202, 0.2)
 
     &__left
       position relative
@@ -25,19 +26,21 @@
       .icon
         position relative
         top .4rem
-        margin-right 1.6rem
+        margin-right .6rem
 
     &__left,
     &__right
       display flex
       align-items center
 
+    &__toggle
+      padding 1rem
 
   &__body
     display flex
     flex-direction column
     justify-content space-between
-    height 47.7rem
+    height 37.7rem
     border 1px solid $c-grey
     border-radius 0 0 2rem 2rem
 
@@ -47,6 +50,4 @@
 
   .heading-3
     font-weight bold
-    font-size 1.8rem
-
-
+    font-size 1.6rem
