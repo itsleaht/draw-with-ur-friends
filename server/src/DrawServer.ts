@@ -57,6 +57,7 @@ export class DrawServer {
 
       if (this.defaultRoom !== null) {
         this.io.emit(events.ROOM_DEFAULT, this.defaultRoom.getId());
+        addLog('emit', events.ROOM_DEFAULT, this.defaultRoom.getId());
       }
 
       socket.on(events.ROOM_JOIN, (room: {from: '', to: ''}) => {
@@ -71,7 +72,7 @@ export class DrawServer {
 
         socket.join(room.to);
 
-        this.io.emit(events.ROOMS_GET, this.rooms);
+        this.io.emit(events.ROOMS_GET, Array.from(this.rooms.values()) );
 
         socket.in(room.to).on(events.SERVER_GET_EVENTS, () => this.io.emit(events.SERVER_GET_EVENTS, events));
 

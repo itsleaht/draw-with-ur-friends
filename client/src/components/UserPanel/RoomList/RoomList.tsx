@@ -7,8 +7,7 @@ const RoomList: FunctionComponent = () => {
   const [rooms, setRooms] = useState<RoomI[]>([]);
 
   useSocketOn('rooms:get', rooms => {
-    setRooms(rooms);
-    console.log(rooms);
+    setRooms(Array.from(rooms));
   });
 
   return (
