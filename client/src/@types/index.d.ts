@@ -12,8 +12,8 @@ export interface MessageI {
 
 export interface RoomI {
   id: string,
-  createdAt: number,
-  host: UserI,
+  // createdAt: number,
+  // host: UserI,
   name: string,
-  users: UserI[]
+  // users: UserI[]
 }
