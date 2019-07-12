@@ -7,7 +7,8 @@ export interface UserI {
 export interface MessageI {
   createdAt: number,
   from: UserI,
-  content: string
+  content: string,
+  roomId: string
 }
 
 export interface RoomI {

@@ -1,3 +1,4 @@
+import { Socket } from 'dgram';
 import Message from './models/Message';
 import Room from './models/Room';
 import User from './models/User';
@@ -7,6 +8,7 @@ const events = {
   ROOMS_GET: 'rooms:get',
   ROOM_CREATE: 'room:create',
   ROOM_DEFAULT: 'room:default',
+  ROOM_GET: 'room:get',
   ROOM_JOIN: 'room:join',
   SERVER_GET_EVENTS: 'server:get:events',
   USER_CONNECTION: 'user:connection',
@@ -60,26 +62,38 @@ export class DrawServer {
         addLog('emit', events.ROOM_DEFAULT, this.defaultRoom.getId());
       }
 
-      socket.on(events.ROOM_JOIN, (room: {from: '', to: ''}) => {
+      socket.on(events.ROOM_JOIN, (room: {from: {id: '', name: ''}, to: {id: '', name: ''}}) => {
+        let roomId: string = room.to && room.to.id ? room.to.id : '';
+        // socket.removeAllListeners();
+        this.removeListeners(socket);
 
-        socket.leaveAll();
+        if (room.from.id !== roomId && !roomId && !this.rooms.has(roomId)) { // Create a room
+          socket.leave(room.from.id);
+          this.removeUserFromRoom(room.from.id, socket.id);
 
-        if (user) {
-          this.rooms.get(room.to)!.addUser(user);
+          const newRoom = this.createRoom(room.to.name);
+          roomId = newRoom.getId();
+        }
+
+        if (user) { // Add user to room
+          this.rooms.get(roomId)!.addUser(user);
         }
 
         addLog('on', events.ROOM_JOIN, `${JSON.stringify(room)} - User : ${socket.id}`);
 
-        socket.join(room.to);
+        socket.join(roomId);
+        socket.to(roomId).emit(events.ROOM_JOIN, {from: {id: roomId}, to: {id: roomId}});
+
+        addLog('emit', events.ROOM_JOIN, JSON.stringify({from: {id: roomId}, to: {id: roomId}}));
 
         this.io.emit(events.ROOMS_GET, this.getRooms());
 
-        socket.in(room.to).on(events.SERVER_GET_EVENTS, () => this.io.emit(events.SERVER_GET_EVENTS, events));
+        socket.in(roomId).on(events.SERVER_GET_EVENTS, () => socket.emit(events.SERVER_GET_EVENTS, events));
 
-        socket.in(room.to).on(events.USER_NAME, (event: {username: '', userId: ''}) => this.onUserName(event));
+        socket.in(roomId).on(events.USER_NAME, (event: {username: '', userId: ''}) => this.onUserName(event));
 
-        socket.in(room.to).on(events.CHAT_USER_MESSAGE, (
-          event: {content: '', userId: ''}) => this.onUserMessage(event));
+        socket.in(roomId).on(events.CHAT_USER_MESSAGE, (
+          event: {content: '', userId: '', roomId: ''}) => this.onUserMessage(event));
       });
 
       socket.on('disconnect', () => {
@@ -87,22 +101,21 @@ export class DrawServer {
 
         socket._rooms.forEach((id: '') => {
           if (this.rooms && this.rooms.has(id)) {
-            this.rooms!.get(id)!.removeUser(socket.id);
+            this.removeUserFromRoom(id, socket.id);
           }
+          socket.leave(id);
         });
 
         this.io.emit(events.ROOMS_GET, this.getRooms());
 
-        socket.leaveAll();
-        // todo : remove user from room & remove user from DrawServer.user
         // todo: emit user disconnect
       });
     });
   }
 
-  protected removeListeners(): void {
+  protected removeListeners(socket: SocketIO.Socket): void {
     Object.keys(events).forEach( (key) => {
-      this.socket!.removeAllListeners(key);
+      socket!.removeAllListeners(key);
     });
   }
 
@@ -136,6 +149,10 @@ export class DrawServer {
     return rooms;
   }
 
+  protected removeUserFromRoom(roomId: string, userId: string): void {
+    this.rooms!.get(roomId)!.removeUser(userId);
+  }
+
   protected onUserName(info: {username: '', userId: ''}): void {
     if (this.users.has(info.userId)) {
       this.users.get(info.userId)!.setName(info.username);
@@ -144,14 +161,15 @@ export class DrawServer {
     }
   }
 
-  protected onUserMessage(message: {content: '', userId: ''}): void {
+  protected onUserMessage(message: {content: '', userId: '', roomId: ''}): void {
     const user = this.users.get(message.userId);
     const newMessage: Message = new Message({
       content: message.content,
       from: user ? user : null,
+      roomId: message.roomId
     });
 
-    addLog('on', events.CHAT_USER_MESSAGE, JSON.stringify(message));
-    this.io.emit(events.CHAT_USER_MESSAGE, newMessage);
+    addLog('emit', events.CHAT_USER_MESSAGE, JSON.stringify(message));
+    this.io.sockets.to(message.roomId).emit(events.CHAT_USER_MESSAGE, newMessage);
   }
 }

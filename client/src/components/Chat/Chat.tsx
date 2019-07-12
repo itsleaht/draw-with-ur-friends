@@ -8,6 +8,8 @@ import useSocket from "../../hooks/useSocket";
 import Icon from '../UI/icons/Icon';
 
 import './_chat.styl';
+import { useSelector } from "react-redux";
+import { State } from "../../store/types";
 
 type User = {
   id: ''
@@ -18,13 +20,12 @@ type Room = {
 }
 
 const Chat: FunctionComponent = () => {
-  const [user, setUser] = useState<User>({id: ''});
-  const [room, setRoom] = useState<Room>({id: ''})
   const [isMinified, setisMinified] = useState<boolean>(true);
   const [isNotified, setisNotified] = useState<boolean>(false);
   const [counterNotification, setCounterNotification] = useState<number>(0);
   const maxCounterNotification = 99;
-  const socket = useSocket();
+  const user = useSelector<State, any>(state => state.user)
+
 
   const onClickToggle = () => {
     setisMinified(!isMinified);
@@ -36,15 +37,6 @@ const Chat: FunctionComponent = () => {
     }, 350)
   }
 
-  useSocketOn('user:info', userInfo => {
-    setUser(userInfo);
-  });
-
-  useSocketOn('room:default', roomInfo => {
-    console.log('room default', roomInfo);
-    socket!.emit('room:join', { from: roomInfo, to: roomInfo });
-  });
-
   useSocketOn('chat:message', userInfo => {
     if (isMinified && counterNotification <= maxCounterNotification) {
       setCounterNotification(counterNotification + 1);
@@ -53,6 +45,7 @@ const Chat: FunctionComponent = () => {
       }
     }
   });
+
 
   return (
     <div className={`chat ${isMinified ? 'is-minified' : ''} ${isNotified ? 'is-notified' : ''}`}>

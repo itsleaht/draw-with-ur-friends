@@ -2,6 +2,7 @@ import React, { FunctionComponent, useState, createRef } from "react";
 import useSocket from "../../../hooks/useSocket";
 
 import './_message-form.styl';
+import { useSelector } from "react-redux";
 
 type Props = {
   userId: string
@@ -9,13 +10,15 @@ type Props = {
 
 const MessageForm: FunctionComponent<Props>  = ({userId}) => {
   const [content, setContent] = useState<string>('');
+  const roomId = useSelector<any, any>(state => state.room.id);
   const socket = useSocket();
 
   const formMessage = createRef<HTMLFormElement>();
 
   const onFormSubmit = () => {
+    console.log(roomId)
     if (content.length > 0) {
-      socket!.emit('chat:message', { content, userId });
+      socket!.emit('chat:message', { content, userId, roomId });
     }
     setContent('');
   }
