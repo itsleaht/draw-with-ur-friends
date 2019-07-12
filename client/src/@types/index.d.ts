@@ -15,5 +15,5 @@ export interface RoomI {
   // createdAt: number,
   // host: UserI,
   name: string,
-  // users: UserI[]
+  users: UserI[]
 }

@@ -72,7 +72,7 @@ export class DrawServer {
 
         socket.join(room.to);
 
-        this.io.emit(events.ROOMS_GET, Array.from(this.rooms.values()) );
+        this.io.emit(events.ROOMS_GET, this.getRooms());
 
         socket.in(room.to).on(events.SERVER_GET_EVENTS, () => this.io.emit(events.SERVER_GET_EVENTS, events));
 
@@ -84,6 +84,15 @@ export class DrawServer {
 
       socket.on('disconnect', () => {
         console.log('Client disconnected');
+
+        socket._rooms.forEach((id: '') => {
+          if (this.rooms && this.rooms.has(id)) {
+            this.rooms!.get(id)!.removeUser(socket.id);
+          }
+        });
+
+        this.io.emit(events.ROOMS_GET, this.getRooms());
+
         socket.leaveAll();
         // todo : remove user from room & remove user from DrawServer.user
         // todo: emit user disconnect
@@ -117,6 +126,14 @@ export class DrawServer {
     addLog('Func', 'createRoom', JSON.stringify(room));
 
     return room;
+  }
+
+  protected getRooms(): [] {
+    const rooms = [] as any;
+    this.rooms.forEach((item: Room) => {
+      rooms.push(item.getRoomObject());
+    });
+    return rooms;
   }
 
   protected onUserName(info: {username: '', userId: ''}): void {

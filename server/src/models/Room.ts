@@ -25,4 +25,12 @@ export default class Room {
   public removeUser(id: string): void {
     this.users.delete(id);
   }
+
+  public getRoomObject(): {} {
+    return {
+      id: this.id,
+      name: this.name,
+      users: Array.from(this.users.values())
+    };
+  }
 }
