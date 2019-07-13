@@ -1,23 +1,20 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent } from 'react';
 import { RoomI } from '../../../@types';
-import useSocketOn from '../../../hooks/useSocketOn';
-import { useSelector } from 'react-redux';
 
-const RoomList: FunctionComponent = () => {
+import './_list-rooms.styl';
 
-  const [rooms, setRooms] = useState<RoomI[]>([]);
-  const userId = useSelector<any, any>(state => state.user.id)
+type Props = {
+  rooms: RoomI[],
+  roomId: string,
+  onClickRoomClb: (id: string) => void
+}
 
-  useSocketOn('rooms:get', rooms => {
-    console.log('Rooms : Get', rooms);
-    setRooms(Array.from(rooms));
-  });
+const RoomList: FunctionComponent<Props> = ({rooms, roomId, onClickRoomClb}) => {
 
   return (
     <ul className="list list--rooms">
-      user: {userId}
       { rooms.map((room, index) => {
-        return (<li key={index} className={`list__item`}>Room : {room.name} {room.id} - {room.users.length} users</li>);
+        return (<li key={index} className={`list__item ${roomId === room.id ? 'is-active' : ''}`} onClick={() => onClickRoomClb(room.id)}>{room.name} {room.users.length}</li>);
       })}
     </ul>
   )

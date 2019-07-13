@@ -1,0 +1,17 @@
+@import '../../../styles/global.styl'
+
+.list--users
+  .list__item
+    margin .5rem 0 0 1rem
+    padding 0.5rem 0.5rem 0.5rem 2rem
+    border-radius 2rem
+    font-size 1.25rem
+    transition background .3s
+
+    &.is-active
+      background $c-grey-light
+
+      cursor pointer
+
+      &:hover
+        background $c-grey
