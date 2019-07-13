@@ -13,7 +13,7 @@ const useSocketOn = (event: string, callback?: (...args: any[]) => void): void =
         socket.removeListener(event, callback)
       }
     };
-  }, [event, callback, socket])
+  }, [event, callback])
 }
 
 export default useSocketOn;

@@ -3,6 +3,7 @@ import { createServer, Server } from 'http';
 import socketIO  = require('socket.io');
 
 import { DrawServer } from './DrawServer';
+import { addLog } from './helpers/Utils';
 
 export class DrawServerManager {
   public static readonly PORT: number = 3030;
@@ -43,7 +44,7 @@ export class DrawServerManager {
 
   private listen(): void {
     this.server.listen(this.port, () => {
-      console.log(`Running server on port ${this.port}`);
+      addLog('func', 'Listen', `Running server on port ${this.port}`);
     });
 
     const drawServer = new DrawServer(this.io, this.port);

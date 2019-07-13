@@ -17,7 +17,7 @@ const RoomList: FunctionComponent = () => {
     <ul className="list list--rooms">
       user: {userId}
       { rooms.map((room, index) => {
-        return (<li key={index} className={`list__item`}>Room : {room.name} - {room.users.length} users</li>);
+        return (<li key={index} className={`list__item`}>Room : {room.name} {room.id} - {room.users.length} users</li>);
       })}
     </ul>
   )

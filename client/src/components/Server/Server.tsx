@@ -5,8 +5,6 @@ import useSocket from "../../hooks/useSocket";
 
 import { useDispatch } from "react-redux";
 import { SET_USER, SET_ROOM } from "../../store/actionTypes";
-import { Function } from "@babel/types";
-
 type User = {
   id: ''
 }
@@ -27,6 +25,7 @@ const Server: FunctionComponent<Props> = ({onUserId}) => {
   const dispatch = useDispatch();
 
   useSocketOn('user:info', userInfo => {
+    console.log('user infoo');
     setUser(userInfo);
 
     if (userInfo && userInfo.id.length > 0) {
@@ -35,13 +34,17 @@ const Server: FunctionComponent<Props> = ({onUserId}) => {
   });
 
   useSocketOn('room:default', roomId => {
+    console.log('room defauuult');
     setRoom({id: roomId});
     socket!.emit('room:join', { from: {id: roomId}, to: {id: roomId} });
   });
 
-  useSocketOn('room:join', room => {
+  useSocketOn('room:joined', event => {
+
+    console.log('get user id', user.id);
     if (user.id) {
-      setRoom({id: room.to.id});
+      console.log('set ROom on room join', event.to.id)
+      setRoom({id: event.to.id});
     }
   });
 

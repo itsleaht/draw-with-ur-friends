@@ -22,15 +22,15 @@ const App: FunctionComponent = () => {
       <SocketProvider url={process.env.REACT_APP_SOCKET_API_URL ? process.env.REACT_APP_SOCKET_API_URL : ''}>
         <div className="App">
           <Server onUserId={onUserId} />
-          <div className="main">
             <Header />
+          <div className="aside">
+            {showDrawComponents &&
+              <UserPanel />
+            }
             {showDrawComponents &&
               <Chat />
             }
           </div>
-          {showDrawComponents &&
-            <UserPanel />
-          }
           <SVGSprite />
         </div>
       </SocketProvider>

@@ -4,7 +4,6 @@ import RoomList from './RoomList/RoomList';
 import './_user-panel.styl';
 import useSocket from '../../hooks/useSocket';
 import { useSelector } from 'react-redux';
-import useSocketOn from '../../hooks/useSocketOn';
 
 const UserPanel: FunctionComponent = () => {
   const socket = useSocket();
@@ -13,7 +12,7 @@ const UserPanel: FunctionComponent = () => {
   const onClickCreateRoom = () => {
     socket!.emit('room:join', {
       from: {id: roomId},
-      to: { name: 'A new room test' }
+      to: {id: ''}
     });
   }
 

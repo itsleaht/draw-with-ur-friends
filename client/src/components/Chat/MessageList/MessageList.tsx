@@ -23,6 +23,10 @@ const MessageList: FunctionComponent<Props> = ({userId}) => {
     addNewMessage(newMessage);
   });
 
+  useSocketOn('room:joined', newMessage => {
+    setMessages([]);
+  });
+
   return (
     <ul className="list list--message">
       { messages.map((message, index) => {
