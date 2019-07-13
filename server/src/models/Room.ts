@@ -14,6 +14,10 @@ export default class Room {
     return this.id;
   }
 
+  public getName(): string {
+    return this.name;
+  }
+
   public getUsers(): Map<string, User> {
     return this.users;
   }

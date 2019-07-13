@@ -6,10 +6,11 @@ const events = {
   ROOM_JOIN: 'room:join',
   ROOM_JOINED: 'room:joined',
   SERVER_GET_EVENTS: 'server:get:events',
+  USERS_GET: 'users:get',
   USER_CONNECTION: 'user:connection',
   USER_INFO: 'user:info',
   USER_LOGIN: 'user:login',
-  USER_NAME: 'user:name'
+  USER_NAME: 'user:name',
 };
 
 export default events;

@@ -11,6 +11,7 @@ export class DrawServer {
   private rooms = new Map<string, Room>();
   private defaultRoom: Room | null = null;
   private port: string | number;
+  private socket: any = null;
 
   constructor(io: SocketIO.Server, port: string | number) {
     this.io = io;
@@ -26,7 +27,7 @@ export class DrawServer {
       const user: User = this.createUser(socket);
 
       if (this.defaultRoom !== null) {
-        socket.emit(events.ROOM_DEFAULT, this.defaultRoom.getId());
+        socket.emit(events.ROOM_DEFAULT, this.defaultRoom);
         addLog('emit', events.ROOM_DEFAULT, this.defaultRoom.getId());
       }
 
@@ -57,8 +58,8 @@ export class DrawServer {
       socket.on('disconnect', () => {
         console.log('Client disconnected');
 
+        socket.leave(socket._rooms[0]);
         this.leaveAllRooms(socket);
-        this.io.emit(events.ROOMS_GET, this.getRooms());
       });
     });
   }
@@ -83,6 +84,7 @@ export class DrawServer {
     const room = new Room({name});
     this.rooms.set(room.getId(), room);
 
+    addLog('func', 'createRoom:name', JSON.stringify(name));
     addLog('func', 'createRoom', JSON.stringify(room));
 
     return room;
@@ -121,27 +123,32 @@ export class DrawServer {
   }
 
   protected leaveAllRooms(socket: any) {
-    const rooms = socket.rooms;
-    Object.keys(rooms).forEach((id: string) => {
+    const rooms = socket._rooms;
+    rooms.forEach((id: string) => {
       if (this.rooms.has(id)) {
         this.removeUserFromRoom(id, socket.id);
       }
     });
+    this.io.emit(events.ROOMS_GET, this.getRooms());
   }
 
   protected joinRoom(socket: any, user: User, roomId: string, previousRoomId: string) {
     socket.join(roomId, (test: any) => {
-      this.rooms.get(roomId)!.addUser(user);
+      const room = this.rooms.get(roomId);
+      room!.addUser(user);
+
+      addLog('func', 'join:room', JSON.stringify(room));
 
       this.io.to(socket.id).emit(events.ROOM_JOINED, {
         from: {id: previousRoomId},
-        to: {id: roomId},
+        to: {id: roomId, name: room!.getName()},
         user: socket.id
       });
       addLog('emit', events.ROOM_JOINED, JSON.stringify({
         from: {id: previousRoomId}, to: {id: roomId}, user: socket.id}));
 
       this.io.emit(events.ROOMS_GET, this.getRooms());
+      this.io.in(roomId).emit(events.USERS_GET, Array.from(room!.getUsers().values()));
     });
   }
 }
