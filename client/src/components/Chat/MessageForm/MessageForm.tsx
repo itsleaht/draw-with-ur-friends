@@ -3,6 +3,7 @@ import useSocket from "../../../hooks/useSocket";
 
 import './_message-form.styl';
 import { useSelector } from "react-redux";
+import { addLog } from "../../../helpers/utils";
 
 type Props = {
   userId: string
@@ -16,7 +17,7 @@ const MessageForm: FunctionComponent<Props>  = ({userId}) => {
   const formMessage = createRef<HTMLFormElement>();
 
   const onFormSubmit = () => {
-    console.log(roomId)
+    addLog('on', 'form:submit', roomId);
     if (content.length > 0) {
       socket!.emit('chat:message', { content, userId, roomId });
     }
