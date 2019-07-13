@@ -25,7 +25,8 @@ const appStore = (state = initialState, action: any) => {
         ...state,
         room: {
           ...state.room,
-          id: action.payload.id
+          id: action.payload.id,
+          name: action.payload.name
         }
       }
 
