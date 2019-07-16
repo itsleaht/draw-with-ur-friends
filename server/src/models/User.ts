@@ -4,7 +4,6 @@ interface IUser {
   id: string;
 }
 
-
 export default class User {
   private id: string = '';
   private createdAt: number = Date.now();

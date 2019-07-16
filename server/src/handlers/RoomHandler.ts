@@ -29,12 +29,13 @@ export default class RoomHandler {
       if (!event.to.id || !RoomManager.exists(event.to.id)) { // Create a room
         const newRoom = RoomManager.createRoom(event.to.name ? event.to.name : 'Automatic Named Room');
         event.to.id = newRoom.getId();
-        event.to.name = newRoom.getName();
       }
 
       socket.leave(previousRoom.id!, () => {
         const user = UserManager.getUser(socket.id);
         const room = RoomManager.getRoom(event.to.id ? event.to.id : '');
+        event.to.name = room!.getName();
+
         user!.addToRoom(room!);
 
         RoomManager.joinRoom(socket, user!, event);

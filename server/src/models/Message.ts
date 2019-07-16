@@ -8,7 +8,7 @@ interface IMessage {
 
 export default class Message {
   public createdAt: number;
-  public from: User | null;
+  public from: User;
   public content: string;
   public roomId: string;
 

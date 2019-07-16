@@ -13,7 +13,10 @@ class RoomManager {
 
   public connect(socket: any) {
     socket.emit(Events.RoomDefault, this.defaultRoom);
-    addLog('emit', Events.RoomDefault, this.defaultRoom.getId());
+    addLog('emit', Events.RoomDefault, {
+      id: this.defaultRoom.getId(),
+      name: this.defaultRoom.getName()
+    });
   }
 
   public setIo(io: SocketIO.Server) {
@@ -27,7 +30,7 @@ class RoomManager {
   }
 
   public exists(id: string) {
-    if (this.rooms.has(id) || this.defaultRoom.getId() !== id) {
+    if (this.rooms.has(id) || this.defaultRoom.getId() === id) {
       return true;
     }
   }
@@ -68,6 +71,15 @@ class RoomManager {
         this.io.in(event.to.id).emit(Events.UsersGet, this.getUserSerialize(room));
       }
     });
+  }
+
+  public handleDelete(id: string) {
+    if (this.exists(id)) {
+      const room = this.rooms.get(id);
+      if (room!.getUsers().size > 0) {
+        this.rooms.delete(id);
+      }
+    }
   }
 
   get serialize(): [] {

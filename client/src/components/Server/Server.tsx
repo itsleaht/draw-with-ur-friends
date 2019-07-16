@@ -27,7 +27,7 @@ const Server: FunctionComponent<Props> = ({onUserId}) => {
   const dispatch = useDispatch();
 
   useSocketOn('user:info', userInfo => {
-    addLog('on', 'Server:30 -> user:info',userInfo);
+    addLog('on', 'Server:user:info',userInfo);
     setUser(userInfo);
 
     if (userInfo && userInfo.id.length > 0) {
@@ -36,16 +36,16 @@ const Server: FunctionComponent<Props> = ({onUserId}) => {
   });
 
   useSocketOn('room:default', room => {
-    addLog('on', 'Server:40 -> room:default',room);
-    setRoom({id: room.id, name: room.name});
-    socket!.emit('room:join', { from: {id: room.id}, to: {id: room.id} });
+    addLog('on', 'Server:room:default',room);
+    setRoom({ id: room.id, name: room.name });
+    socket!.emit('room:join', { from: room, to: {id: room.id} });
   });
 
   useSocketOn('room:joined', event => {
-    addLog('on', 'Server:45 -> room:joined',event);
+    addLog('on', 'Server:room:joined', event);
 
     if (user.id) {
-      addLog('func', 'Server:48 -> set:room', event.to.id);
+      addLog('func', 'Server:set:room', event.to.id);
       setRoom({id: event.to.id, name: event.to.name});
     }
   });
@@ -55,7 +55,7 @@ const Server: FunctionComponent<Props> = ({onUserId}) => {
   }, [user])
 
   useEffect(() => {
-    addLog('func', 'Server:40 -> use:Effect', room);
+    addLog('func', 'Server:use:Effect', room);
     dispatch({type: SET_ROOM, payload: room});
   }, [room])
 

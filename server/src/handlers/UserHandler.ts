@@ -3,6 +3,7 @@ import { Socket } from 'socket.io';
 import { Events, IUserNameEvent, SocketEvents } from './../events';
 
 import { addLog } from './../helpers/Utils';
+import RoomManager from './../managers/RoomManager';
 import UserManager from './../managers/UserManager';
 
 interface IUserHandler {
@@ -26,6 +27,8 @@ export default class UserHandler {
         socket.leave(id);
         user!.removeFromRoom(id);
         room.removeUser(socket.id);
+
+        RoomManager.handleDelete(id);
       }
 
       addLog('on', SocketEvents.Disconnect, `User ${socket.id} - Disconnected`);

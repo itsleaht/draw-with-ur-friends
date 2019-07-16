@@ -20,7 +20,7 @@ export default class MessageHandler {
 
       const newMessage: Message = new Message({
         content: event.content,
-        from: user ? user : null,
+        from: user!,
         roomId: event.roomId
       });
 
