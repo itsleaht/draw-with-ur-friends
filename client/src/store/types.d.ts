@@ -1,11 +1,13 @@
 import { SET_USER, SET_ROOM } from './actionTypes';
 
 export interface User {
-  id: string
+  id: string,
+  name?: string
 }
 
 export interface Room {
-  id: string
+  id: string,
+  name?: string
 }
 
 export interface setUserAction {

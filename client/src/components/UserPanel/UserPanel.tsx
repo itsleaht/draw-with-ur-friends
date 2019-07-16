@@ -14,11 +14,12 @@ import UserList from './UserList/UserList';
 import './_user-panel.styl';
 import Btn from '../UI/buttons/Btn';
 import Icon from '../UI/icons/Icon';
+import { State, Room, User } from '../../store/types';
 
 const UserPanel: FunctionComponent = () => {
   const socket = useSocket();
-  const room = useSelector<any, any>(state => state.room)
-  const user = useSelector<any, any>(state => state.user)
+  const room = useSelector<State, Room>(state => state.room)
+  const user = useSelector<State, User>(state => state.user)
 
   const [rooms, setRooms] = useState<RoomI[]>([]);
   const [users, setUsers] = useState<UserI[]>([]);
