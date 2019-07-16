@@ -1,7 +1,7 @@
 import { Socket } from 'socket.io';
 import User from './../models/User';
 
-import events, {IChatUserMessageEvent} from './../events';
+import { Events, IChatUserMessageEvent } from './../events';
 import Message from './../models/Message';
 
 import { addLog } from './../helpers/Utils';
@@ -15,7 +15,7 @@ interface IMessageHandler {
 
 export default class MessageHandler {
   public static handle(handler: IMessageHandler): void {
-    handler.socket.in(handler.roomId).on(events.CHAT_USER_MESSAGE, ( event: IChatUserMessageEvent) => {
+    handler.socket.in(handler.roomId).on(Events.ChatUserMessage, ( event: IChatUserMessageEvent) => {
       const user = handler.users.get(event.userId);
 
       const newMessage: Message = new Message({
@@ -24,8 +24,8 @@ export default class MessageHandler {
         roomId: event.roomId
       });
 
-      handler.io.in(event.roomId).emit(events.CHAT_USER_MESSAGE, newMessage);
-      addLog('emit', events.CHAT_USER_MESSAGE, `${JSON.stringify(event)} - ${event.roomId}`);
+      handler.io.in(event.roomId).emit(Events.ChatUserMessage, newMessage);
+      addLog('emit', Events.ChatUserMessage, `${JSON.stringify(event)} - ${event.roomId}`);
     });
   }
 }

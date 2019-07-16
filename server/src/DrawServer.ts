@@ -1,4 +1,4 @@
-import events from './events';
+import { Events } from './events';
 import MessageHandler from './handlers/MessageHandler';
 import { addLog } from './helpers/Utils';
 import Message from './models/Message';
@@ -27,15 +27,15 @@ export class DrawServer {
       const user: User = this.createUser(socket);
 
       if (this.defaultRoom !== null) {
-        socket.emit(events.ROOM_DEFAULT, this.defaultRoom);
-        addLog('emit', events.ROOM_DEFAULT, this.defaultRoom.getId());
+        socket.emit(Events.RoomDefault, this.defaultRoom);
+        addLog('emit', Events.RoomDefault, this.defaultRoom.getId());
       }
 
-      socket.on(events.ROOM_JOIN, (room: {from: {id: '', name: ''}, to: {id: '', name: ''}}) => {
+      socket.on(Events.RoomJoin, (room: {from: {id: '', name: ''}, to: {id: '', name: ''}}) => {
         let roomId: string = room.to && room.to.id ? room.to.id : '';
         const previousRoom = room.from;
 
-        addLog('on', events.ROOM_JOIN, JSON.stringify(room));
+        addLog('on', Events.RoomJoin, JSON.stringify(room));
         this.removeListeners(socket, previousRoom.id);
 
         if (previousRoom.id !== roomId && !roomId && !this.rooms.has(roomId)) { // Create a room
@@ -47,9 +47,9 @@ export class DrawServer {
           this.joinRoom(socket, user, roomId, previousRoom.id);
         });
 
-        socket.on(events.SERVER_GET_EVENTS, () => socket.emit(events.SERVER_GET_EVENTS, events));
+        socket.on(Events.ServerGetEvents, () => socket.emit(Events.ServerGetEvents, events));
 
-        socket.on(events.USER_NAME, (event: {username: '', userId: ''}) => this.onUserName(event));
+        socket.on(Events.UserName, (event: {username: '', userId: ''}) => this.onUserName(event));
 
         MessageHandler.handle({io: this.io, roomId, socket, users: this.users});
       });
@@ -64,7 +64,7 @@ export class DrawServer {
   }
 
   protected removeListeners(socket: SocketIO.Socket, roomId: string): void {
-    Object.keys(events).forEach( (key) => {
+    Object.keys(Object.keys(Events)).forEach( (key) => {
       socket.removeAllListeners(key);
     });
   }
@@ -73,7 +73,7 @@ export class DrawServer {
     const user = new User({ id: socket.id });
     this.users.set(socket.id, user);
 
-    socket.emit(events.USER_INFO, user);
+    socket.emit(Event.UserInfo, user);
     addLog('func', 'createUser', JSON.stringify(user));
 
     return user;
@@ -105,7 +105,7 @@ export class DrawServer {
     if (this.users.has(info.userId)) {
       this.users.get(info.userId)!.setName(info.username);
 
-      addLog('on', events.USER_NAME, JSON.stringify(this.users.get(info.userId)));
+      addLog('on', Events.UserName, JSON.stringify(this.users.get(info.userId)));
     }
   }
 
@@ -116,7 +116,7 @@ export class DrawServer {
         this.removeUserFromRoom(id, socket.id);
       }
     });
-    this.io.emit(events.ROOMS_GET, this.getRooms());
+    this.io.emit(Events.RoomsGet, this.getRooms());
   }
 
   protected joinRoom(socket: any, user: User, roomId: string, previousRoomId: string) {
@@ -126,16 +126,16 @@ export class DrawServer {
 
       addLog('func', 'join:room', JSON.stringify(room));
 
-      this.io.to(socket.id).emit(events.ROOM_JOINED, {
+      this.io.to(socket.id).emit(Events.RoomJoined, {
         from: {id: previousRoomId},
         to: {id: roomId, name: room!.getName()},
         user: socket.id
       });
-      addLog('emit', events.ROOM_JOINED, JSON.stringify({
+      addLog('emit', Events.RoomJoined, JSON.stringify({
         from: {id: previousRoomId}, to: {id: roomId}, user: socket.id}));
 
-      this.io.emit(events.ROOMS_GET, this.getRooms());
-      this.io.in(roomId).emit(events.USERS_GET, Array.from(room!.getUsers().values()));
+      this.io.emit(Events.RoomsGet, this.getRooms());
+      this.io.in(roomId).emit(Events.UsersGet, Array.from(room!.getUsers().values()));
     });
   }
 }
