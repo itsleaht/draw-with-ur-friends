@@ -13,4 +13,10 @@ const events = {
   USER_NAME: 'user:name',
 };
 
+export interface IChatUserMessageEvent {
+  content: string;
+  userId: string;
+  roomId: string;
+}
+
 export default events;

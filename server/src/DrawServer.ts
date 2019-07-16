@@ -1,5 +1,5 @@
-import { Socket } from 'dgram';
 import events from './events';
+import MessageHandler from './handlers/MessageHandler';
 import { addLog } from './helpers/Utils';
 import Message from './models/Message';
 import Room from './models/Room';
@@ -7,8 +7,8 @@ import User from './models/User';
 
 export class DrawServer {
   private io: SocketIO.Server;
-  private users = new Map<string, User>();
-  private rooms = new Map<string, Room>();
+  private users: Map<string, User> = new Map();
+  private rooms: Map<string, Room> = new Map();
   private defaultRoom: Room | null = null;
   private port: string | number;
   private socket: any = null;
@@ -51,8 +51,13 @@ export class DrawServer {
 
         socket.on(events.USER_NAME, (event: {username: '', userId: ''}) => this.onUserName(event));
 
-        socket.in(roomId).on(events.CHAT_USER_MESSAGE, (
-            event: {content: '', userId: '', roomId: ''}) => this.onUserMessage(event));
+        const messageHandler = new MessageHandler({
+          io: this.io,
+          roomId,
+          socket,
+          users: this.users,
+        });
+        messageHandler.handle();
       });
 
       socket.on('disconnect', () => {
@@ -108,18 +113,6 @@ export class DrawServer {
 
       addLog('on', events.USER_NAME, JSON.stringify(this.users.get(info.userId)));
     }
-  }
-
-  protected onUserMessage(message: {content: '', userId: '', roomId: ''}): void {
-    const user = this.users.get(message.userId);
-    const newMessage: Message = new Message({
-      content: message.content,
-      from: user ? user : null,
-      roomId: message.roomId
-    });
-
-    this.io.in(message.roomId).emit(events.CHAT_USER_MESSAGE, newMessage);
-    addLog('emit', events.CHAT_USER_MESSAGE, `${JSON.stringify(message)} - ${message.roomId}`);
   }
 
   protected leaveAllRooms(socket: any) {
