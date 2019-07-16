@@ -19,8 +19,23 @@ export enum Events {
   UserName = 'user:name'
 }
 
+interface IRoom {
+  id?: string;
+  name?: string;
+}
+
 export interface IChatUserMessageEvent {
   content: string;
   userId: string;
   roomId: string;
+}
+
+export interface IUserNameEvent {
+  name: string;
+  id: string;
+}
+
+export interface IRoomJoin {
+  from: IRoom;
+  to: IRoom;
 }

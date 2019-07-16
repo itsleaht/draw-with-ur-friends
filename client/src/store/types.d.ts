@@ -24,3 +24,4 @@ export interface State {
   user: User,
   room: Room
 }
+

@@ -30,7 +30,7 @@ export default class Room {
     this.users.delete(id);
   }
 
-  public getRoomObject(): {} {
+  public get serialize(): {} {
     return {
       id: this.id,
       name: this.name,

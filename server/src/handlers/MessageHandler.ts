@@ -5,18 +5,18 @@ import { Events, IChatUserMessageEvent } from './../events';
 import Message from './../models/Message';
 
 import { addLog } from './../helpers/Utils';
+import UserManager from './../managers/UserManager';
 
 interface IMessageHandler {
   io: SocketIO.Server;
   socket: Socket;
-  users: Map<string, User>;
   roomId: string;
 }
 
 export default class MessageHandler {
   public static handle(handler: IMessageHandler): void {
     handler.socket.in(handler.roomId).on(Events.ChatUserMessage, ( event: IChatUserMessageEvent) => {
-      const user = handler.users.get(event.userId);
+      const user = UserManager.getUser(event.userId);
 
       const newMessage: Message = new Message({
         content: event.content,
