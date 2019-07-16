@@ -51,13 +51,7 @@ export class DrawServer {
 
         socket.on(events.USER_NAME, (event: {username: '', userId: ''}) => this.onUserName(event));
 
-        const messageHandler = new MessageHandler({
-          io: this.io,
-          roomId,
-          socket,
-          users: this.users,
-        });
-        messageHandler.handle();
+        MessageHandler.handle({io: this.io, roomId, socket, users: this.users});
       });
 
       socket.on('disconnect', () => {
