@@ -1,13 +1,17 @@
 import Utils from '../helpers/Utils';
 import User from './User';
 
+interface IRoom {
+  name: string;
+}
+
 export default class Room {
   private id: string = Utils.uuid();
   private name: string = '';
   private users = new Map<string, User>();
 
-  constructor({name} = {name: ''}) {
-    this.name = name;
+  constructor(room: IRoom) {
+    this.name = room.name;
   }
 
   public getId(): string {

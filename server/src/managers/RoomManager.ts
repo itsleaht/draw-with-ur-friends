@@ -6,7 +6,7 @@ import { Events, IRoomJoin } from './../events';
 import { addLog } from './../helpers/Utils';
 
 class RoomManager {
-  private defaultRoom: Room = new Room();
+  private defaultRoom: Room = new Room({name: ''});
   private rooms: Map<string, Room> = new Map();
 
   private io: SocketIO.Server | any = null;

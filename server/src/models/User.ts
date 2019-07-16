@@ -1,13 +1,18 @@
 import Room from './Room';
 
+interface IUser {
+  id: string;
+}
+
+
 export default class User {
   private id: string = '';
   private createdAt: number = Date.now();
   private name: string = 'johndoe';
   private rooms: Map<string, Room> = new Map();
 
-  constructor({id}: {id: string}) {
-    this.id = id;
+  constructor(user: IUser) {
+    this.id = user.id;
   }
 
   public getId() {
