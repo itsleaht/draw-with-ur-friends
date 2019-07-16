@@ -11,10 +11,10 @@ import Server from './components/Server/Server';
 
 const App: FunctionComponent = () => {
 
-  const [showDrawComponents, setSsowDrawComponents] = useState<boolean>(false);
+  const [showDrawComponents, setShowDrawComponents] = useState<boolean>(false);
 
   const onUserId = () => {
-    setSsowDrawComponents(true);
+    setShowDrawComponents(true);
   }
 
   return (

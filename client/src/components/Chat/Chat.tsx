@@ -1,14 +1,16 @@
-import React, { FunctionComponent, useState, useEffect } from "react";
+import React, { FunctionComponent, useState } from "react";
+
 import MessageList from "./MessageList/MessageList";
 import MessageForm from "./MessageForm/MessageForm";
+import ChatNotification from "./ChatNotification/ChatNotification";
+import Icon from '../UI/icons/Icon';
 
 import useSocketOn from "../../hooks/useSocketOn";
 
-import Icon from '../UI/icons/Icon';
-
-import './_chat.styl';
 import { useSelector } from "react-redux";
 import { State, Room, User } from "../../store/types";
+
+import './_chat.styl';
 
 const Chat: FunctionComponent = () => {
   const [isMinified, setisMinified] = useState<boolean>(true);
@@ -16,6 +18,7 @@ const Chat: FunctionComponent = () => {
   const [counterNotification, setCounterNotification] = useState<number>(0);
 
   const maxCounterNotification = 99;
+
   const room = useSelector<State, Room>(state => state.room);
   const user = useSelector<State, User>(state => state.user)
 
@@ -46,10 +49,7 @@ const Chat: FunctionComponent = () => {
         <div className="chat__inner">
           <div className="chat__header">
             <div className="chat__header__left">
-              <div className="chat__notification">
-                <Icon extraClasses="chat__notification__icon" name="message-notification" fill="#4A5CFF" width={40} height={27}  />
-                <span className="chat__notification__text">{counterNotification}{counterNotification >=  maxCounterNotification ? '+' : ''}</span>
-              </div>
+              <ChatNotification counter={counterNotification} maxCounter={maxCounterNotification} />
               <span className="heading-3 chat__title">{room.name}</span>
             </div>
             <div className="chat__header__right">
