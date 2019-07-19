@@ -1,4 +1,5 @@
-export const SET_USER = 'SET_USER';
-export const SET_ROOM = 'SET_ROOM';
-
-export const SET_PEN = 'SET_DRAW_PEN';
+export enum ActionTypes {
+  SetUser = 'SET_USER',
+  SetRoom = 'SET_ROOM',
+  SetPen = 'SET_PEN'
+};

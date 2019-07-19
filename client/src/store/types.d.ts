@@ -1,4 +1,4 @@
-import { SET_USER, SET_ROOM, SET_DRAW_PEN } from './actionTypes';
+import { ActionTypes } from './actionTypes';
 
 export interface User {
   id: string,
@@ -15,18 +15,18 @@ export interface Pen {
 }
 
 export interface setUserAction {
-  type: typeof SET_USER
+  type: typeof ActionTypes.SetUser
   payload: User
 }
 
 export interface setRoomAction {
-  type: typeof SET_ROOM
+  type: typeof ActionTypes.SetRoom
   payload: Room
 }
 
 
 export interface setPenAction {
-  type: typeof SET_PEN
+  type: typeof ActionTypes.SetPen
   payload: Pen
 }
 

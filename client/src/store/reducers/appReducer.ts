@@ -1,6 +1,6 @@
-import { SET_USER, SET_ROOM } from '../actionTypes';
-import { AppState } from '../types';
+import { ActionTypes } from '../actionTypes';
 
+import { AppState } from '../types';
 
 const initialState: AppState = {
   user: {id: ''},
@@ -11,7 +11,7 @@ const initialState: AppState = {
 const appReducer = (state = initialState, action: any) => {
   switch (action.type) {
 
-    case SET_USER:
+    case ActionTypes.SetUser:
       return {
         ...state,
         user: {
@@ -20,7 +20,7 @@ const appReducer = (state = initialState, action: any) => {
         }
       }
 
-    case SET_ROOM:
+    case ActionTypes.SetRoom:
       return {
         ...state,
         room: {

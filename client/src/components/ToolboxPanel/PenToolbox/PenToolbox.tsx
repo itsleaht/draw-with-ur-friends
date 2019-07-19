@@ -1,9 +1,12 @@
-import React, { FunctionComponent, useState, useEffect } from "react";
+import React, { FunctionComponent, useEffect } from 'react';
+
+import { useSelector, useDispatch } from 'react-redux';
+
+import { State, Pen } from '../../../store/types';
+
+import { ActionTypes } from '../../../store/actionTypes';
 
 import './_toolbox-pen.styl';
-import { useSelector, useDispatch } from "react-redux";
-import { State, Pen } from "../../../store/types";
-import { SET_PEN } from "../../../store/actionTypes";
 
 const PenToolbox: FunctionComponent = () => {
   const activePen = useSelector<State, Pen>(state => state.draw.pen);
@@ -19,7 +22,7 @@ const PenToolbox: FunctionComponent = () => {
   }
 
   const dispatchPenAction = (pen: String) => {
-    dispatch({type: SET_PEN, payload: pen});
+    dispatch({type: ActionTypes.SetPen, payload: pen});
   }
 
   useEffect(() => {

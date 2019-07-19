@@ -1,14 +1,14 @@
-import React, { FunctionComponent, useState } from "react";
 
-import MessageList from "./MessageList/MessageList";
-import MessageForm from "./MessageForm/MessageForm";
-import ChatNotification from "./ChatNotification/ChatNotification";
+import React, { FunctionComponent, useState } from 'react';
+import MessageList from './MessageList/MessageList';
+import MessageForm from './MessageForm/MessageForm';
+import ChatNotification from './ChatNotification/ChatNotification';
 import Icon from '../UI/icons/Icon';
 
-import useSocketOn from "../../hooks/useSocketOn";
+import { useSelector } from 'react-redux';
+import useSocketOn from '../../hooks/useSocketOn';
 
-import { useSelector } from "react-redux";
-import { State, Room, User } from "../../store/types";
+import { State, Room, User } from '../../store/types';
 
 import './_chat.styl';
 

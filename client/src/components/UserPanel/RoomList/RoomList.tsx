@@ -1,8 +1,9 @@
 import React, { FunctionComponent } from 'react';
+import Icon from '../../UI/icons/Icon';
+
 import { RoomI } from '../../../@types';
 
 import './_list-rooms.styl';
-import Icon from '../../UI/icons/Icon';
 
 type Props = {
   rooms: RoomI[],

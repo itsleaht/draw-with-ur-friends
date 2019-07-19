@@ -1,8 +1,11 @@
-import React, { FunctionComponent, useState } from "react";
-import Message from '../Message/Message';
-import {MessageI} from '../../../@types';
+import React, { FunctionComponent, useState } from 'react';
 
-import useSocketOn from "../../../hooks/useSocketOn";
+import Message from '../Message/Message';
+
+import useSocketOn from '../../../hooks/useSocketOn';
+
+import { MessageI } from '../../../@types';
+
 
 import './_message-list.styl'
 
@@ -23,7 +26,7 @@ const MessageList: FunctionComponent<Props> = ({userId}) => {
     addNewMessage(newMessage);
   });
 
-  useSocketOn('room:joined', newMessage => {
+  useSocketOn('room:joined', () => {
     setMessages([]);
   });
 

@@ -1,4 +1,5 @@
 import React, { FunctionComponent } from 'react';
+
 import Icon from './../../UI/icons/Icon';
 
 import './_chat-notification.styl';

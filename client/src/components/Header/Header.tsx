@@ -1,7 +1,7 @@
-import React, { FunctionComponent, useState, useEffect } from "react";
+import React, { FunctionComponent, useState, useEffect } from 'react';
+import ToolboxPanel from '../ToolboxPanel/ToolboxPanel';
 
 import './_header.styl';
-import ToolboxPanel from "../ToolboxPanel/ToolboxPanel";
 
 const Header: FunctionComponent = () => {
   return (

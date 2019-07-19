@@ -1,10 +1,11 @@
 import { Events } from "../config/events";
 
 import { addLog } from "../helpers/utils";
-import { UserI, RoomJoinedI, RoomI } from "../@types";
 
 import { store } from './../store';
-import { SET_USER, SET_ROOM } from "../store/actionTypes";
+import { ActionTypes } from '../store/actionTypes';
+
+import { UserI, RoomJoinedI, RoomI } from '../@types';
 
 interface ISocketManager {
   socket: SocketIOClient.Socket;
@@ -23,18 +24,18 @@ class SocketManager {
 
     this.socket.on(Events.UserGet, (user: UserI) => {
       addLog('on', Events.UserGet, user);
-      store.dispatch({type: SET_USER, payload: user})
+      store.dispatch({type: ActionTypes.SetUser, payload: user})
     });
 
     this.socket.on(Events.RoomDefault, (room: RoomI) => {
       addLog('on', Events.RoomDefault, room);
-      store.dispatch({type: SET_ROOM, payload: room});
+      store.dispatch({type: ActionTypes.SetRoom, payload: room});
       this.socket.emit(Events.RoomJoin, { from: room, to: {id: room.id} });
     })
 
     this.socket.on(Events.RoomJoined, (roomJoined: RoomJoinedI) => {
       addLog('on', Events.RoomJoined, roomJoined);
-      store.dispatch({type: SET_ROOM, payload: roomJoined.to});
+      store.dispatch({type: ActionTypes.SetRoom, payload: roomJoined.to});
     });
   }
 }

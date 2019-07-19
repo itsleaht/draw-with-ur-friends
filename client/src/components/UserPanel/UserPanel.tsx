@@ -1,20 +1,20 @@
 import React, { FunctionComponent, useState } from 'react';
+import RoomList from './RoomList/RoomList';
+import UserList from './UserList/UserList';
+import Btn from '../UI/buttons/Btn';
+import Icon from '../UI/icons/Icon';
 
-import useSocket from '../../hooks/useSocket';
 import { useSelector } from 'react-redux';
+import useSocket from '../../hooks/useSocket';
 import useSocketOn from '../../hooks/useSocketOn';
 
-import { UserI, RoomI } from '../../@types';
 
 import { addLog } from '../../helpers/utils';
 
-import RoomList from './RoomList/RoomList';
-import UserList from './UserList/UserList';
+import { UserI, RoomI } from '../../@types';
+import { State, Room, User } from '../../store/types';
 
 import './_user-panel.styl';
-import Btn from '../UI/buttons/Btn';
-import Icon from '../UI/icons/Icon';
-import { State, Room, User } from '../../store/types';
 
 const UserPanel: FunctionComponent = () => {
   const socket = useSocket();

@@ -1,6 +1,6 @@
-import { SET_PEN } from '../actionTypes';
-import { DrawState } from '../types';
+import { ActionTypes } from '../actionTypes';
 
+import { DrawState } from '../types';
 
 const initialState: DrawState = {
   pen: {index: ''}
@@ -9,7 +9,7 @@ const initialState: DrawState = {
 
 const drawReducer = (state = initialState, action: any) => {
   switch (action.type) {
-    case SET_PEN:
+    case ActionTypes.SetPen:
       return {
         ...state,
         pen: {index: action.payload}
