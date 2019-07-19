@@ -11,10 +11,11 @@ import useSocketOn from '../../hooks/useSocketOn';
 
 import { addLog } from '../../helpers/utils';
 
-import { IUser, IRoom } from '../../@types';
+import { IUser, IRoom, IRoomJoin } from '../../@types';
 import { State, Room, User } from '../../store/types';
 
 import './_user-panel.styl';
+import { Events } from '../../config/events';
 
 const UserPanel: FunctionComponent = () => {
   const socket = useSocket();
@@ -28,8 +29,8 @@ const UserPanel: FunctionComponent = () => {
     joinRoom({id: '', name: 'test name'});
   }
 
-  const joinRoom = (to: {id?: string, name?: string}) => {
-    socket!.emit('room:join', {
+  const joinRoom = (to: IRoomJoin) => {
+    socket!.emit(Events.RoomJoin, {
       from: {id: room.id},
       to: to
     });
@@ -41,13 +42,13 @@ const UserPanel: FunctionComponent = () => {
     }
   }
 
-  useSocketOn('rooms:get', rooms => {
-    addLog('on', 'rooms:get', rooms);
+  useSocketOn(Events.RoomsGet, rooms => {
+    addLog('on', Events.RoomsGet, rooms);
     setRooms(Array.from(rooms));
   });
 
-  useSocketOn('users:get', users => {
-    addLog('on', 'users:get', users);
+  useSocketOn(Events.UsersGet, users => {
+    addLog('on', Events.UsersGet, users);
     setUsers(Array.from(users));
   });
 

@@ -20,12 +20,12 @@ export interface IRoom {
   users: IUser[]
 }
 
-interface IRoom {
+export interface IRoomJoin {
   id?: string;
   name?: string;
 }
 
 export interface IRoomJoined {
-  from: IRoom;
-  to: IRoom;
+  from: IRoomJoin;
+  to: IRoomJoin;
 }

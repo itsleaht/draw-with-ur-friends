@@ -11,6 +11,7 @@ import useSocketOn from '../../hooks/useSocketOn';
 import { State, Room, User } from '../../store/types';
 
 import './_chat.styl';
+import { Events } from '../../config/events';
 
 const Chat: FunctionComponent = () => {
   const [isMinified, setisMinified] = useState<boolean>(true);
@@ -33,7 +34,7 @@ const Chat: FunctionComponent = () => {
     }, 350)
   }
 
-  useSocketOn('chat:message', userInfo => {
+  useSocketOn(Events.ChatUserMessage, () => {
     if (isMinified && counterNotification <= maxCounterNotification) {
       setCounterNotification(counterNotification + 1);
       if (!isNotified) {

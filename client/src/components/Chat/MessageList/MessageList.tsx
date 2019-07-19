@@ -8,6 +8,7 @@ import { IMessage } from '../../../@types';
 
 
 import './_message-list.styl'
+import { Events } from '../../../config/events';
 
 type Props = {
   userId: string
@@ -22,11 +23,11 @@ const MessageList: FunctionComponent<Props> = ({userId}) => {
     setMessages(messageList);
   }
 
-  useSocketOn('chat:message', newMessage => {
+  useSocketOn(Events.ChatUserMessage, newMessage => {
     addNewMessage(newMessage);
   });
 
-  useSocketOn('room:joined', () => {
+  useSocketOn(Events.RoomJoined, () => {
     setMessages([]);
   });
 
