@@ -1,31 +1,31 @@
-export interface UserI {
+export interface IUser {
   id: string,
   createdAt: number,
   name: string,
   rooms?: []
 }
 
-export interface MessageI {
+export interface IMessage {
   createdAt: number,
-  from: UserI,
+  from: IUser,
   content: string,
   roomId: string
 }
 
-export interface RoomI {
+export interface IRoom {
   id: string,
   // createdAt: number,
   // host: UserI,
   name: string,
-  users: UserI[]
+  users: IUser[]
 }
 
-interface RoomI {
+interface IRoom {
   id?: string;
   name?: string;
 }
 
-export interface RoomJoinedI {
+export interface IRoomJoined {
   from: IRoom;
   to: IRoom;
 }

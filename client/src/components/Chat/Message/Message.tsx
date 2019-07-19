@@ -1,11 +1,11 @@
 import React, { FunctionComponent } from 'react';
 
-import { MessageI } from '../../../@types';
+import { IMessage } from '../../../@types';
 
 import './_message.styl';
 
 type Props = {
-  message: MessageI,
+  message: IMessage,
   isMine: boolean,
   userId: string
 }

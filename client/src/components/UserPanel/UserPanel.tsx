@@ -11,7 +11,7 @@ import useSocketOn from '../../hooks/useSocketOn';
 
 import { addLog } from '../../helpers/utils';
 
-import { UserI, RoomI } from '../../@types';
+import { IUser, IRoom } from '../../@types';
 import { State, Room, User } from '../../store/types';
 
 import './_user-panel.styl';
@@ -21,8 +21,8 @@ const UserPanel: FunctionComponent = () => {
   const room = useSelector<State, Room>(state => state.app.room)
   const user = useSelector<State, User>(state => state.app.user)
 
-  const [rooms, setRooms] = useState<RoomI[]>([]);
-  const [users, setUsers] = useState<UserI[]>([]);
+  const [rooms, setRooms] = useState<IRoom[]>([]);
+  const [users, setUsers] = useState<IUser[]>([]);
 
   const onClickCreateRoom = () => {
     joinRoom({id: '', name: 'test name'});

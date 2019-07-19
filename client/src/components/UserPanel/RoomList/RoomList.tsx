@@ -1,12 +1,12 @@
 import React, { FunctionComponent } from 'react';
 import Icon from '../../UI/icons/Icon';
 
-import { RoomI } from '../../../@types';
+import { IRoom } from '../../../@types';
 
 import './_list-rooms.styl';
 
 type Props = {
-  rooms: RoomI[],
+  rooms: IRoom[],
   roomId: string,
   onClickRoomClb: (id: string) => void
 }

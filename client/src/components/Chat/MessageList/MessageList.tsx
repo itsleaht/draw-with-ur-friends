@@ -4,7 +4,7 @@ import Message from '../Message/Message';
 
 import useSocketOn from '../../../hooks/useSocketOn';
 
-import { MessageI } from '../../../@types';
+import { IMessage } from '../../../@types';
 
 
 import './_message-list.styl'
@@ -15,10 +15,10 @@ type Props = {
 
 const MessageList: FunctionComponent<Props> = ({userId}) => {
 
-  const [messages, setMessages] = useState<MessageI[]>([]);
+  const [messages, setMessages] = useState<IMessage[]>([]);
 
-  const addNewMessage = (newMessage: MessageI) => {
-    const messageList: MessageI[] = [...messages, newMessage];
+  const addNewMessage = (newMessage: IMessage) => {
+    const messageList: IMessage[] = [...messages, newMessage];
     setMessages(messageList);
   }
 
