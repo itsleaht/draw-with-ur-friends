@@ -12,7 +12,7 @@ const drawReducer = (state = initialState, action: any) => {
     case SET_PEN:
       return {
         ...state,
-        pen: {index: action.payload.index}
+        pen: {index: action.payload}
       }
 
     default:
