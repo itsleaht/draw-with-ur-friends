@@ -1,5 +1,5 @@
-import { setUserAction, User, setRoomAction, Room, Pen, setDrawPenAction } from './types'
-import { SET_USER, SET_ROOM, SET_DRAW_PEN } from './actionTypes'
+import { setUserAction, User, setRoomAction, Room, Pen, setPenAction } from './types'
+import { SET_USER, SET_ROOM, SET_PEN } from './actionTypes'
 
 export function setUser(user: User): setUserAction {
   return {
@@ -15,9 +15,9 @@ export function setRoom(room: Room): setRoomAction {
   }
 }
 
-export function setDrawPen(pen: Pen): setDrawPenAction {
+export function setPen(pen: Pen): setPenAction {
   return {
-    type: SET_DRAW_PEN,
+    type: SET_PEN,
     payload: pen
   }
 }

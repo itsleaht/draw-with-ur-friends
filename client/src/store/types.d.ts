@@ -25,8 +25,8 @@ export interface setRoomAction {
 }
 
 
-export interface setDrawPenAction {
-  type: typeof SET_DRAW_PEN
+export interface setPenAction {
+  type: typeof SET_PEN
   payload: Pen
 }
 
@@ -39,3 +39,7 @@ export interface DrawState {
   pen: Pen
 }
 
+export interface State {
+  app: AppState,
+  draw: DrawState
+}

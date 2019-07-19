@@ -8,7 +8,7 @@ import Icon from '../UI/icons/Icon';
 import useSocketOn from "../../hooks/useSocketOn";
 
 import { useSelector } from "react-redux";
-import { AppState, Room, User } from "../../store/types";
+import { State, Room, User } from "../../store/types";
 
 import './_chat.styl';
 
@@ -19,8 +19,8 @@ const Chat: FunctionComponent = () => {
 
   const maxCounterNotification = 99;
 
-  const room = useSelector<AppState, Room>(state => state.room);
-  const user = useSelector<AppState, User>(state => state.user)
+  const room = useSelector<State, Room>(state => state.app.room);
+  const user = useSelector<State, User>(state => state.app.user)
 
 
   const onClickToggle = () => {

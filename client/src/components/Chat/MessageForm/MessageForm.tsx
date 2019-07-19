@@ -4,7 +4,7 @@ import useSocket from "../../../hooks/useSocket";
 import './_message-form.styl';
 import { useSelector } from "react-redux";
 import { addLog } from "../../../helpers/utils";
-import { Room, AppState } from "../../../store/types";
+import { State } from "../../../store/types";
 
 type Props = {
   userId: string
@@ -12,7 +12,7 @@ type Props = {
 
 const MessageForm: FunctionComponent<Props>  = ({userId}) => {
   const [content, setContent] = useState<string>('');
-  const roomId = useSelector<AppState, string>(state => state.room.id);
+  const roomId = useSelector<State, string>(state => state.app.room.id);
   const socket = useSocket();
 
   const formMessage = createRef<HTMLFormElement>();
