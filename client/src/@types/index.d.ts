@@ -1,7 +1,8 @@
 export interface UserI {
   id: string,
   createdAt: number,
-  name: string
+  name: string,
+  rooms?: []
 }
 
 export interface MessageI {
@@ -17,4 +18,14 @@ export interface RoomI {
   // host: UserI,
   name: string,
   users: UserI[]
+}
+
+interface RoomI {
+  id?: string;
+  name?: string;
+}
+
+export interface RoomJoinedI {
+  from: IRoom;
+  to: IRoom;
 }

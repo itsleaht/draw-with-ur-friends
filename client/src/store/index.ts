@@ -8,6 +8,7 @@ const rootReducer = combineReducers({
   app: appReducer,
   draw: drawReducer
 });
+
 export const store: Store<State, any> = createStore(
   rootReducer
 );

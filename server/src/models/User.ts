@@ -41,4 +41,13 @@ export default class User {
   public getRooms() {
     return this.rooms;
   }
+
+  public get serialize(): {} {
+    return {
+      createdAt: this.createdAt,
+      id: this.id,
+      name: this.name,
+      rooms: Array.from(this.rooms.values())
+    };
+  }
 }

@@ -1,5 +1,6 @@
 import { FunctionComponent, createContext, createElement, useEffect, useState } from 'react';
 import io from 'socket.io-client';
+import SocketManager from '../modules/SocketManager';
 
 interface Props {
   url: string;
@@ -12,7 +13,11 @@ export const SocketProvider: FunctionComponent<Props> = (props) => {
   const [socket, setSocket]  = useState<SocketIOClient.Socket | null>(null);
 
   useEffect(() => {
-    setSocket(io.connect(url));
+    console.log('use effect connect');
+    const socketConnection = io.connect(url);
+    setSocket(socketConnection);
+
+    new SocketManager({socket: socketConnection});
 
     return () => {
       if (socket) {

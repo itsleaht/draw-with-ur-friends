@@ -9,7 +9,7 @@ class UserManager {
   public connect(socket: any) {
     const user = new User({ id: socket.id });
     this.users.set(socket.id, user);
-    socket.emit(Events.UserInfo, user);
+    socket.emit(Events.UserGet, user);
 
     addLog('func', 'createUser', JSON.stringify(user));
 
@@ -24,6 +24,14 @@ class UserManager {
     if (this.exists(id)) {
       return this.users.get(id);
     }
+  }
+
+  get serialize(): [] {
+    const users = [] as any;
+    this.users.forEach((user: User) => {
+      users.push(user.serialize);
+    });
+    return users;
   }
 }
 

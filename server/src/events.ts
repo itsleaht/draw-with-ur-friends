@@ -14,7 +14,7 @@ export enum Events {
   ServerGetEvents = 'server:get:events',
   UsersGet = 'users:get',
   UserConnection = 'user:connection',
-  UserInfo = 'user:info',
+  UserGet = 'user:get',
   UserLogin = 'user:login',
   UserName = 'user:name'
 }
