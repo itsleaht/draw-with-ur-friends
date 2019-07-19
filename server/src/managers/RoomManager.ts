@@ -77,7 +77,9 @@ class RoomManager {
     if (this.exists(id)) {
       const room = this.rooms.get(id);
       if (room!.getUsers().size > 0) {
-        this.rooms.delete(id);
+        if (id !== this.defaultRoom.getId()) {
+          this.rooms.delete(id);
+        }
       }
     }
   }
