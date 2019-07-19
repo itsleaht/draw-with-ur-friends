@@ -18,7 +18,7 @@ const PenToolbox: FunctionComponent = () => {
       <span>Pinceau</span>
       {sizes.map(item => {
         return (
-          <button className={`toolbox__button toolbox__button--${item} ${activePen === item ? 'is-active' : ''}`} onClick={onClickBtnPen} data-index={item}></button>
+          <button className={`toolbox__button toolbox__button--${item} ${activePen === item ? 'is-active' : ''}`} onClick={onClickBtnPen} data-index={item} key={`toolbox--pen-${item}`}></button>
         )
       })}
     </div>

@@ -1,4 +1,4 @@
-import { SET_USER, SET_ROOM } from './actionTypes';
+import { SET_USER, SET_ROOM, SET_DRAW_PEN } from './actionTypes';
 
 export interface User {
   id: string,
@@ -8,6 +8,10 @@ export interface User {
 export interface Room {
   id: string,
   name?: string
+}
+
+export interface Pen {
+  index: string
 }
 
 export interface setUserAction {
@@ -20,8 +24,18 @@ export interface setRoomAction {
   payload: Room
 }
 
-export interface State {
+
+export interface setDrawPenAction {
+  type: typeof SET_DRAW_PEN
+  payload: Pen
+}
+
+export interface AppState {
   user: User,
   room: Room
+}
+
+export interface DrawState {
+  pen: Pen
 }
 
