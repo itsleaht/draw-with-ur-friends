@@ -28,7 +28,7 @@ npm run start
 
 <br>
 
-## Current features : 
+## Current features 
 At the moment you can 
 * Join a room
 * Create a room
