@@ -16,7 +16,7 @@ const Message: FunctionComponent<Props>  = ({message, isMine, userId}) => {
   return (
     <div className={`message ${isMine ? 'is-mine' : ''}`}>
       <div className="message__body">
-        <p>{message.content}- {message.roomId}</p>
+        <p>{message.content}</p>
       </div>
       <span className="message__bottom">{message.from.name} at {time}</span>
     </div>

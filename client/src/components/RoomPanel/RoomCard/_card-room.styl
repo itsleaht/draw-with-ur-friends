@@ -1,0 +1,96 @@
+@import '../../../styles/global.styl'
+
+.card--room
+  padding spacer(2) spacer(3)
+  border-radius 2rem
+  background $c-blue-pale-2
+  color $c-black
+
+  &.is-active
+    background $c-blue-light
+    cursor default
+
+    .card
+      &__number
+        background $c-blue-light-2
+
+      &__top
+        color $c-white
+
+        &__left
+          width 100%
+
+  .card
+    &__top,
+    &__top__left
+      display flex
+      align-items center
+      justify-content space-between
+
+    &__title
+      max-width 10rem
+      font-weight bold
+      overflow hidden
+      white-space nowrap
+      text-overflow ellipsis
+
+    &__top
+      color $c-blue-light-2
+
+      &__right
+        margin-left spacer(2)
+
+    &__number
+      display inline-block
+      margin-left spacer(1)
+      text-align center
+      line-height 2.5rem
+      width spacer(3)
+      height spacer(3)
+      background $c-white
+      border-radius spacer(2)
+      font-weight bold
+      font-size 1.2rem
+
+    &__button
+      margin-top -1rem
+      margin-bottom -1rem
+      padding spacer(1) 1.2rem
+      border none
+      border-radius 1.5rem
+      box-shadow 0 0.4rem 0.6rem rgba(145,145,145,0.25)
+      background #3514ff
+      transition background 0.3s
+      color #fff
+      font-weight bold
+      font-size 1.2rem
+      letter-spacing 0.05rem
+      text-transform uppercase
+      cursor pointer
+      opacity 0
+      pointer-events none
+      transition opacity .2s
+
+  &:hover
+    .card
+      &__button
+        opacity 1
+        pointer-events all
+
+  .list--users
+    color $c-blue-pale
+
+    .list__item
+      &:after
+        content ''
+        display inline-block
+        margin-left spacer(2)
+        width spacer(1)
+        height spacer(1)
+        background $c-blue-pale
+        border-radius spacer(1)
+        opacity 0
+
+      &.is-active
+        &:after
+          opacity 1

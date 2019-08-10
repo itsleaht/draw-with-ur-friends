@@ -9,7 +9,6 @@ import { UserI, RoomI } from '../../@types';
 import { addLog } from '../../helpers/utils';
 
 import RoomList from './RoomList/RoomList';
-import UserList from './UserList/UserList';
 
 import './_room-panel.styl';
 import Btn from '../UI/buttons/Btn';
@@ -53,24 +52,12 @@ const RoomPanel: FunctionComponent = () => {
   return (
     <div className="panel panel--room">
       <div className="panel__inner">
-        <div className="panel__box panel__box--users">
-          <div className="panel__box__top">
-            <h1 className="panel__title heading-1">{room.name} ( {users.length} )</h1>
-            {/* <span>
-              <Icon name="user" width={20} height={19} fill="#3514FF"/>
-              <span></span>
-            </span> */}
-
-          </div>
-          {/* <UserList users={users} userId={user.id} /> */}
+        <div className="panel__top">
+          <h1 className="panel__title heading-1">Boards ( {rooms.length} )</h1>
+          <Btn className="btn btn--primary" icon={{name: 'plus', width: 12, height: 12, fill: '#fff', stroke: '#fff'}}  onClickClb={onClickCreateRoom}/>
         </div>
-
-        <div className="panel__box panel__box--rooms">
-          <div className="panel__box__top">
-            <h1 className="panel__title heading-1">Rooms ( {rooms.length} )</h1>
-            <Btn className="btn btn--primary" icon={{name: 'plus', width: 10, height: 10, fill: '#fff'}}  onClickClb={onClickCreateRoom}/>
-          </div>
-          <RoomList users={users} userId={user.id}rooms={rooms} roomId={room.id} onClickRoomClb={onClickRoomClb} />
+        <div className="panel__body">
+          <RoomList userId={user.id}rooms={rooms} roomId={room.id} onClickRoomClb={onClickRoomClb} />
         </div>
       </div>
     </div>

@@ -1,17 +1,20 @@
 @import '../../../styles/global.styl'
 
 .btn--primary
-  width 3rem
-  height 3rem
-  border-radius 2rem
+  width spacer(4)
+  height spacer(4)
+  border-radius spacer(2)
 
   display flex
   align-items center
   justify-content center
+  flex-direction column
 
   background $c-blue
   color $c-white
   transition background .3s
+
+  box-shadow 0 .4rem .8rem rgba(50, 17, 255, 0.11)
 
   &:hover
     background $c-blue-dark
