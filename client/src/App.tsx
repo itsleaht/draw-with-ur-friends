@@ -6,7 +6,7 @@ import { store } from './store';
 import Chat from './components/Chat/Chat';
 import SVGSprite from './components/UI/icons/SVGSprite';
 import Header from './components/Header/Header';
-import UserPanel from './components/UserPanel/UserPanel';
+import RoomPanel from './components/RoomPanel/RoomPanel';
 import Server from './components/Server/Server';
 
 const App: FunctionComponent = () => {
@@ -25,7 +25,7 @@ const App: FunctionComponent = () => {
             <Header />
           <div className="aside">
             {showDrawComponents &&
-              <UserPanel />
+              <RoomPanel />
             }
             {showDrawComponents &&
               <Chat />

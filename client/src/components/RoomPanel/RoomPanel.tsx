@@ -11,11 +11,11 @@ import { addLog } from '../../helpers/utils';
 import RoomList from './RoomList/RoomList';
 import UserList from './UserList/UserList';
 
-import './_user-panel.styl';
+import './_room-panel.styl';
 import Btn from '../UI/buttons/Btn';
 import Icon from '../UI/icons/Icon';
 
-const UserPanel: FunctionComponent = () => {
+const RoomPanel: FunctionComponent = () => {
   const socket = useSocket();
   const room = useSelector<any, any>(state => state.room)
   const user = useSelector<any, any>(state => state.user)
@@ -51,7 +51,7 @@ const UserPanel: FunctionComponent = () => {
   });
 
   return (
-    <div className="panel panel--user">
+    <div className="panel panel--room">
       <div className="panel__inner">
         <div className="panel__box panel__box--users">
           <div className="panel__box__top">
@@ -62,7 +62,7 @@ const UserPanel: FunctionComponent = () => {
             </span> */}
 
           </div>
-          <UserList users={users} userId={user.id} />
+          {/* <UserList users={users} userId={user.id} /> */}
         </div>
 
         <div className="panel__box panel__box--rooms">
@@ -70,11 +70,11 @@ const UserPanel: FunctionComponent = () => {
             <h1 className="panel__title heading-1">Rooms ( {rooms.length} )</h1>
             <Btn className="btn btn--primary" icon={{name: 'plus', width: 10, height: 10, fill: '#fff'}}  onClickClb={onClickCreateRoom}/>
           </div>
-          <RoomList rooms={rooms} roomId={room.id} onClickRoomClb={onClickRoomClb} />
+          <RoomList users={users} userId={user.id}rooms={rooms} roomId={room.id} onClickRoomClb={onClickRoomClb} />
         </div>
       </div>
     </div>
   );
 }
 
-export default UserPanel;
+export default RoomPanel;
