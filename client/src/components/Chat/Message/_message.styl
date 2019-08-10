@@ -8,7 +8,7 @@
 
   &__body
     background $c-grey
-    border-radius 2rem
+    border-radius 2rem 2rem 2rem 0.5rem
     padding 1rem 2rem
     font-size 1.2rem
 
@@ -17,9 +17,10 @@
     font-size 1rem
     color $c-grey-dark
 
-
   &.is-mine
+    align-items flex-end
     .message
       &__body
         background $c-blue-light
         color $c-white
+        border-radius 2rem 2rem 0.5rem 2rem

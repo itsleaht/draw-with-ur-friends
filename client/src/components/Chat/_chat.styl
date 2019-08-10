@@ -29,7 +29,7 @@
 
   &:after
     position absolute
-    box-shadow 0px .4rem .8rem rgba(95, 95, 95, 0.09)
+    box-shadow 0 .4rem .8rem rgba(95, 95, 95, 0.09)
     z-index 0
 
   &__inner
@@ -38,14 +38,15 @@
     height 100%
     border-radius 2rem
     overflow hidden
-    box-shadow 0px .4rem .8rem rgba(45, 45, 45, 0.12)
+    box-shadow 0 0 .8rem rgba(45, 45, 45, 0.12)
 
   &__header
     display flex
     justify-content space-between
-    padding 1rem 2rem
-    background $c-purple-pale-2
-    box-shadow 0 .3rem .5rem rgba(183, 183, 202, 0.2)
+    align-items center
+    padding 1.5rem 2rem
+    background $c-white
+    box-shadow 0 0.3rem 1rem rgba(183, 183, 202, 0.07)
 
     &__left
       position relative
@@ -65,26 +66,32 @@
     &__toggle
       padding 1rem
 
-  &__title
-    position absolute
-    left 5rem
-    width 17rem
+    &__center
+      display flex
+      align-items center
+      flex-direction column
+
+  &__title,
+  &_subtitle
+    display block
     transition opacity .3s
+
+  &__subtitle
+    color $c-grey-medium
 
   &__body
     display flex
     flex-direction column
     justify-content space-between
-    height 37.7rem
-    border 1px solid $c-grey
+    height 35.4rem
     border-radius 0 0 2rem 2rem
 
     overflow hidden
     transition height .3s
 
     &__top
-      padding 0 2rem 1rem
-      height 31.6rem
+      padding 0 2rem
+      height 23.6rem
 
     &__bottom
       opacity 1
@@ -102,19 +109,19 @@
       top 50%
       left 50%
       transform translate(-50%, -50%)
-      font-size 1.3rem
+      font-size 1rem
       font-weight bold
       color $c-white
 
 
   .heading-3
     font-weight bold
-    font-size 1.6em
+    font-size 1.6rem
 
   //States
   &.is-minified
-    $minified-height = 4.7rem
-    $minified-width = 11rem
+    $minified-height = 4.2rem
+    $minified-width = 8rem
 
     height $minified-height + 3rem
     width $minified-width + 4rem
@@ -135,13 +142,21 @@
         position absolute
         width $minified-width
         height $minified-height
-        right -2rem
+        right -3.5rem
         padding-left 7rem
 
       &__header
+        padding 1rem 4rem 1rem 1rem
         &__right
           .icon
-            transform rotate(0)
+            transform rotate(0) translateX(-18px)
+
+        &__left
+          transform translateY(-.1rem)
+
+        &__center
+          height 0
+          width 0
 
       &__body
         height 0

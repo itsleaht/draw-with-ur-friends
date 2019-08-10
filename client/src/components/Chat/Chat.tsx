@@ -54,10 +54,13 @@ const Chat: FunctionComponent = () => {
           <div className="chat__header">
             <div className="chat__header__left">
               <div className="chat__notification">
-                <Icon extraClasses="chat__notification__icon" name="message-notification" fill="#4A5CFF" width={40} height={27}  />
+                <Icon extraClasses="chat__notification__icon" name="message-notification" fill="#4A5CFF" width={35} height={22}  />
                 <span className="chat__notification__text">{counterNotification}{counterNotification >=  maxCounterNotification ? '+' : ''}</span>
               </div>
+            </div>
+            <div className="chat__header__center">
               <span className="heading-3 chat__title">The artist team</span>
+              <span className="heading-5 chat__subtitle">14 members</span>
             </div>
             <div className="chat__header__right">
               <button className="chat__toggle" onClick={onClickToggle}>

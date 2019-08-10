@@ -55,11 +55,11 @@ const UserPanel: FunctionComponent = () => {
       <div className="panel__inner">
         <div className="panel__box panel__box--users">
           <div className="panel__box__top">
-            <h1 className="panel__title heading-1">{room.name}</h1>
-            <span>
+            <h1 className="panel__title heading-1">{room.name} ( {users.length} )</h1>
+            {/* <span>
               <Icon name="user" width={20} height={19} fill="#3514FF"/>
-              <span>{users.length}</span>
-            </span>
+              <span></span>
+            </span> */}
 
           </div>
           <UserList users={users} userId={user.id} />
@@ -67,7 +67,7 @@ const UserPanel: FunctionComponent = () => {
 
         <div className="panel__box panel__box--rooms">
           <div className="panel__box__top">
-            <h1 className="panel__title heading-1">Rooms</h1>
+            <h1 className="panel__title heading-1">Rooms ( {rooms.length} )</h1>
             <Btn className="btn btn--primary" icon={{name: 'plus', width: 10, height: 10, fill: '#fff'}}  onClickClb={onClickCreateRoom}/>
           </div>
           <RoomList rooms={rooms} roomId={room.id} onClickRoomClb={onClickRoomClb} />
