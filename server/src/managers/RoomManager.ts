@@ -63,6 +63,14 @@ class RoomManager {
           ...event,
           user: socket.id
         };
+
+        if (event.from.id && (room.getId() !== event.from.id)) {
+          const previousRoom = this.rooms.get(event.from.id!);
+          if (previousRoom) {
+            previousRoom.removeUser(user.getId());
+          }
+        }
+
         this.io.to(socket.id).emit(Events.RoomJoined, roomJoined);
 
         addLog('emit', Events.RoomJoined, JSON.stringify(roomJoined));
