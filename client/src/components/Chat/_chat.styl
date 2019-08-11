@@ -97,23 +97,6 @@
       opacity 1
       transition .2s opacity .3s
 
-  &__notification
-    display flex
-
-    &__icon
-      position relative
-      top .4rem
-
-    &__text
-      position absolute
-      top 50%
-      left 50%
-      transform translate(-50%, -50%)
-      padding-top .2rem
-      font-size 1rem
-      font-weight bold
-      color $c-white
-
   //States
   &.is-minified
     $minified-height = 4.2rem
@@ -138,17 +121,20 @@
         position absolute
         width $minified-width
         height $minified-height
+        top -2.4rem
         right -3.5rem
-        padding-left 7rem
+        padding-left 8rem
+        padding-right 3rem
 
       &__header
-        padding 1rem 4rem 1rem 1rem
+        padding 1rem 4rem .5rem 1rem
+
         &__right
           .icon
-            transform rotate(0) translateX(-18px)
+            transform rotate(0)
 
         &__left
-          transform translateY(-.1rem)
+          transform translateY(-.2rem)
 
         &__center
           height 0

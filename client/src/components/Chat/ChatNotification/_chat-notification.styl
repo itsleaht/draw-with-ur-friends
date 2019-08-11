@@ -1,17 +1,18 @@
 @import './../../../styles/global.styl'
 
 .chat__notification
-  display flex
+    display flex
 
-  &__icon
+.chat__notification__icon
     position relative
     top .4rem
 
-  &__text
+.chat__notification__text
     position absolute
     top 50%
     left 50%
     transform translate(-50%, -50%)
-    font-size 1.3rem
+    padding-top .2rem
+    font-size 1rem
     font-weight bold
     color $c-white
