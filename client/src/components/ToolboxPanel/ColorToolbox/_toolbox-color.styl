@@ -1,0 +1,40 @@
+@import '../../../styles/global.styl'
+
+.toolbox--color
+  .toolbox
+    &__color
+      position relative
+      width 2rem
+      height 2rem
+      margin 0 1rem
+      border-radius 3rem
+      border none
+      transition opacity .3s
+      box-shadow 0 .4rem .8rem rgba(162, 160, 160, 0.25)
+
+      &:after
+        content ''
+        position absolute
+        top -.6rem
+        left -.6rem
+        bottom -.6rem
+        right -.6rem
+        border .1rem solid $c-pink
+        border-radius 3rem
+
+    &__hexa
+      width 6rem
+      margin-left spacer(1)
+      border none
+      text-shadow 0 .4rem .2rem rgba(163, 163, 163, 0.2);
+      color $c-grey-dark
+      font-size 1.3rem
+      line-height 1.2rem
+      text-transform uppercase
+      letter-spacing .025rem
+
+    &__body
+      margin-left spacer(2)
+      display flex
+
+

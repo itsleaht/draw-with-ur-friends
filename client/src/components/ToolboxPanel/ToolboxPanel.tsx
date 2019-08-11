@@ -1,12 +1,15 @@
 import React, { FunctionComponent } from 'react';
 import PenToolbox from './PenToolbox/PenToolbox';
+import ColorToolbox from './ColorToolbox/ColorToolbox';
+
+import './_panel-toolbox.styl';
 
 const ToolboxPanel: FunctionComponent = () => {
 
   return (
-    <div>
-      <h1>Hello this a tool panel</h1>
+    <div className="panel panel--toolbox">
       <PenToolbox />
+      <ColorToolbox />
     </div>
   )
 }

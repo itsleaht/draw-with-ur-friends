@@ -53,7 +53,7 @@ const RoomPanel: FunctionComponent = () => {
     <div className="panel panel--room">
       <div className="panel__inner">
         <div className="panel__top">
-          <h1 className="panel__title heading-1">Boards ( {rooms.length} )</h1>
+          <h1 className="panel__title heading-1">Artboards ( {rooms.length} )</h1>
           <Btn className="btn btn--primary" icon={{name: 'plus', width: 12, height: 12, fill: '#fff', stroke: '#fff'}}  onClickClb={onClickCreateRoom}/>
         </div>
         <div className="panel__body">
