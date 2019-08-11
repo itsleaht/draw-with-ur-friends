@@ -1,15 +1,16 @@
-import React, { FunctionComponent } from "react";
-import { MessageI } from '../../../@types';
+import React, { FunctionComponent } from 'react';
+
+import { IMessage } from '../../../@types';
 
 import './_message.styl';
 
 type Props = {
-  message: MessageI,
+  message: IMessage,
   isMine: boolean,
   userId: string
 }
 
-const Message: FunctionComponent<Props>  = ({message, isMine, userId}) => {
+const Message: FunctionComponent<Props>  = ({ message, isMine }) => {
   const dateTimeCreation = new Date(message.createdAt);
   const time = `${dateTimeCreation.getHours()}:${dateTimeCreation.getMinutes()}`;
 

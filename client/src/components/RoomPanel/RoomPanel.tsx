@@ -1,33 +1,33 @@
 import React, { FunctionComponent, useState } from 'react';
+import RoomList from './RoomList/RoomList';
+import Btn from '../UI/buttons/Btn';
 
-import useSocket from '../../hooks/useSocket';
 import { useSelector } from 'react-redux';
+import useSocket from '../../hooks/useSocket';
 import useSocketOn from '../../hooks/useSocketOn';
+import { Events } from '../../config/events';
 
-import { UserI, RoomI } from '../../@types';
+import { IUser, IRoom, IRoomJoin } from '../../@types';
+import { State, Room, User } from '../../store/types';
 
 import { addLog } from '../../helpers/utils';
 
-import RoomList from './RoomList/RoomList';
-
 import './_room-panel.styl';
-import Btn from '../UI/buttons/Btn';
-import Icon from '../UI/icons/Icon';
 
 const RoomPanel: FunctionComponent = () => {
   const socket = useSocket();
-  const room = useSelector<any, any>(state => state.room)
-  const user = useSelector<any, any>(state => state.user)
+  const room = useSelector<State, Room>(state => state.app.room)
+  const user = useSelector<State, User>(state => state.app.user)
 
-  const [rooms, setRooms] = useState<RoomI[]>([]);
-  const [users, setUsers] = useState<UserI[]>([]);
+  const [rooms, setRooms] = useState<IRoom[]>([]);
+  const [users, setUsers] = useState<IUser[]>([]);
 
   const onClickCreateRoom = () => {
     joinRoom({id: '', name: 'test name'});
   }
 
-  const joinRoom = (to: {id?: string, name?: string}) => {
-    socket!.emit('room:join', {
+  const joinRoom = (to: IRoomJoin) => {
+    socket!.emit(Events.RoomJoin, {
       from: {id: room.id},
       to: to
     });
@@ -39,13 +39,13 @@ const RoomPanel: FunctionComponent = () => {
     }
   }
 
-  useSocketOn('rooms:get', rooms => {
-    addLog('on', 'rooms:get', rooms);
+  useSocketOn(Events.RoomsGet, rooms => {
+    addLog('on', Events.RoomsGet, rooms);
     setRooms(Array.from(rooms));
   });
 
-  useSocketOn('users:get', users => {
-    addLog('on', 'users:get', users);
+  useSocketOn(Events.UsersGet, users => {
+    addLog('on', Events.UsersGet, users);
     setUsers(Array.from(users));
   });
 

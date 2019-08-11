@@ -1,10 +1,17 @@
+import Room from './Room';
+
+interface IUser {
+  id: string;
+}
+
 export default class User {
   private id: string = '';
   private createdAt: number = Date.now();
   private name: string = 'johndoe';
+  private rooms: Map<string, Room> = new Map();
 
-  constructor({id}: {id: string}) {
-    this.id = id;
+  constructor(user: IUser) {
+    this.id = user.id;
   }
 
   public getId() {
@@ -21,5 +28,26 @@ export default class User {
 
   public getCreatedAt() {
     return this.createdAt;
+  }
+
+  public addToRoom(room: Room) {
+    this.rooms.set(room.getId(), room);
+  }
+
+  public removeFromRoom(roomId: string) {
+    this.rooms.delete(roomId);
+  }
+
+  public getRooms() {
+    return this.rooms;
+  }
+
+  public get serialize(): {} {
+    return {
+      createdAt: this.createdAt,
+      id: this.id,
+      name: this.name,
+      rooms: Array.from(this.rooms.values())
+    };
   }
 }

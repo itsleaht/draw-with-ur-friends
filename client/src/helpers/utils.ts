@@ -1,4 +1,4 @@
-export const addLog = (type: string, message: string, params: any) => {
+export const addLog = (type: string, message: string, params?: any) => {
   let color = '';
   switch (type) {
     case 'on':

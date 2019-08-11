@@ -1,11 +1,11 @@
 import React, { FunctionComponent } from 'react';
-import { RoomI, UserI } from '../../../@types';
+import { IRoom } from '../../../@types';
 
 import './_card-room.styl';
 
 type Props = {
   userId: String,
-  room: RoomI,
+  room: IRoom,
   isActive: Boolean,
   onClickClb: (id: string) => void
 }

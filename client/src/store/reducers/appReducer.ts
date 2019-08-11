@@ -1,17 +1,17 @@
-import { SET_USER, SET_ROOM } from '../actionTypes';
-import { State } from '../types';
+import { ActionTypes } from '../actionTypes';
 
+import { AppState } from '../types';
 
-const initialState: State = {
+const initialState: AppState = {
   user: {id: ''},
   room: {id: ''}
 };
 
 
-const appStore = (state = initialState, action: any) => {
+const appReducer = (state = initialState, action: any) => {
   switch (action.type) {
 
-    case SET_USER:
+    case ActionTypes.SetUser:
       return {
         ...state,
         user: {
@@ -20,7 +20,7 @@ const appStore = (state = initialState, action: any) => {
         }
       }
 
-    case SET_ROOM:
+    case ActionTypes.SetRoom:
       return {
         ...state,
         room: {
@@ -35,4 +35,4 @@ const appStore = (state = initialState, action: any) => {
   }
 }
 
-export default appStore;
+export default appReducer;

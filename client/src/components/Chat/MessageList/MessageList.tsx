@@ -1,10 +1,14 @@
-import React, { FunctionComponent, useState } from "react";
-import Message from '../Message/Message';
-import {MessageI} from '../../../@types';
+import React, { FunctionComponent, useState } from 'react';
 
-import useSocketOn from "../../../hooks/useSocketOn";
+import Message from '../Message/Message';
+
+import useSocketOn from '../../../hooks/useSocketOn';
+
+import { IMessage } from '../../../@types';
+
 
 import './_message-list.styl'
+import { Events } from '../../../config/events';
 
 type Props = {
   userId: string
@@ -12,18 +16,18 @@ type Props = {
 
 const MessageList: FunctionComponent<Props> = ({userId}) => {
 
-  const [messages, setMessages] = useState<MessageI[]>([]);
+  const [messages, setMessages] = useState<IMessage[]>([]);
 
-  const addNewMessage = (newMessage: MessageI) => {
-    const messageList: MessageI[] = [...messages, newMessage];
+  const addNewMessage = (newMessage: IMessage) => {
+    const messageList: IMessage[] = [...messages, newMessage];
     setMessages(messageList);
   }
 
-  useSocketOn('chat:message', newMessage => {
+  useSocketOn(Events.ChatUserMessage, newMessage => {
     addNewMessage(newMessage);
   });
 
-  useSocketOn('room:joined', newMessage => {
+  useSocketOn(Events.RoomJoined, () => {
     setMessages([]);
   });
 

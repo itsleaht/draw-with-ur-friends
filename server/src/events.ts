@@ -1,16 +1,41 @@
-const events = {
-  CHAT_USER_MESSAGE: 'chat:message',
-  ROOMS_GET: 'rooms:get',
-  ROOM_CREATE: 'room:create',
-  ROOM_DEFAULT: 'room:default',
-  ROOM_JOIN: 'room:join',
-  ROOM_JOINED: 'room:joined',
-  SERVER_GET_EVENTS: 'server:get:events',
-  USERS_GET: 'users:get',
-  USER_CONNECTION: 'user:connection',
-  USER_INFO: 'user:info',
-  USER_LOGIN: 'user:login',
-  USER_NAME: 'user:name',
-};
 
-export default events;
+export enum SocketEvents {
+  Connect = 'connect',
+  Disconnect = 'disconnect',
+}
+
+export enum Events {
+  ChatUserMessage = 'chat:message',
+  RoomsGet = 'rooms:get',
+  RoomCreate = 'room:create',
+  RoomDefault = 'room:default',
+  RoomJoin = 'room:join',
+  RoomJoined = 'room:joined',
+  ServerGetEvents = 'server:get:events',
+  UsersGet = 'users:get',
+  UserConnection = 'user:connection',
+  UserGet = 'user:get',
+  UserLogin = 'user:login',
+  UserName = 'user:name'
+}
+
+interface IRoom {
+  id?: string;
+  name?: string;
+}
+
+export interface IChatUserMessageEvent {
+  content: string;
+  userId: string;
+  roomId: string;
+}
+
+export interface IUserNameEvent {
+  name: string;
+  id: string;
+}
+
+export interface IRoomJoin {
+  from: IRoom;
+  to: IRoom;
+}

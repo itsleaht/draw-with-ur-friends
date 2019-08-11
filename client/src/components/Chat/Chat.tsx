@@ -1,30 +1,27 @@
-import React, { FunctionComponent, useState, useEffect } from "react";
-import MessageList from "./MessageList/MessageList";
-import MessageForm from "./MessageForm/MessageForm";
 
-import useSocketOn from "../../hooks/useSocketOn";
-import useSocket from "../../hooks/useSocket";
-
+import React, { FunctionComponent, useState } from 'react';
+import MessageList from './MessageList/MessageList';
+import MessageForm from './MessageForm/MessageForm';
+import ChatNotification from './ChatNotification/ChatNotification';
 import Icon from '../UI/icons/Icon';
 
+import { useSelector } from 'react-redux';
+import useSocketOn from '../../hooks/useSocketOn';
+
+import { State, Room, User } from '../../store/types';
+
 import './_chat.styl';
-import { useSelector } from "react-redux";
-import { State } from "../../store/types";
-
-type User = {
-  id: ''
-}
-
-type Room = {
-  id: ''
-}
+import { Events } from '../../config/events';
 
 const Chat: FunctionComponent = () => {
   const [isMinified, setisMinified] = useState<boolean>(true);
   const [isNotified, setisNotified] = useState<boolean>(false);
   const [counterNotification, setCounterNotification] = useState<number>(0);
+
   const maxCounterNotification = 99;
-  const user = useSelector<State, any>(state => state.user)
+
+  const room = useSelector<State, Room>(state => state.app.room);
+  const user = useSelector<State, User>(state => state.app.user)
 
 
   const onClickToggle = () => {
@@ -37,7 +34,7 @@ const Chat: FunctionComponent = () => {
     }, 350)
   }
 
-  useSocketOn('chat:message', userInfo => {
+  useSocketOn(Events.ChatUserMessage, () => {
     if (isMinified && counterNotification <= maxCounterNotification) {
       setCounterNotification(counterNotification + 1);
       if (!isNotified) {
@@ -53,10 +50,7 @@ const Chat: FunctionComponent = () => {
         <div className="chat__inner">
           <div className="chat__header">
             <div className="chat__header__left">
-              <div className="chat__notification">
-                <Icon extraClasses="chat__notification__icon" name="message-notification" fill="#4A5CFF" width={35} height={22}  />
-                <span className="chat__notification__text">{counterNotification}{counterNotification >=  maxCounterNotification ? '+' : ''}</span>
-              </div>
+              <ChatNotification counter={counterNotification} maxCounter={maxCounterNotification} />
             </div>
             <div className="chat__header__center">
               <span className="heading-3 chat__title">The artist team</span>

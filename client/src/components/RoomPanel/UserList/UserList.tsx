@@ -1,9 +1,9 @@
 import React, { FunctionComponent } from 'react';
-import { UserI } from '../../../@types';
+import { IUser } from '../../../@types';
 import './_list-users.styl'
 
 type Props = {
-  users: UserI[],
+  users: IUser[],
   userId: string
 }
 

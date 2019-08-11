@@ -1,15 +1,21 @@
 import User from './User';
 
+interface IMessage {
+  from: User;
+  content: string;
+  roomId: string;
+}
+
 export default class Message {
   public createdAt: number;
-  public from: User | null;
+  public from: User;
   public content: string;
   public roomId: string;
 
-  constructor({from, content, roomId}: {from: User | null, content: string, roomId: string}) {
+  constructor(message: IMessage) {
     this.createdAt = Date.now();
-    this.from = from;
-    this.content = content;
-    this.roomId = roomId;
+    this.from = message.from;
+    this.content = message.content;
+    this.roomId = message.roomId;
   }
 }
