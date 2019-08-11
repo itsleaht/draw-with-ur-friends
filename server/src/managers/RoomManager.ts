@@ -89,6 +89,8 @@ class RoomManager {
           this.rooms.delete(id);
         }
       }
+
+      this.io.emit(Events.RoomsGet, this.serialize);
     }
   }
 
