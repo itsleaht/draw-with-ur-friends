@@ -21,6 +21,7 @@ const RoomPanel: FunctionComponent = () => {
 
   const [rooms, setRooms] = useState<IRoom[]>([]);
   const [users, setUsers] = useState<IUser[]>([]);
+  const [isMinified, setIsMinified] = useState<Boolean>(false);
 
   const onClickCreateRoom = () => {
     joinRoom({id: '', name: 'test name'});
@@ -39,6 +40,10 @@ const RoomPanel: FunctionComponent = () => {
     }
   }
 
+  const onClickBtnClb = () => {
+    setIsMinified(!isMinified)
+  }
+
   useSocketOn(Events.RoomsGet, rooms => {
     addLog('on', Events.RoomsGet, rooms);
     setRooms(Array.from(rooms));
@@ -50,17 +55,20 @@ const RoomPanel: FunctionComponent = () => {
   });
 
   return (
-    <div className="panel panel--room">
-      <div className="panel__inner">
-        <div className="panel__top">
-          <h1 className="panel__title heading-1">Artboards ( {rooms.length} )</h1>
-          <Btn className="btn btn--primary" icon={{name: 'plus', width: 12, height: 12, fill: '#fff', stroke: '#fff'}}  onClickClb={onClickCreateRoom}/>
-        </div>
-        <div className="panel__body">
-          <RoomList userId={user.id}rooms={rooms} roomId={room.id} onClickRoomClb={onClickRoomClb} />
+    <>
+      <Btn className="btn btn--primary btn--large" onClickClb={onClickBtnClb}  icon={{name: 'artboard', width: 26, height: 28, fill: '#fff'}} />
+      <div className="panel panel--room">
+        <div className="panel__inner">
+          <div className="panel__top">
+            <h1 className="panel__title heading-1">Artboards ( {rooms.length} )</h1>
+            <Btn className="btn btn--primary" icon={{name: 'plus', width: 12, height: 12, fill: '#fff', stroke: '#fff'}}  onClickClb={onClickCreateRoom}/>
+          </div>
+          <div className="panel__body">
+            <RoomList userId={user.id}rooms={rooms} roomId={room.id} onClickRoomClb={onClickRoomClb} />
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 
