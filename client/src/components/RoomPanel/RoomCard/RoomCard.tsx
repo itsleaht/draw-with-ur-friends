@@ -2,6 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { IRoom } from '../../../@types';
 
 import './_card-room.styl';
+import DotNumber from '../../UI/misc/DotNumber/DotNumber';
 
 type Props = {
   userId: String,
@@ -18,7 +19,7 @@ const RoomCard: FunctionComponent<Props> = ({userId, room, isActive, onClickClb}
         <div className="card__top">
           <div className="card__top__left">
             <span className={`card__title ${isActive ? 'heading-3' : ''}`}>{room.name}</span>
-            <span className="card__number">{room.users.length}</span>
+            <DotNumber number={room.users.length} extraClasses="card__number" />
           </div>
           { !isActive &&
             <div className="card__top__right">
