@@ -25,7 +25,7 @@ const RoomPanel: FunctionComponent = () => {
 
   const [rooms, setRooms] = useState<IRoom[]>([]);
   const [users, setUsers] = useState<IUser[]>([]);
-  const [isMinified, setIsMinified] = useState<Boolean>(false);
+  const [isMinified, setIsMinified] = useState<Boolean>(true);
   const [roomName, setRoomName] = useState<string>(defaultRoomName);
   const [isFocusing, setIsFocusing] = useState<Boolean>(false);
 

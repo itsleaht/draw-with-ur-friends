@@ -4,7 +4,11 @@ import './_draw-canvas.styl';
 
 const DrawCanvas: FunctionComponent = () => {
   return (
-    <div className="canvas"></div>
+    <div className="draw--canvas">
+      <div className="draw__inner">
+        <canvas className="canvas"></canvas>
+      </div>
+    </div>
   );
 }
 

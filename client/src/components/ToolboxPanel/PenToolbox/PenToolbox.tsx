@@ -37,7 +37,9 @@ const PenToolbox: FunctionComponent = () => {
       <div className="toolbox__body">
         {pens.map(item => {
           return (
-            <button className={`toolbox__button toolbox__button--${item} ${activePen.index === item ? 'is-active' : ''}`} onClick={onClickBtnPen} data-index={item} key={`toolbox--pen-${item}`}></button>
+            <button className={`toolbox__button toolbox__button--${item} ${activePen.index === item ? 'is-active' : ''}`} onClick={onClickBtnPen} data-index={item} key={`toolbox--pen-${item}`}>
+              <span className={`toolbox__button__inner`}></span>
+            </button>
           )
         })}
       </div>

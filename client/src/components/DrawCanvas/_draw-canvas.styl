@@ -1,10 +1,22 @@
 @import '../../styles/global.styl'
 
+$ratio = 9 / 16
+
+.draw--canvas
+  margin 0 auto 4rem
+  padding 0 2rem
+  border-radius 2rem
+  max-width "calc( (100vh / %s) - ( (var(--headerSize) + 4rem) / %s))" % ($ratio $ratio)
+
+.draw__inner
+  position relative
+  width 100%
+  padding-bottom unit(($ratio * 100), '%')
+
 .canvas
-  width 70vw
-  margin-left 10rem
-  margin-top 2rem
-  height 75vh
+  position absolute
+  height 100%
+  width 100%
   background $c-white
   border-radius 2rem
   box-shadow 1rem 1rem 2rem rgba(31, 61, 151, 0.02)
