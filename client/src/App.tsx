@@ -8,6 +8,7 @@ import Chat from './components/Chat/Chat';
 import SVGSprite from './components/UI/icons/SVGSprite';
 import Header from './components/Header/Header';
 import RoomPanel from './components/RoomPanel/RoomPanel';
+import DrawCanvas from './components/DrawCanvas/DrawCanvas';
 
 const App: FunctionComponent = () => {
 
@@ -35,6 +36,7 @@ const App: FunctionComponent = () => {
       <SocketProvider url={process.env.REACT_APP_SOCKET_API_URL ? process.env.REACT_APP_SOCKET_API_URL : ''}>
         <div className="App">
             <Header />
+            <DrawCanvas />
           <div className="aside">
             {showDrawComponents &&
               <RoomPanel />

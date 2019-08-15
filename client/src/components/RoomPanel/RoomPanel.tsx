@@ -1,7 +1,7 @@
 import React, { FunctionComponent, useState } from 'react';
 import RoomList from './RoomList/RoomList';
-import Btn from '../UI/buttons/Btn';
 import Icon from '../UI/icons/Icon';
+import ButtonPrimary from '../UI/buttons/ButtonPrimary/ButtonPrimary';
 
 import { useSelector } from 'react-redux';
 import useSocket from '../../hooks/useSocket';
@@ -60,6 +60,10 @@ const RoomPanel: FunctionComponent = () => {
 
   const onBlurRoomName = (e: React.FocusEvent<HTMLInputElement>) => {
     setIsFocusing(false)
+
+    if (e.target.value.length <= 0) {
+      setRoomName(defaultRoomName)
+    }
   }
 
   const onChangeRoomName = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -96,7 +100,7 @@ const RoomPanel: FunctionComponent = () => {
                   </span>
                 </div>
                   <div className="card__right">
-                    <button className={`card__button ${isFocusing ? 'is-focusing' : ''}`}onClick={() => onClickCreateRoom()}>Create</button>
+                    <ButtonPrimary text={'Create'} className={`card__button ${isFocusing ? 'is-focusing' : ''}`} onClickClb={onClickCreateRoom} />
                   </div>
               </div>
           </div>

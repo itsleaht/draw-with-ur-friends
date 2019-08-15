@@ -1,8 +1,9 @@
 import React, { FunctionComponent } from 'react';
 import { IRoom } from '../../../@types';
+import DotNumber from '../../UI/misc/DotNumber/DotNumber';
 
 import './_card-room.styl';
-import DotNumber from '../../UI/misc/DotNumber/DotNumber';
+import ButtonPrimary from '../../UI/buttons/ButtonPrimary/ButtonPrimary';
 
 type Props = {
   userId: String,
@@ -23,7 +24,7 @@ const RoomCard: FunctionComponent<Props> = ({userId, room, isActive, onClickClb}
           </div>
           { !isActive &&
             <div className="card__top__right">
-              <button className="card__button" onClick={() => onClickClb(room.id)}>Join</button>
+              <ButtonPrimary className="card__button" onClickClb={() => onClickClb(room.id)} text={'Join'} />
             </div>
           }
         </div>

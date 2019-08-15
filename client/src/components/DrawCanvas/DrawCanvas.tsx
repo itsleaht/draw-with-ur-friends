@@ -1,8 +1,10 @@
 import React, { FunctionComponent } from 'react';
 
+import './_draw-canvas.styl';
+
 const DrawCanvas: FunctionComponent = () => {
   return (
-    <div></div>
+    <div className="canvas"></div>
   );
 }
 
