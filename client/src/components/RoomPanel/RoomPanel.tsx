@@ -5,14 +5,10 @@ import ButtonPrimary from '../UI/buttons/ButtonPrimary/ButtonPrimary';
 
 import { useSelector } from 'react-redux';
 import useSocket from '../../hooks/useSocket';
-import useSocketOn from '../../hooks/useSocketOn';
 import { Events } from '../../config/events';
 
-import { IUser, IRoom, IRoomJoin } from '../../@types';
+import { IRoom, IRoomJoin } from '../../@types';
 import { State, User } from '../../store/types';
-
-import { addLog } from '../../helpers/utils';
-
 import './_room-panel.styl';
 import DotNumber from '../UI/misc/DotNumber/DotNumber';
 
@@ -24,8 +20,6 @@ const RoomPanel: FunctionComponent = () => {
 
   const defaultRoomName = 'New room';
 
-  // const [rooms, setRooms] = useState<IRoom[]>([]);
-  const [users, setUsers] = useState<IUser[]>([]);
   const [isMinified, setIsMinified] = useState<Boolean>(true);
   const [roomName, setRoomName] = useState<string>(defaultRoomName);
   const [isFocusing, setIsFocusing] = useState<Boolean>(false);
@@ -69,11 +63,6 @@ const RoomPanel: FunctionComponent = () => {
   const onChangeRoomName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRoomName(e.target.value)
   }
-
-  useSocketOn(Events.UsersGet, users => {
-    addLog('on', Events.UsersGet, users);
-    setUsers(Array.from(users));
-  });
 
   return (
     <>
