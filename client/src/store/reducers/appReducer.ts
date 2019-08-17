@@ -3,8 +3,9 @@ import { ActionTypes } from '../actionTypes';
 import { AppState } from '../types';
 
 const initialState: AppState = {
-  user: {id: ''},
-  room: {id: ''}
+  user: {id: '',},
+  room: {id: '', name: '', users: []},
+  rooms: []
 };
 
 
@@ -26,9 +27,16 @@ const appReducer = (state = initialState, action: any) => {
         room: {
           ...state.room,
           id: action.payload.id,
-          name: action.payload.name
+          name: action.payload.name,
+          users: action.payload.users ? action.payload.users : []
         }
       }
+
+      case ActionTypes.SetRooms:
+        return {
+          ...state,
+          rooms: action.payload.rooms
+        }
 
     default:
       return state;

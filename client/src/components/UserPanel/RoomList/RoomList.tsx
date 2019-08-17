@@ -17,7 +17,7 @@ const RoomList: FunctionComponent<Props> = ({rooms, roomId, onClickRoomClb}) => 
     <ul className="list list--rooms">
       { rooms.map((room, index) => {
         return (<li key={index} className={`list__item ${roomId === room.id ? 'is-active' : ''}`} onClick={() => onClickRoomClb(room.id)}>{room.name}
-        <Icon name="user" width={11} height={10} fill="#3514FF"/>{room.users.length}</li>);
+        <Icon name="user" width={11} height={10} fill="#3514FF"/>{room && room.users ? room.users.length : '0'}</li>);
       })}
     </ul>
   )

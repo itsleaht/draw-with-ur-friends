@@ -1,4 +1,9 @@
 export const addLog = (type: string, message: string, params?: any) => {
+  const logs = getLog(type, message, params)
+  return console.log(logs.key, logs.value  ? logs.value : '' );
+};
+
+export const getLog = (type: string, message: string, params?: any): {key: string, value: any} => {
   let color = '';
   switch (type) {
     case 'on':
@@ -15,5 +20,9 @@ export const addLog = (type: string, message: string, params?: any) => {
       break;
   }
 
-  console.log(`${color} [ ${type.toUpperCase()} ] [ ${message} ]`, params);
+  return {
+    key: `${color} [ ${type.toUpperCase()} ] [ ${message} ]`,
+    value: params
+  }
 };
+

@@ -9,7 +9,7 @@ import useSocketOn from '../../hooks/useSocketOn';
 import { Events } from '../../config/events';
 
 import { IUser, IRoom, IRoomJoin } from '../../@types';
-import { State, Room, User } from '../../store/types';
+import { State, User } from '../../store/types';
 
 import { addLog } from '../../helpers/utils';
 
@@ -18,12 +18,13 @@ import DotNumber from '../UI/misc/DotNumber/DotNumber';
 
 const RoomPanel: FunctionComponent = () => {
   const socket = useSocket();
-  const room = useSelector<State, Room>(state => state.app.room)
+  const room = useSelector<State, IRoom>(state => state.app.room)
+  const rooms = useSelector<State, IRoom[]>(state => state.app.rooms)
   const user = useSelector<State, User>(state => state.app.user)
 
   const defaultRoomName = 'New room';
 
-  const [rooms, setRooms] = useState<IRoom[]>([]);
+  // const [rooms, setRooms] = useState<IRoom[]>([]);
   const [users, setUsers] = useState<IUser[]>([]);
   const [isMinified, setIsMinified] = useState<Boolean>(true);
   const [roomName, setRoomName] = useState<string>(defaultRoomName);
@@ -47,7 +48,6 @@ const RoomPanel: FunctionComponent = () => {
   }
 
   const onClickBtnClb = () => {
-    console.log(!isMinified)
     setIsMinified(!isMinified)
   }
 
@@ -69,11 +69,6 @@ const RoomPanel: FunctionComponent = () => {
   const onChangeRoomName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRoomName(e.target.value)
   }
-
-  useSocketOn(Events.RoomsGet, rooms => {
-    addLog('on', Events.RoomsGet, rooms);
-    setRooms(Array.from(rooms));
-  });
 
   useSocketOn(Events.UsersGet, users => {
     addLog('on', Events.UsersGet, users);

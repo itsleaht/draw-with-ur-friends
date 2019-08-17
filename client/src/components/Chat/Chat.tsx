@@ -8,7 +8,8 @@ import Icon from '../UI/icons/Icon';
 import { useSelector } from 'react-redux';
 import useSocketOn from '../../hooks/useSocketOn';
 
-import { State, Room, User } from '../../store/types';
+import { State, User } from '../../store/types';
+import { IRoom } from './../../@types';
 
 import './_chat.styl';
 import { Events } from '../../config/events';
@@ -20,9 +21,8 @@ const Chat: FunctionComponent = () => {
 
   const maxCounterNotification = 99;
 
-  const room = useSelector<State, Room>(state => state.app.room);
-  const user = useSelector<State, User>(state => state.app.user)
-
+  const room = useSelector<State, IRoom>(state => state.app.room);
+  const user = useSelector<State, User>(state => state.app.user);
 
   const onClickToggle = () => {
     setisMinified(!isMinified);
@@ -53,8 +53,8 @@ const Chat: FunctionComponent = () => {
               <ChatNotification counter={counterNotification} maxCounter={maxCounterNotification} />
             </div>
             <div className="chat__header__center">
-              <span className="heading-3 chat__title">The artist team</span>
-              <span className="heading-5 chat__subtitle">14 members</span>
+              <span className="heading-3 chat__title">{room.name}</span>
+              <span className="heading-5 chat__subtitle">{room.users!.length} members</span>
             </div>
             <div className="chat__header__right">
               <button className="chat__toggle" onClick={onClickToggle}>

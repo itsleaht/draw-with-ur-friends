@@ -17,7 +17,7 @@ export interface IRoom {
   // createdAt: number,
   // host: UserI,
   name: string,
-  users: IUser[]
+  users?: IUser[]
 }
 
 export interface IRoomJoin {

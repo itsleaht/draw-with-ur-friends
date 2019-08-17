@@ -1,14 +1,11 @@
 import { ActionTypes } from './actionTypes';
+import { IRoom } from './../@types'
 
 export interface User {
   id: string,
   name?: string
 }
 
-export interface Room {
-  id: string,
-  name?: string
-}
 
 export interface Pen {
   index: string
@@ -21,7 +18,12 @@ export interface setUserAction {
 
 export interface setRoomAction {
   type: typeof ActionTypes.SetRoom
-  payload: Room
+  payload: IRoom
+}
+
+export interface setRoomsAction {
+  type: typeof ActionTypes.SetRooms
+  payload: IRoom[]
 }
 
 
@@ -32,7 +34,8 @@ export interface setPenAction {
 
 export interface AppState {
   user: User,
-  room: Room
+  room: IRoom,
+  rooms: IRoom[]
 }
 
 export interface DrawState {
