@@ -1,0 +1,36 @@
+@import '../../../styles/global.styl'
+
+.color--picker
+  position absolute
+  bottom 0
+  right 0
+  width 25rem
+  // height 34rem
+  transform translateY(100%)
+  background $c-white
+  border-radius 1rem
+  box-shadow .2rem .2rem .6rem  rgba(128, 128, 128, 0.1)
+
+  .color__inner
+    padding 2rem
+
+  .color__spectrum
+    width 100%
+    height 2rem
+    border-radius 1rem
+
+  .list--colors
+    display flex
+    flex-wrap wrap
+    margin-top 2rem
+
+    .list__item
+      display inline-block
+      width 2rem
+      height 2rem
+      margin-right 1rem
+      margin-bottom 1rem
+      border-radius .2rem
+      background $c-white
+      // box-shadow .2rem .2rem .6rem  rgba(128, 128, 128, 0.1)
+      border 1px solid $c-grey-medium

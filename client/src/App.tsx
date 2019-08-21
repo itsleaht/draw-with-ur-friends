@@ -16,9 +16,9 @@ const App: FunctionComponent = () => {
 
   const onStoreUpdate = () => {
     const state = store.getState().app;
-    console.log('on store update', state);
+    console.log('App : On Store Update', state);
     if (state.user.id.length > 0 && state.room.id.length > 0 && !showDrawComponents) {
-      console.log('show draw component');
+      console.log('App : Show Draw components');
       setShowDrawComponents(true);
     }
   }

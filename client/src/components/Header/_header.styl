@@ -1,7 +1,9 @@
 @import '../../styles/global.styl'
 
 .header
+  position relative
   padding 2rem 4rem
+  z-index 3
   // margin-right $aside-size
 
   &__logo__image
@@ -10,3 +12,6 @@
   &__inner
     display flex
     justify-content space-between
+
+  &__right
+    width spacer(5)
