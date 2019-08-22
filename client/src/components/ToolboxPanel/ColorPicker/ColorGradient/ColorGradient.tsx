@@ -48,8 +48,6 @@ const ColorGradient: FunctionComponent<Props> = ({ color, onColorClb}) => {
       const x = Math.round(e.nativeEvent.offsetX);
       const y = Math.round(e.nativeEvent.offsetY);
 
-      console.log(x,y, color)
-
       const value = 100 - (y * 100 / gradientRefSize.width) | 0;
       const saturation = x * 100 / gradientRefSize.width | 0;
 
