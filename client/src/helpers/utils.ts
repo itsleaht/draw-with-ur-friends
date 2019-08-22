@@ -26,6 +26,10 @@ export const getLog = (type: string, message: string, params?: any): {key: strin
   }
 };
 
+export const isHexa = (color: string) => {
+  return /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(color)
+}
+
 const sliceInt = -2
 const str = 16
 
@@ -45,43 +49,37 @@ export const rgbToHsl = (r: number, g: number, b: number) => {
   g /= 255;
   b /= 255;
 
-  // Find greatest and smallest channel values
-  let cmin = Math.min(r,g,b),
-      cmax = Math.max(r,g,b),
-      delta = cmax - cmin,
-      h = 0,
-      s = 0,
-      l = 0;
+  // console.log(r, g, b)
 
-  //Calculate hue
-  if (delta == 0)
-      h = 0;
-    // Red is max
-    else if (cmax == r)
-      h = ((g - b) / delta) % 6;
-    // Green is max
-    else if (cmax == g)
-      h = (b - r) / delta + 2;
-    // Blue is max
-    else
-      h = (r - g) / delta + 4;
+  const max = Math.max(r, g, b),
+  min = Math.min(r, g, b);
+  const md = (max + min) / 2
+  let h = 0, s = 0;
+  let l = md;
 
-    h = Math.round(h * 60);
+  if (max === min) {
+    h = s = 0; // achromatic
+  } else {
+    const d = max - min;
+    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
 
-  // Make negative hues positive behind 360°
-  if (h < 0)
-      h += 360;
+    switch (max) {
+      case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+      case g: h = (b - r) / d + 2; break;
+      case b: h = (r - g) / d + 4; break;
+    }
 
-  l = (cmax + cmin) / 2;
+    if (h)
+      h /= 6;
+  }
 
-  // Calculate saturation
-  s = delta == 0 ? 0 : delta / (1 - Math.abs(2 * l - 1));
+  // console.log(h, s, l)
 
-  // Multiply l and s by 100
-  s = +(s * 100).toFixed(1);
-  l = +(l * 100).toFixed(1);
-
-  return { h, s, l }
+  return {
+    h: Math.round((h! * 360)),
+    s: Math.round(s! * 100),
+    l: Math.round(l! * 100)
+  }
 }
 
 export const rgbToHslString = (r: number, g: number, b: number) => {
@@ -101,13 +99,88 @@ export const hexToRgb = (hex: string) => {
       r: parseInt(result[1], 16),
       g: parseInt(result[2], 16),
       b: parseInt(result[3], 16)
-    } : {r: null, g: null, b: null};
+    } : {r: 0, g: 0, b: 0};
 }
 
 export const hexToRGBString = (hex: string) => {
   const { r, g , b } = hexToRgb(hex)
 
   return `rgb(${r},${g},${b})`
-
 }
 
+export const hslToHex = (h: number, s: number, l: number) => {
+  const { r, g, b } = hslToRGB(h, s, l)
+  return rgbToHex(`${r},${g},${b}`)
+}
+
+export const hslToRGB = (h: number, s: number, l: number) => {
+  s /= 100;
+  l /= 100;
+
+  let c = (1 - Math.abs(2 * l - 1)) * s,
+      x = c * (1 - Math.abs((h / 60) % 2 - 1)),
+      m = l - c/2,
+      r = 0,
+      g = 0,
+      b = 0;
+
+  if (0 <= h && h < 60) {
+    r = c; g = x; b = 0;
+  } else if (60 <= h && h < 120) {
+    r = x; g = c; b = 0;
+  } else if (120 <= h && h < 180) {
+    r = 0; g = c; b = x;
+  } else if (180 <= h && h < 240) {
+    r = 0; g = x; b = c;
+  } else if (240 <= h && h < 300) {
+    r = x; g = 0; b = c;
+  } else if (300 <= h && h < 360) {
+    r = c; g = 0; b = x;
+  }
+  r = Math.round((r + m) * 255);
+  g = Math.round((g + m) * 255);
+  b = Math.round((b + m) * 255);
+
+  return {r, g, b}
+}
+
+export const rgbToHsv = (r: number, g: number, b: number) => {
+  r /= 255;
+  g /= 255;
+  b /= 255;
+
+  const max = Math.max(r, g, b),
+    min = Math.min(r, g, b);
+
+  let h = 0, s = 0,
+  v = max;
+
+  let d = max - min;
+  s = max == 0 ? 0 : d / max;
+
+  if (max == min) {
+    h = 0; // achromatic
+  } else {
+    switch (max) {
+      case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+      case g: h = (b - r) / d + 2; break;
+      case b: h = (r - g) / d + 4; break;
+    }
+
+    h /= 6;
+  }
+
+  return {
+    h: h * 360,
+    s: s * 100,
+    v: v * 100
+  };
+}
+
+export const hslToString = (h: number, s: number, l: number) => {
+  return `hsl(${h},${s}%,${l}%)`
+}
+
+export const rgbToString = (r: number, g: number, b: number) => {
+  return `rgb(${r},${g},${b})`
+}

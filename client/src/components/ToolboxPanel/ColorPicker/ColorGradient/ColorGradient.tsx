@@ -1,18 +1,23 @@
 import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
+
 import './_color-gradient.styl';
+import { hslToString, rgbToString } from '../../../../helpers/utils';
+import { ColorState } from '../../../../@types';
 
 type Props = {
-  color?: string,
+  color: ColorState,
+  saturated: {h: number, s: number, l: number}
   onColorClb: (color: string) => void
 }
 
-const ColorGradient: FunctionComponent<Props> = ({ color, onColorClb}) => {
+const ColorGradient: FunctionComponent<Props> = ({ color, saturated, onColorClb}) => {
   const gradientRef = useRef<HTMLCanvasElement>(null)
   const gradientWrapperRef = useRef<HTMLDivElement>(null)
-  const gradientRefSize = {
-    width: gradientRef.current ? gradientRef.current.width : 0,
-    height: gradientRef.current ? gradientRef.current.height : 0,
+  const gradientSize = {
+    width: gradientWrapperRef.current ? gradientWrapperRef.current.clientWidth : 0
   }
+
+  const maxColorRadius = 360
 
   const [cursorPos, setCursorPos] = useState<{x: number, y: number}>({x: 0, y:0})
   const [isMouseDown, setIsMouseDown] = useState<boolean>(false)
@@ -20,43 +25,46 @@ const ColorGradient: FunctionComponent<Props> = ({ color, onColorClb}) => {
 
   const createGradient = () => {
     if (gradientRef && gradientRef.current) {
-      setCtx(gradientRef.current.getContext('2d'))
+      gradientRef.current.height = gradientSize.width;
+      gradientRef.current.width = gradientSize.width;
 
+      setCtx(gradientRef.current.getContext('2d'));
       if (ctx) {
-        ctx.clearRect(0, 0, gradientRefSize.width, gradientRefSize.height);
-        // console.log('create gradient', color)
-        ctx.fillStyle = color ? color : '#cceebb';
-        ctx.fillRect(0, 0, gradientRefSize.width, gradientRefSize.height);
+        ctx.clearRect(0, 0, gradientSize.width, gradientSize.width);
+        ctx.fillStyle = hslToString(saturated.h, saturated.s, saturated.l);
+        ctx.fillRect(0, 0, gradientSize.width, gradientSize.width);
 
-        const whiteGradient = ctx.createLinearGradient(0, 0, gradientRefSize.width, 0);
+        const whiteGradient = ctx.createLinearGradient(0, 0, gradientSize.width, 0);
         whiteGradient.addColorStop(0, "#fff");
         whiteGradient.addColorStop(1, "transparent");
         ctx.fillStyle = whiteGradient;
-        ctx.fillRect(0, 0, gradientRefSize.width, gradientRefSize.height);
+        ctx.fillRect(0, 0, gradientSize.width, gradientSize.width);
 
-        const blackGradient = ctx.createLinearGradient(0, 0, 0, gradientRefSize.height);
+        const blackGradient = ctx.createLinearGradient(0, 0, 0, gradientSize.width);
         blackGradient.addColorStop(0, "transparent");
         blackGradient.addColorStop(1, "#000");
         ctx.fillStyle = blackGradient;
-        ctx.fillRect(0, 0, gradientRefSize.width, gradientRefSize.height);
+        ctx.fillRect(0, 0, gradientSize.width, gradientSize.width);
       }
     }
   }
 
-  const moveCursor = (e: React.MouseEvent<HTMLDivElement>) => {
+  const getColor = (e: React.MouseEvent<HTMLDivElement>) => {
     if (gradientWrapperRef.current) {
       const x = Math.round(e.nativeEvent.offsetX);
       const y = Math.round(e.nativeEvent.offsetY);
 
-      const value = 100 - (y * 100 / gradientRefSize.width) | 0;
-      const saturation = x * 100 / gradientRefSize.width | 0;
-
-      setCursorPos({x, y})
-
-      const selectedColor = ctx.getImageData(cursorPos.x, cursorPos.y, 1, 1).data
-      console.log('selected color', selectedColor)
-      onColorClb(`rgb(${selectedColor[0]},${selectedColor[1]},${selectedColor[2]})`)
+      const selectedColor = ctx.getImageData(x, y, 1, 1).data
+      onColorClb(rgbToString(selectedColor[0], selectedColor[1], selectedColor[2]))
     }
+  }
+
+  const moveCursor = () => {
+    console.log(color.hsv)
+    setCursorPos({
+      x: ( color.hsv.s / 100 ) * gradientSize.width,
+      y: ( color.hsv.v / 100 ) * gradientSize.width
+    })
   }
 
   const onMouseDown = () => {
@@ -69,15 +77,20 @@ const ColorGradient: FunctionComponent<Props> = ({ color, onColorClb}) => {
 
   const onMouseMoveGradient = (e: React.MouseEvent<HTMLDivElement>) => {
     if (isMouseDown) {
-      moveCursor(e)
+      getColor(e)
     }
   }
 
   useEffect(() => {
-    if (gradientRef && gradientRef.current) {
+    moveCursor()
+  }, [color])
+
+
+  useEffect(() => {
+    if (gradientWrapperRef && gradientWrapperRef.current) {
       createGradient()
     }
-  }, [gradientRef, gradientRefSize, ctx])
+  }, [gradientWrapperRef, saturated])
 
   return (
     <div className="color__wrapper--gradient" ref={gradientWrapperRef} onMouseDown={onMouseDown} onMouseUp={onMouseUp} onMouseMove={onMouseMoveGradient}>

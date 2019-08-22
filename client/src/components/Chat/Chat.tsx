@@ -43,7 +43,6 @@ const Chat: FunctionComponent = () => {
     }
   });
 
-
   return (
     <div className={`chat ${isMinified ? 'is-minified' : ''} ${isNotified ? 'is-notified' : ''}`}>
       {user.id.length > 0 &&

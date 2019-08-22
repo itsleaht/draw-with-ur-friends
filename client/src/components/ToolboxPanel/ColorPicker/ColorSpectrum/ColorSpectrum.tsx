@@ -25,14 +25,15 @@ const ColorSpectrum: FunctionComponent<Props> = ({ saturated, onSaturatedClb}) =
   const newColorRadius = 60
 
   const spectrum = {
-    width: spectrumRef.current ? spectrumRef.current.width : 0,
-    clientWidth: spectrumRef.current ? spectrumRef.current.clientWidth : 0,
-    height: spectrumRef.current ? spectrumRef.current.height : 0,
+    width: spectrumRef.current && spectrumWrapperRef.current ? spectrumRef.current.clientWidth : 0,
+    height: spectrumWrapperRef.current ? spectrumWrapperRef.current.clientHeight : 0,
     offsets: [ 0.00, 0.17, 0.33, 0.50, 0.67, 0.83, 1.00]
   }
 
   const createSpectrum = () => {
     if (spectrumRef && spectrumRef.current) {
+      spectrumRef.current.width = spectrum.width
+      spectrumRef.current.height = spectrum.height
       const ctx = spectrumRef.current.getContext('2d');
       const hueGradient = ctx!.createLinearGradient(0, 0, spectrum.width, 0);
 
@@ -79,7 +80,7 @@ const ColorSpectrum: FunctionComponent<Props> = ({ saturated, onSaturatedClb}) =
   const moveCursor = () => {
     if (spectrumWrapperRef.current) {
       setCursorPos({
-        x: (spectrum.clientWidth * saturated.h) / maxColorRadius
+        x: (spectrum.width * saturated.h) / maxColorRadius
       })
     }
   }

@@ -4,37 +4,38 @@ import Icon from '../../UI/icons/Icon';
 import ToolBox from '../ToolBox/ToolBox';
 import ColorPicker from '../ColorPicker/ColorPicker';
 
-import { rgbToHex } from '../../../helpers/utils';
+import { rgbToHex, isHexa } from '../../../helpers/utils';
 import './_toolbox-color.styl';
 
 const ColorToolbox: FunctionComponent = () => {
-  const defaultColor = '#FF4117';
-  const [color, setColor] = useState<string>('#FF4117');
+  const [color, setColor] = useState<string>('#FF4116');
+  const [defaultColor, setDefaultColor] = useState<string>(color);
+  const [colorInput, setColorInput] = useState<string>(color);
 
-  const checkHexa = (color: string) => {
-    const output = color.indexOf('#') >= 0 ? color : `#${color}`
-    setColor(output)
+  const checkHexa = () => {
+    const output = colorInput.indexOf('#') >= 0 ? colorInput : `#${colorInput}`
 
     if (!isHexa(output)) {
       setColor(defaultColor)
+      setColorInput(defaultColor)
+    } else {
+      setDefaultColor(output)
+      setColor(output)
     }
   }
 
-  const isHexa = (color: string) => {
-    return /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i.test(color)
-  }
-
   const onBlurInputColor = (e: React.FocusEvent<HTMLInputElement>) => {
-    checkHexa(color)
+    checkHexa()
   }
 
   const onChangeInputColor = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setColor(e.target.value)
+    setColorInput(e.target.value)
   }
 
   const onColorClb = (color: string) => {
     const hex = rgbToHex(color)
     setColor(hex ? hex : defaultColor)
+    setColorInput(hex ? hex : defaultColor)
   }
 
   return(
@@ -42,7 +43,7 @@ const ColorToolbox: FunctionComponent = () => {
       <Icon name="color" width={30} height={29} fill="#3514FF"></Icon>
       <div className="toolbox__body">
         <button className="toolbox__color" style={{backgroundColor: `${color}`}}></button>
-        <input type="text" value={color} className="toolbox__hexa" onChange={onChangeInputColor} onBlur={onBlurInputColor} />
+        <input type="text" value={colorInput} className="toolbox__hexa" onChange={onChangeInputColor} onBlur={onBlurInputColor} />
       </div>
       <ColorPicker color={color} onColorClb={onColorClb} />
     </ToolBox>

@@ -29,3 +29,11 @@ export interface IRoomJoined {
   from: IRoomJoin;
   to: IRoomJoin;
 }
+
+
+type ColorState = {
+  hex: string,
+  rgb: {r: number, g: number, b: number},
+  hsl: {h: number, s: number, l: number},
+  hsv: {h: number, s: number, v: number}
+}
