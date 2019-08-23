@@ -30,13 +30,9 @@ const ColorGradient: FunctionComponent<Props> = ({ color, saturated, onColorClb}
 
       setCtx(gradientRef.current.getContext('2d'));
       if (ctx) {
-        ctx.clearRect(0, 0, gradientSize.width, gradientSize.width);
-        ctx.fillStyle = hslToString(saturated.h, saturated.s, saturated.l);
-        ctx.fillRect(0, 0, gradientSize.width, gradientSize.width);
-
         const whiteGradient = ctx.createLinearGradient(0, 0, gradientSize.width, 0);
         whiteGradient.addColorStop(0, "#fff");
-        whiteGradient.addColorStop(1, "transparent");
+        whiteGradient.addColorStop(1, hslToString(saturated.h, saturated.s, saturated.l));
         ctx.fillStyle = whiteGradient;
         ctx.fillRect(0, 0, gradientSize.width, gradientSize.width);
 
@@ -60,10 +56,9 @@ const ColorGradient: FunctionComponent<Props> = ({ color, saturated, onColorClb}
   }
 
   const moveCursor = () => {
-    console.log(color.hsv)
     setCursorPos({
       x: ( color.hsv.s / 100 ) * gradientSize.width,
-      y: ( color.hsv.v / 100 ) * gradientSize.width
+      y: gradientSize.width - (( color.hsv.v / 100 ) * gradientSize.width)
     })
   }
 

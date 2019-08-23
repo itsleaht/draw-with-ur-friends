@@ -171,9 +171,9 @@ export const rgbToHsv = (r: number, g: number, b: number) => {
   }
 
   return {
-    h: h * 360,
-    s: s * 100,
-    v: v * 100
+    h: Math.round(h * 360),
+    s: Math.round(s * 100),
+    v: Math.round(v * 100)
   };
 }
 
