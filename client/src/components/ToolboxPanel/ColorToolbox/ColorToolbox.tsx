@@ -1,5 +1,7 @@
 import React, { FunctionComponent, useState } from 'react'
 
+import { useDispatch } from 'react-redux'
+
 import Icon from '../../UI/icons/Icon'
 import ToolBox from '../ToolBox/ToolBox'
 import ColorPicker from '../ColorPicker/ColorPicker'
@@ -7,6 +9,7 @@ import ColorPicker from '../ColorPicker/ColorPicker'
 import { rgbToHex, isHexa } from '../../../helpers/utils'
 
 import './_toolbox-color.styl'
+import { ActionTypes } from '../../../store/actionTypes'
 
 const ColorToolbox: FunctionComponent = () => {
 
@@ -14,6 +17,7 @@ const ColorToolbox: FunctionComponent = () => {
   const [defaultColor, setDefaultColor] = useState<string>(color)
   const [colorInput, setColorInput] = useState<string>(color)
   const [isColorPickerOpen, setIsColorPickerOpen] = useState<boolean>(false)
+  const dispatch = useDispatch()
 
   const checkHexa = () => {
     const output = colorInput.indexOf('#') >= 0 ? colorInput : `#${colorInput}`
@@ -49,6 +53,7 @@ const ColorToolbox: FunctionComponent = () => {
 
   const handleColorPickerOpening = () => {
     if (isColorPickerOpen) {
+      dispatch({type: ActionTypes.SetColor, payload: { hex: color }})
       setIsColorPickerOpen(false)
     } else {
       setIsColorPickerOpen(true)
@@ -68,7 +73,6 @@ const ColorToolbox: FunctionComponent = () => {
       </div>
       <ColorPicker color={color} onColorClb={onColorClb} isOpen={isColorPickerOpen} onCloseClb={handleColorPickerOpening} />
     </ToolBox>
-
   )
 }
 

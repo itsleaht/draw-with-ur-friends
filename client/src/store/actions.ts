@@ -1,4 +1,4 @@
-import { setUserAction, User, setRoomAction, setRoomsAction, Pen, setPenAction } from './types';
+import { setUserAction, User, setRoomAction, setRoomsAction, Pen, setPenAction, setColorAction, Color } from './types';
 import { IRoom } from './../@types'
 
 import { ActionTypes } from './actionTypes';
@@ -28,5 +28,12 @@ export function setPen(pen: Pen): setPenAction {
   return {
     type: ActionTypes.SetPen,
     payload: pen
+  }
+}
+
+export function setColor(color: Color): setColorAction {
+  return {
+    type: ActionTypes.SetColor,
+    payload: color
   }
 }

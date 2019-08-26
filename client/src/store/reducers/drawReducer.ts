@@ -3,7 +3,8 @@ import { ActionTypes } from '../actionTypes';
 import { DrawState } from '../types';
 
 const initialState: DrawState = {
-  pen: {index: ''}
+  pen: { index: '' },
+  color: {hex: '' }
 };
 
 
@@ -14,7 +15,11 @@ const drawReducer = (state = initialState, action: any) => {
         ...state,
         pen: {index: action.payload}
       }
-
+    case ActionTypes.SetColor:
+      return {
+        ...state,
+        color: {hex: action.payload}
+      }
     default:
       return state;
   }

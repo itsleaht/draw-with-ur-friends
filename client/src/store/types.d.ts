@@ -6,9 +6,12 @@ export interface User {
   name?: string
 }
 
-
 export interface Pen {
   index: string
+}
+
+export interface Color {
+  hex: string
 }
 
 export interface setUserAction {
@@ -26,10 +29,14 @@ export interface setRoomsAction {
   payload: IRoom[]
 }
 
-
 export interface setPenAction {
   type: typeof ActionTypes.SetPen
   payload: Pen
+}
+
+export interface setColorAction {
+  type: typeof ActionTypes.SetColor
+  payload: Color
 }
 
 export interface AppState {
@@ -39,7 +46,8 @@ export interface AppState {
 }
 
 export interface DrawState {
-  pen: Pen
+  pen: Pen,
+  color: Color
 }
 
 export interface State {
