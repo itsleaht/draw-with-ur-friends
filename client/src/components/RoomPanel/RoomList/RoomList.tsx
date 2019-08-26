@@ -1,8 +1,8 @@
-import React, { FunctionComponent } from 'react';
-import { IRoom } from '../../../@types';
+import React, { FunctionComponent } from 'react'
+import { IRoom } from '../../../@types'
 
-import './_list-rooms.styl';
-import RoomCard from '../RoomCard/RoomCard';
+import './_list-rooms.styl'
+import RoomCard from '../RoomCard/RoomCard'
 
 type Props = {
   userId: string,
@@ -21,11 +21,11 @@ const RoomList: FunctionComponent<Props> = ({userId, rooms, roomId, onClickRoomC
           <li key={index} className={`list__item`}>
             <RoomCard room={room} isActive={isActive} onClickClb={() =>  onClickRoomClb(room.id)} userId={isActive ? userId : ''} />
           </li>
-          );
+          )
       })}
     </ul>
   )
 }
 
 
-export default RoomList;
+export default RoomList
