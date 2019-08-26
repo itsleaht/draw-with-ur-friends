@@ -3,9 +3,10 @@ import RoomList from './RoomList/RoomList'
 import Icon from '../UI/icons/Icon'
 import ButtonPrimary from '../UI/buttons/ButtonPrimary/ButtonPrimary'
 
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import useSocket from '../../hooks/useSocket'
 import { Events } from '../../config/events'
+import { ActionTypes } from '../../store/actionTypes'
 
 import { IRoom, IRoomJoin } from '../../@types'
 import { State, User } from '../../store/types'
@@ -18,6 +19,7 @@ const RoomPanel: FunctionComponent = () => {
   const room = useSelector<State, IRoom>(state => state.app.room)
   const rooms = useSelector<State, IRoom[]>(state => state.app.rooms)
   const user = useSelector<State, User>(state => state.app.user)
+  const dispatch = useDispatch()
 
   const defaultRoomName = 'New room'
 
@@ -44,6 +46,7 @@ const RoomPanel: FunctionComponent = () => {
 
   const onClickBtnClb = () => {
     setIsMinified(!isMinified)
+    dispatch({type: ActionTypes.SetIsRoomPanelOpen, payload: isMinified})
   }
 
   const onFocusRoomName = (e: React.FocusEvent<HTMLInputElement>) => {

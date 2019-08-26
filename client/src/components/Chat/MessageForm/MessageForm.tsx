@@ -1,53 +1,53 @@
-import React, { FunctionComponent, useState, createRef } from 'react';
+import React, { FunctionComponent, useState, createRef } from 'react'
 
-import { useSelector } from 'react-redux';
-import useSocket from '../../../hooks/useSocket';
+import { useSelector } from 'react-redux'
+import useSocket from '../../../hooks/useSocket'
 
-import { State } from '../../../store/types';
+import { State } from '../../../store/types'
 
-import { addLog } from '../../../helpers/utils';
+import { addLog } from '../../../helpers/utils'
 
-import { Events } from '../../../config/events';
+import { Events } from '../../../config/events'
 
-import './_message-form.styl';
+import './_message-form.styl'
 
 type Props = {
   userId: string
 }
 
 const MessageForm: FunctionComponent<Props>  = ({ userId }) => {
-  const [content, setContent] = useState<string>('');
-  const roomId = useSelector<State, string>(state => state.app.room.id);
-  const socket = useSocket();
+  const [content, setContent] = useState<string>('')
+  const roomId = useSelector<State, string>(state => state.app.room.id)
+  const socket = useSocket()
 
-  const formMessage = createRef<HTMLFormElement>();
+  const formMessage = createRef<HTMLFormElement>()
 
   const onFormSubmit = () => {
-    addLog('on', 'form:submit', roomId);
+    addLog('on', 'form:submit', roomId)
     if (content.length > 0) {
-      socket!.emit(Events.ChatUserMessage, { content, userId, roomId });
+      socket!.emit(Events.ChatUserMessage, { content, userId, roomId })
     }
-    setContent('');
+    setContent('')
   }
 
   const onTextareaKeyPress = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if ((e.keyCode || e.which) === 13) {
-      e.preventDefault();
+      e.preventDefault()
       if (formMessage && formMessage.current) {
-        onFormSubmit();
+        onFormSubmit()
       }
-      return false;
+      return false
     }
   }
 
   const onInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const message = e.target.value;
-    setContent(message);
+    const message = e.target.value
+    setContent(message)
   }
 
   const onClickButton = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    onFormSubmit();
+    e.preventDefault()
+    onFormSubmit()
   }
 
   return (
@@ -57,7 +57,7 @@ const MessageForm: FunctionComponent<Props>  = ({ userId }) => {
       </div>
       <button type="submit" className="form__submit" onClick={onClickButton}>Send</button>
     </form>
-  );
+  )
 }
 
-export default MessageForm;
+export default MessageForm

@@ -1,7 +1,7 @@
-import { setUserAction, User, setRoomAction, setRoomsAction, Brush, setBrushAction, setColorAction, Color } from './types';
+import { setUserAction, User, setRoomAction, setRoomsAction, Brush, setBrushAction, setColorAction, Color, SetIsRoomPanelOpenAction } from './types'
 import { IRoom } from './../@types'
 
-import { ActionTypes } from './actionTypes';
+import { ActionTypes } from './actionTypes'
 
 export function setUser(user: User): setUserAction {
   return {
@@ -21,6 +21,13 @@ export function setRooms(rooms: IRoom[]): setRoomsAction {
   return {
     type: ActionTypes.SetRooms,
     payload: rooms
+  }
+}
+
+export function SetIsRoomPanelOpen(isRoomPanelOpen: boolean): SetIsRoomPanelOpenAction {
+  return {
+    type: ActionTypes.SetIsRoomPanelOpen,
+    payload: isRoomPanelOpen
   }
 }
 

@@ -3,7 +3,7 @@
 .chat
   position absolute
   bottom 4rem
-  right 34rem
+  right 4rem
   height 42rem
   width 31rem
   transition height .3s, width .3s, transform .3s
@@ -99,6 +99,13 @@
       transition .2s opacity .3s
 
   //States
+  &.is-translated
+    transform translateX(- ($aside-size))
+
+  &.is-translated
+    &.is-minified
+      transform translate(-($aside-size - 1.5rem), 2rem)
+
   &.is-minified
     $minified-height = 4.2rem
     $minified-width = 8rem

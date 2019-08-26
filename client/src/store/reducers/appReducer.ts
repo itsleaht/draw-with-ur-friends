@@ -1,12 +1,13 @@
-import { ActionTypes } from '../actionTypes';
+import { ActionTypes } from '../actionTypes'
 
-import { AppState } from '../types';
+import { AppState } from '../types'
 
 const initialState: AppState = {
   user: {id: '',},
   room: {id: '', name: '', users: []},
-  rooms: []
-};
+  rooms: [],
+  isRoomPanelOpen: false
+}
 
 
 const appReducer = (state = initialState, action: any) => {
@@ -38,9 +39,15 @@ const appReducer = (state = initialState, action: any) => {
           rooms: action.payload.rooms
         }
 
+      case ActionTypes.SetIsRoomPanelOpen:
+        return {
+          ...state,
+          isRoomPanelOpen: action.payload
+        }
+
     default:
-      return state;
+      return state
   }
 }
 
-export default appReducer;
+export default appReducer

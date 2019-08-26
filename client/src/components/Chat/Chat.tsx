@@ -1,50 +1,51 @@
 
-import React, { FunctionComponent, useState } from 'react';
-import MessageList from './MessageList/MessageList';
-import MessageForm from './MessageForm/MessageForm';
-import ChatNotification from './ChatNotification/ChatNotification';
-import Icon from '../UI/icons/Icon';
+import React, { FunctionComponent, useState } from 'react'
+import MessageList from './MessageList/MessageList'
+import MessageForm from './MessageForm/MessageForm'
+import ChatNotification from './ChatNotification/ChatNotification'
+import Icon from '../UI/icons/Icon'
 
-import { useSelector } from 'react-redux';
-import useSocketOn from '../../hooks/useSocketOn';
+import { useSelector } from 'react-redux'
+import useSocketOn from '../../hooks/useSocketOn'
 
-import { State, User } from '../../store/types';
-import { IRoom } from './../../@types';
+import { State, User } from '../../store/types'
+import { IRoom } from './../../@types'
+import { Events } from '../../config/events'
 
-import './_chat.styl';
-import { Events } from '../../config/events';
+import './_chat.styl'
 
 const Chat: FunctionComponent = () => {
-  const [isMinified, setisMinified] = useState<boolean>(true);
-  const [isNotified, setisNotified] = useState<boolean>(false);
-  const [counterNotification, setCounterNotification] = useState<number>(0);
+  const [isMinified, setisMinified] = useState<boolean>(true)
+  const [isNotified, setisNotified] = useState<boolean>(false)
+  const [counterNotification, setCounterNotification] = useState<number>(0)
 
-  const maxCounterNotification = 99;
+  const maxCounterNotification = 99
 
-  const room = useSelector<State, IRoom>(state => state.app.room);
-  const user = useSelector<State, User>(state => state.app.user);
+  const room = useSelector<State, IRoom>(state => state.app.room)
+  const user = useSelector<State, User>(state => state.app.user)
+  const isRoomPanelOpened = useSelector<State, boolean>(state => state.app.isRoomPanelOpen)
 
   const onClickToggle = () => {
-    setisMinified(!isMinified);
+    setisMinified(!isMinified)
 
     const timeout = setTimeout(() => {
-      clearTimeout(timeout);
-      setCounterNotification(0);
-      setisNotified(false);
+      clearTimeout(timeout)
+      setCounterNotification(0)
+      setisNotified(false)
     }, 350)
   }
 
   useSocketOn(Events.ChatUserMessage, () => {
     if (isMinified && counterNotification <= maxCounterNotification) {
-      setCounterNotification(counterNotification + 1);
+      setCounterNotification(counterNotification + 1)
       if (!isNotified) {
-        setisNotified(true);
+        setisNotified(true)
       }
     }
-  });
+  })
 
   return (
-    <div className={`chat ${isMinified ? 'is-minified' : ''} ${isNotified ? 'is-notified' : ''}`}>
+    <div className={`chat ${isMinified ? 'is-minified' : ''} ${isNotified ? 'is-notified' : ''} ${isRoomPanelOpened ? 'is-translated' : ''}`}>
       {user.id.length > 0 &&
         <div className="chat__inner">
           <div className="chat__header">
@@ -72,7 +73,7 @@ const Chat: FunctionComponent = () => {
         </div>
       }
     </div>
-  );
+  )
 }
 
-export default Chat;
+export default Chat

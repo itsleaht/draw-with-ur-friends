@@ -39,10 +39,16 @@ export interface setColorAction {
   payload: Color
 }
 
+export interface SetIsRoomPanelOpenAction {
+  type: typeof ActionTypes.SetIsRoomPanelOpen,
+  payload: boolean
+}
+
 export interface AppState {
   user: User,
   room: IRoom,
-  rooms: IRoom[]
+  rooms: IRoom[],
+  isRoomPanelOpen: boolean
 }
 
 export interface DrawState {

@@ -1,8 +1,8 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent } from 'react'
 
-import { IMessage } from '../../../@types';
+import { IMessage } from '../../../@types'
 
-import './_message.styl';
+import './_message.styl'
 
 type Props = {
   message: IMessage,
@@ -11,8 +11,8 @@ type Props = {
 }
 
 const Message: FunctionComponent<Props>  = ({ message, isMine }) => {
-  const dateTimeCreation = new Date(message.createdAt);
-  const time = `${dateTimeCreation.getHours()}:${dateTimeCreation.getMinutes()}`;
+  const dateTimeCreation = new Date(message.createdAt)
+  const time = `${dateTimeCreation.getHours()}:${dateTimeCreation.getMinutes()}`
 
   return (
     <div className={`message ${isMine ? 'is-mine' : ''}`}>
@@ -21,7 +21,7 @@ const Message: FunctionComponent<Props>  = ({ message, isMine }) => {
       </div>
       <span className="message__bottom">{message.from.name} at {time}</span>
     </div>
-  );
+  )
 }
 
-export default Message;
+export default Message
