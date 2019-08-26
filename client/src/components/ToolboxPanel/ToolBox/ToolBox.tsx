@@ -1,6 +1,6 @@
-import React, { FunctionComponent, useEffect } from 'react';
+import React, { FunctionComponent } from 'react'
 
-import './_toolbox.styl';
+import './_toolbox.styl'
 
 type Props = {
   type: string
@@ -17,4 +17,4 @@ const ToolBox: FunctionComponent<Props> = ({children, type}) => {
   )
 }
 
-export default ToolBox;
+export default ToolBox

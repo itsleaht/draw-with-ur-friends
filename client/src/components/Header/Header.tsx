@@ -1,7 +1,7 @@
-import React, { FunctionComponent, useState, useEffect } from 'react';
-import ToolboxPanel from '../ToolboxPanel/ToolboxPanel';
+import React, { FunctionComponent } from 'react'
+import ToolboxPanel from '../ToolboxPanel/ToolboxPanel'
 
-import './_header.styl';
+import './_header.styl'
 
 const Header: FunctionComponent = () => {
   return (
@@ -18,7 +18,7 @@ const Header: FunctionComponent = () => {
         <div className="header__right"></div>
       </div>
     </header>
-  );
+  )
 }
 
-export default Header;
+export default Header

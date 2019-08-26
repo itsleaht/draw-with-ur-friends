@@ -1,14 +1,13 @@
-import React, { FunctionComponent, useState } from 'react';
+import React, { FunctionComponent, useState } from 'react'
 
-import Message from '../Message/Message';
+import Message from '../Message/Message'
 
-import useSocketOn from '../../../hooks/useSocketOn';
+import useSocketOn from '../../../hooks/useSocketOn'
 
-import { IMessage } from '../../../@types';
-
+import { IMessage } from '../../../@types'
+import { Events } from '../../../config/events'
 
 import './_message-list.styl'
-import { Events } from '../../../config/events';
 
 type Props = {
   userId: string
@@ -16,29 +15,29 @@ type Props = {
 
 const MessageList: FunctionComponent<Props> = ({userId}) => {
 
-  const [messages, setMessages] = useState<IMessage[]>([]);
+  const [messages, setMessages] = useState<IMessage[]>([])
 
   const addNewMessage = (newMessage: IMessage) => {
-    const messageList: IMessage[] = [...messages, newMessage];
-    setMessages(messageList);
+    const messageList: IMessage[] = [...messages, newMessage]
+    setMessages(messageList)
   }
 
   useSocketOn(Events.ChatUserMessage, newMessage => {
-    addNewMessage(newMessage);
-  });
+    addNewMessage(newMessage)
+  })
 
   useSocketOn(Events.RoomJoined, () => {
-    setMessages([]);
-  });
+    setMessages([])
+  })
 
   return (
     <ul className="list list--message">
       { messages.map((message, index) => {
-        const isMine = message.from && message.from.id ? message.from.id === userId : false;
-        return (<li key={index} className={`list__item ${isMine ? 'is-mine' : ''}`}><Message message={message} isMine={message.from.id == userId} userId={userId} /></li>);
+        const isMine = message.from && message.from.id ? message.from.id === userId : false
+        return (<li key={index} className={`list__item ${isMine ? 'is-mine' : ''}`}><Message message={message} isMine={message.from.id === userId} userId={userId} /></li>)
       })}
     </ul>
   )
 }
 
-export default MessageList;
+export default MessageList

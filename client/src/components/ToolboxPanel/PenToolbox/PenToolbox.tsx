@@ -1,35 +1,36 @@
-import React, { FunctionComponent, useEffect } from 'react';
+import React, { FunctionComponent, useEffect } from 'react'
 
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux'
 
-import { State, Pen } from '../../../store/types';
+import { State, Pen } from '../../../store/types'
 
-import { ActionTypes } from '../../../store/actionTypes';
+import { ActionTypes } from '../../../store/actionTypes'
 
-import './_toolbox-pen.styl';
-import Icon from '../../UI/icons/Icon';
-import ToolBox from '../ToolBox/ToolBox';
+import Icon from '../../UI/icons/Icon'
+import ToolBox from '../ToolBox/ToolBox'
+
+import './_toolbox-pen.styl'
 
 const PenToolbox: FunctionComponent = () => {
-  const activePen = useSelector<State, Pen>(state => state.draw.pen);
-  const dispatch = useDispatch();
+  const activePen = useSelector<State, Pen>(state => state.draw.pen)
+  const dispatch = useDispatch()
 
-  const pens = [ 'xs' ,'sm', 'md', 'lg'];
+  const pens = [ 'xs' ,'sm', 'md', 'lg']
 
   const onClickBtnPen = (e: React.MouseEvent<HTMLButtonElement>) => {
-    const currentItem = e.currentTarget.getAttribute('data-index');
+    const currentItem = e.currentTarget.getAttribute('data-index')
     if (currentItem) {
-      dispatchPenAction(currentItem);
+      dispatchPenAction(currentItem)
     }
   }
 
   const dispatchPenAction = (pen: String) => {
-    dispatch({type: ActionTypes.SetPen, payload: pen});
+    dispatch({type: ActionTypes.SetPen, payload: pen})
   }
 
   useEffect(() => {
-    dispatchPenAction(pens[0]);
-  }, []);
+    dispatchPenAction(pens[0])
+  }, [])
 
   return(
     <ToolBox type="pen">
@@ -47,4 +48,4 @@ const PenToolbox: FunctionComponent = () => {
   )
 }
 
-export default PenToolbox;
+export default PenToolbox

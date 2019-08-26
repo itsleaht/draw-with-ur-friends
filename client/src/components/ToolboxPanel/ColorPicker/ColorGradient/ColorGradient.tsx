@@ -17,8 +17,6 @@ const ColorGradient: FunctionComponent<Props> = ({ color, saturated, onColorClb}
     width: gradientWrapperRef.current ? gradientWrapperRef.current.clientWidth : 0
   }
 
-  const maxColorRadius = 360
-
   const [cursorPos, setCursorPos] = useState<{x: number, y: number}>({x: 0, y:0})
   const [isMouseDown, setIsMouseDown] = useState<boolean>(false)
   const [ctx, setCtx] = useState<any>(null)
