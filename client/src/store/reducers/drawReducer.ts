@@ -1,19 +1,19 @@
-import { ActionTypes } from '../actionTypes';
+import { ActionTypes } from '../actionTypes'
 
 import { DrawState } from '../types';
 
 const initialState: DrawState = {
-  pen: { index: '' },
+  brush: { index: '' },
   color: {hex: '' }
 };
 
 
 const drawReducer = (state = initialState, action: any) => {
   switch (action.type) {
-    case ActionTypes.SetPen:
+    case ActionTypes.SetBrush:
       return {
         ...state,
-        pen: {index: action.payload}
+        brush: {index: action.payload}
       }
     case ActionTypes.SetColor:
       return {
@@ -21,8 +21,8 @@ const drawReducer = (state = initialState, action: any) => {
         color: {hex: action.payload}
       }
     default:
-      return state;
+      return state
   }
 }
 
-export default drawReducer;
+export default drawReducer
