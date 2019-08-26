@@ -5,11 +5,21 @@
   bottom 0
   right 0
   width 25rem
-  // height 34rem
-  transform translateY(100%)
+  transform translateY(90%)
   background $c-white
   border-radius 1rem
   box-shadow .2rem .2rem .6rem  rgba(128, 128, 128, 0.1)
+  pointer-events none
+  opacity 0
+  transition opacity $t-duration, transform $t-duration
+
+  &.is-open
+    opacity 1
+    transform translateY(100%)
+    pointer-events all
+
+    .color__overlay
+      pointer-events all
 
   .color__overlay
     position fixed
@@ -22,20 +32,6 @@
     pointer-events none
 
   .color__inner
+    position relative
     padding 2rem
-
-  .list--swatches
-    display flex
-    flex-wrap wrap
-    margin-top 2rem
-
-    .list__item
-      display inline-block
-      width 2rem
-      height 2rem
-      margin-right 1rem
-      margin-bottom 1rem
-      border-radius .2rem
-      background $c-white
-      // box-shadow .2rem .2rem .6rem  rgba(128, 128, 128, 0.1)
-      border 1px solid $c-grey-medium
+    z-index 2
