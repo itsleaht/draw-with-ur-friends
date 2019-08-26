@@ -36,7 +36,9 @@ const App: FunctionComponent = () => {
       <SocketProvider url={process.env.REACT_APP_SOCKET_API_URL ? process.env.REACT_APP_SOCKET_API_URL : ''}>
         <div className="App">
             <Header />
-            <DrawCanvas />
+            <main className="main">
+              <DrawCanvas />
+            </main>
           <div className="aside">
             {showDrawComponents &&
               <RoomPanel />
