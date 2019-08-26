@@ -1,8 +1,8 @@
-import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
+import React, { FunctionComponent, useEffect, useRef, useState } from 'react'
 
-import './_color-gradient.styl';
-import { hslToString, rgbToString } from '../../../../helpers/utils';
-import { ColorState } from '../../../../@types';
+import './_color-gradient.styl'
+import { hslToString, rgbToString } from '../../../../helpers/utils'
+import { ColorState } from '../../../../@types'
 
 type Props = {
   color: ColorState,
@@ -25,30 +25,30 @@ const ColorGradient: FunctionComponent<Props> = ({ color, saturated, onColorClb}
 
   const createGradient = () => {
     if (gradientRef && gradientRef.current) {
-      gradientRef.current.height = gradientSize.width;
-      gradientRef.current.width = gradientSize.width;
+      gradientRef.current.height = gradientSize.width
+      gradientRef.current.width = gradientSize.width
 
-      setCtx(gradientRef.current.getContext('2d'));
+      setCtx(gradientRef.current.getContext('2d'))
       if (ctx) {
-        const whiteGradient = ctx.createLinearGradient(0, 0, gradientSize.width, 0);
-        whiteGradient.addColorStop(0, "#fff");
-        whiteGradient.addColorStop(1, hslToString(saturated.h, saturated.s, saturated.l));
-        ctx.fillStyle = whiteGradient;
-        ctx.fillRect(0, 0, gradientSize.width, gradientSize.width);
+        const whiteGradient = ctx.createLinearGradient(0, 0, gradientSize.width, 0)
+        whiteGradient.addColorStop(0, "#fff")
+        whiteGradient.addColorStop(1, hslToString(saturated.h, saturated.s, saturated.l))
+        ctx.fillStyle = whiteGradient
+        ctx.fillRect(0, 0, gradientSize.width, gradientSize.width)
 
-        const blackGradient = ctx.createLinearGradient(0, 0, 0, gradientSize.width);
-        blackGradient.addColorStop(0, "transparent");
-        blackGradient.addColorStop(1, "#000");
-        ctx.fillStyle = blackGradient;
-        ctx.fillRect(0, 0, gradientSize.width, gradientSize.width);
+        const blackGradient = ctx.createLinearGradient(0, 0, 0, gradientSize.width)
+        blackGradient.addColorStop(0, "transparent")
+        blackGradient.addColorStop(1, "#000")
+        ctx.fillStyle = blackGradient
+        ctx.fillRect(0, 0, gradientSize.width, gradientSize.width)
       }
     }
   }
 
   const getColor = (e: React.MouseEvent<HTMLDivElement>) => {
     if (gradientWrapperRef.current) {
-      const x = Math.round(e.nativeEvent.offsetX);
-      const y = Math.round(e.nativeEvent.offsetY);
+      const x = Math.round(e.nativeEvent.offsetX)
+      const y = Math.round(e.nativeEvent.offsetY)
 
       const selectedColor = ctx.getImageData(x, y, 1, 1).data
       onColorClb(rgbToString(selectedColor[0], selectedColor[1], selectedColor[2]))

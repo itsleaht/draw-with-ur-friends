@@ -1,8 +1,8 @@
-import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
+import React, { FunctionComponent, useEffect, useRef, useState } from 'react'
 
-import { rgbToHsl } from '../../../../helpers/utils';
+import { rgbToHsl } from '../../../../helpers/utils'
 
-import './_color-spectrum.styl';
+import './_color-spectrum.styl'
 
 type Props = {
   saturated: { h: number, s:number, l: number },
@@ -34,19 +34,19 @@ const ColorSpectrum: FunctionComponent<Props> = ({ saturated, onSaturatedClb}) =
     if (spectrumRef && spectrumRef.current) {
       spectrumRef.current.width = spectrum.width
       spectrumRef.current.height = spectrum.height
-      const ctx = spectrumRef.current.getContext('2d');
-      const hueGradient = ctx!.createLinearGradient(0, 0, spectrum.width, 0);
+      const ctx = spectrumRef.current.getContext('2d')
+      const hueGradient = ctx!.createLinearGradient(0, 0, spectrum.width, 0)
 
       setCtx(ctx)
 
-      let k = 0;
+      let k = 0
       for (let i = 0; i <= maxColorRadius; i += newColorRadius) {
-        hueGradient.addColorStop(spectrum.offsets[k], `hsl(${i}, ${maxLight}%, ${maxSaturation}%)`);
+        hueGradient.addColorStop(spectrum.offsets[k], `hsl(${i}, ${maxLight}%, ${maxSaturation}%)`)
         k++
       }
 
-      ctx!.fillStyle = hueGradient;
-      ctx!.fillRect(0, 0, spectrum.width, spectrum.height);
+      ctx!.fillStyle = hueGradient
+      ctx!.fillRect(0, 0, spectrum.width, spectrum.height)
     }
   }
 
@@ -70,8 +70,8 @@ const ColorSpectrum: FunctionComponent<Props> = ({ saturated, onSaturatedClb}) =
 
   const getSaturated = (e: React.MouseEvent<HTMLDivElement>) => {
     if (spectrumWrapperRef.current) {
-      const x = Math.round(e.nativeEvent.offsetX);
-      const selectedSaturated = ctx.getImageData(x, (spectrum.height / 2), 1, 1).data;
+      const x = Math.round(e.nativeEvent.offsetX)
+      const selectedSaturated = ctx.getImageData(x, (spectrum.height / 2), 1, 1).data
 
       onSaturated(rgbToHsl(selectedSaturated[0], selectedSaturated[1], selectedSaturated[2]))
     }

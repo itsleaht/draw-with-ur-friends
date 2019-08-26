@@ -30,10 +30,13 @@ export interface IRoomJoined {
   to: IRoomJoin;
 }
 
+export interface IRGB {
+  rgb: {r: number, g: number, b: number}
+}
 
 type ColorState = {
   hex: string,
-  rgb: {r: number, g: number, b: number},
+  rgb: IRGB.rgb,
   hsl: {h: number, s: number, l: number},
   hsv: {h: number, s: number, v: number}
 }
