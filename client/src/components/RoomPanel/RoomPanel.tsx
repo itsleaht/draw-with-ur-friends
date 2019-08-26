@@ -1,43 +1,44 @@
-import React, { FunctionComponent, useState } from 'react';
-import RoomList from './RoomList/RoomList';
-import Icon from '../UI/icons/Icon';
-import ButtonPrimary from '../UI/buttons/ButtonPrimary/ButtonPrimary';
+import React, { FunctionComponent, useState } from 'react'
+import RoomList from './RoomList/RoomList'
+import Icon from '../UI/icons/Icon'
+import ButtonPrimary from '../UI/buttons/ButtonPrimary/ButtonPrimary'
 
-import { useSelector } from 'react-redux';
-import useSocket from '../../hooks/useSocket';
-import { Events } from '../../config/events';
+import { useSelector } from 'react-redux'
+import useSocket from '../../hooks/useSocket'
+import { Events } from '../../config/events'
 
-import { IRoom, IRoomJoin } from '../../@types';
-import { State, User } from '../../store/types';
-import './_room-panel.styl';
-import DotNumber from '../UI/misc/DotNumber/DotNumber';
+import { IRoom, IRoomJoin } from '../../@types'
+import { State, User } from '../../store/types'
+import DotNumber from '../UI/misc/DotNumber/DotNumber'
+
+import './_room-panel.styl'
 
 const RoomPanel: FunctionComponent = () => {
-  const socket = useSocket();
+  const socket = useSocket()
   const room = useSelector<State, IRoom>(state => state.app.room)
   const rooms = useSelector<State, IRoom[]>(state => state.app.rooms)
   const user = useSelector<State, User>(state => state.app.user)
 
-  const defaultRoomName = 'New room';
+  const defaultRoomName = 'New room'
 
-  const [isMinified, setIsMinified] = useState<Boolean>(true);
-  const [roomName, setRoomName] = useState<string>(defaultRoomName);
-  const [isFocusing, setIsFocusing] = useState<Boolean>(false);
+  const [isMinified, setIsMinified] = useState<Boolean>(true)
+  const [roomName, setRoomName] = useState<string>(defaultRoomName)
+  const [isFocusing, setIsFocusing] = useState<Boolean>(false)
 
   const onClickCreateRoom = () => {
-    joinRoom({id: '', name: roomName});
+    joinRoom({id: '', name: roomName})
   }
 
   const joinRoom = (to: IRoomJoin) => {
     socket!.emit(Events.RoomJoin, {
       from: {id: room.id},
       to: to
-    });
+    })
   }
 
   const onClickRoomClb = (roomId: string) => {
     if (roomId !== room.id) {
-      joinRoom({id: roomId});
+      joinRoom({id: roomId})
     }
   }
 
@@ -88,7 +89,6 @@ const RoomPanel: FunctionComponent = () => {
                   </div>
               </div>
           </div>
-            {/* <span className="tag">{rooms.length} artboards available</span> */}
           </div>
           <div className="panel__bottom">
             <RoomList userId={user.id}rooms={rooms} roomId={room.id} onClickRoomClb={onClickRoomClb} />
@@ -96,7 +96,7 @@ const RoomPanel: FunctionComponent = () => {
         </div>
       </div>
     </>
-  );
+  )
 }
 
-export default RoomPanel;
+export default RoomPanel
