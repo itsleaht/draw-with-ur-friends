@@ -1,18 +1,24 @@
-import React, { FunctionComponent, useEffect, useRef, useState } from 'react';
+import React, { FunctionComponent, useEffect, useRef, useState } from 'react'
 
-import './_color-picker.styl';
-import ColorGradient from './ColorGradient/ColorGradient';
-import ColorSpectrum from './ColorSpectrum/ColorSpectrum';
-import { hexToRgb, rgbToHsl, hslToRGB, rgbToString, rgbToHsv } from '../../../helpers/utils';
-import { ColorState } from '../../../@types';
+import ColorGradient from './ColorGradient/ColorGradient'
+import ColorSpectrum from './ColorSpectrum/ColorSpectrum'
+import ColorSwatches from './ColorSwatches/ColorSwatches'
+
+import { hexToRgb, rgbToHsl, hslToRGB, rgbToString, rgbToHsv } from '../../../helpers/utils'
+import { ColorState } from '../../../@types'
+
+import './_color-picker.styl'
 
 type Props = {
   color: string,
-  onColorClb: (color: string) => void
+  onColorClb: (color: string) => void,
+  onCloseClb: () => void
+  isOpen: boolean
 }
 
-const ColorPicker: FunctionComponent<Props> = ({ color, onColorClb}) => {
+const ColorPicker: FunctionComponent<Props> = ({ color, onColorClb, onCloseClb, isOpen}) => {
 
+  const colorPickerRef = useRef<HTMLDivElement>(null)
   const [saturated, setSaturated] = useState<{h: number, s: number, l: number}>({ h: 0, s: 100, l: 50 })
   const [currentColor, setCurrentColor] = useState<ColorState>({
     hex: color,
@@ -46,33 +52,40 @@ const ColorPicker: FunctionComponent<Props> = ({ color, onColorClb}) => {
     setSaturated({...saturated, h})
   }
 
+  const setColorPickerLeft = () => {
+    if (colorPickerRef && colorPickerRef.current) {
+      const root = document.documentElement
+      root.style.setProperty('--colorPickerLeft', `-${colorPickerRef.current.getBoundingClientRect().left}px`)
+    }
+  }
+
+  const onResize = () => {
+    setColorPickerLeft()
+  }
+
   useEffect(() => {
     setColor()
   }, [color])
 
   useEffect(() => {
+    window.addEventListener('resize', onResize)
     setColor()
+    return ( () => {
+      window.addEventListener('resize', onResize)
+    })
   }, [])
 
+  useEffect(() => {
+    setColorPickerLeft()
+  }, [colorPickerRef.current])
+
   return(
-    <div className="color--picker">
+    <div className={`color--picker ${isOpen ? 'is-open' : ''} `} ref={colorPickerRef}>
+      <div className={`color__overlay`} onClick={onCloseClb} />
       <div className="color__inner">
         <ColorGradient color={currentColor} saturated={saturated} onColorClb={onChildColorClb} />
         <ColorSpectrum saturated={saturated} onSaturatedClb={onChildSaturatedClb} />
-        <ul className="list--swatches">
-          <li className="list__item"></li>
-          <li className="list__item"></li>
-          <li className="list__item"></li>
-          <li className="list__item"></li>
-          <li className="list__item"></li>
-          <li className="list__item"></li>
-          <li className="list__item"></li>
-          <li className="list__item"></li>
-          <li className="list__item"></li>
-          <li className="list__item"></li>
-          <li className="list__item"></li>
-          <li className="list__item"></li>
-        </ul>
+        <ColorSwatches color={currentColor.rgb} mustSwatchColor={!isOpen} />
       </div>
     </div>
   )
