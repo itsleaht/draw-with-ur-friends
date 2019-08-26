@@ -1,9 +1,9 @@
-import React, { FunctionComponent } from 'react';
-import { IRoom } from '../../../@types';
-import DotNumber from '../../UI/misc/DotNumber/DotNumber';
+import React, { FunctionComponent } from 'react'
+import { IRoom } from '../../../@types'
+import BadgeNumber from '../../UI/misc/BadgeNumber/BadgeNumber'
+import ButtonPrimary from '../../UI/buttons/ButtonPrimary/ButtonPrimary'
 
-import './_card-room.styl';
-import ButtonPrimary from '../../UI/buttons/ButtonPrimary/ButtonPrimary';
+import './_card-room.styl'
 
 type Props = {
   userId: String,
@@ -20,7 +20,7 @@ const RoomCard: FunctionComponent<Props> = ({userId, room, isActive, onClickClb}
         <div className="card__top">
           <div className="card__top__left">
             <span className={`card__title ${isActive ? 'heading-3' : ''}`}>{room.name}</span>
-            <DotNumber number={room.users!.length} extraClasses="card__number" />
+            <BadgeNumber number={room.users!.length} extraClasses="card__number" />
           </div>
           { !isActive &&
             <div className="card__top__right">
@@ -47,4 +47,4 @@ const RoomCard: FunctionComponent<Props> = ({userId, room, isActive, onClickClb}
 }
 
 
-export default RoomCard;
+export default RoomCard

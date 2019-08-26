@@ -9,7 +9,7 @@ import { Events } from '../../config/events'
 
 import { IRoom, IRoomJoin } from '../../@types'
 import { State, User } from '../../store/types'
-import DotNumber from '../UI/misc/DotNumber/DotNumber'
+import BadgeNumber from '../UI/misc/BadgeNumber/BadgeNumber'
 
 import './_room-panel.styl'
 
@@ -74,7 +74,7 @@ const RoomPanel: FunctionComponent = () => {
         <div className="panel__inner">
           <div className="panel__top">
             <h1 className="panel__title heading-1">Artboards</h1>
-              <DotNumber number={rooms.length}/>
+              <BadgeNumber number={rooms.length}/>
           </div>
           <div className="panel__body">
             <div className={`card card--room-create`}>
