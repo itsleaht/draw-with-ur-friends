@@ -14,6 +14,15 @@ export interface Color {
   hex: string
 }
 
+export interface Point {
+  brush: Brush,
+  color: Color,
+  pos: {
+    x: number,
+    y: number
+  }
+}
+
 export interface setUserAction {
   type: typeof ActionTypes.SetUser
   payload: User

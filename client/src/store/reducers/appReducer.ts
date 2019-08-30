@@ -9,7 +9,6 @@ const initialState: AppState = {
   isRoomPanelOpen: false
 }
 
-
 const appReducer = (state = initialState, action: any) => {
   switch (action.type) {
 
@@ -33,17 +32,17 @@ const appReducer = (state = initialState, action: any) => {
         }
       }
 
-      case ActionTypes.SetRooms:
-        return {
-          ...state,
-          rooms: action.payload.rooms
-        }
+    case ActionTypes.SetRooms:
+      return {
+        ...state,
+        rooms: action.payload.rooms
+      }
 
-      case ActionTypes.SetIsRoomPanelOpen:
-        return {
-          ...state,
-          isRoomPanelOpen: action.payload
-        }
+    case ActionTypes.SetIsRoomPanelOpen:
+      return {
+        ...state,
+        isRoomPanelOpen: action.payload
+      }
 
     default:
       return state

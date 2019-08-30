@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react'
+import React, { FunctionComponent, useState, useEffect } from 'react'
 
 import { useDispatch } from 'react-redux'
 
@@ -53,7 +53,7 @@ const ColorToolbox: FunctionComponent = () => {
 
   const handleColorPickerOpening = () => {
     if (isColorPickerOpen) {
-      dispatch({type: ActionTypes.SetColor, payload: { hex: color }})
+      storeColor()
       setIsColorPickerOpen(false)
     } else {
       setIsColorPickerOpen(true)
@@ -63,6 +63,14 @@ const ColorToolbox: FunctionComponent = () => {
   const onClickColorButton = () => {
     handleColorPickerOpening()
   }
+
+  const storeColor = () => {
+    dispatch({type: ActionTypes.SetColor, payload: color })
+  }
+
+  useEffect(() => {
+    storeColor()
+  }, [])
 
   return(
     <ToolBox type="color">
