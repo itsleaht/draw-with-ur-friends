@@ -3,7 +3,6 @@ import React, { FunctionComponent, useEffect, useRef, useState } from 'react'
 import './_color-gradient.styl'
 import { hslToString, rgbToString } from '../../../../helpers/utils'
 import { ColorState } from '../../../../@types'
-import { number } from 'prop-types';
 
 type Props = {
   color: ColorState,
@@ -87,7 +86,7 @@ const ColorGradient: FunctionComponent<Props> = ({ color, saturated, onColorClb,
   }
 
   const onTransitionEnd = () => {
-    if (gradientRef && gradientRef.current) {
+    if (gradientRef && gradientRef.current && isOpen) {
       const bounding = gradientRef.current.getBoundingClientRect()
       setPositions({
         minX: bounding.left,
@@ -106,13 +105,10 @@ const ColorGradient: FunctionComponent<Props> = ({ color, saturated, onColorClb,
   useEffect(() => {
     if (isMouseDown)
       document.addEventListener('mousemove', onMouseMove)
-      document.addEventListener('mouseup', onMouseUp)
     return () => {
       document.removeEventListener('mousemove', onMouseMove)
-      document.removeEventListener('mouseup', onMouseUp)
     }
   }, [isMouseDown])
-
 
   useEffect(() => {
     if (gradientWrapperRef && gradientWrapperRef.current) {

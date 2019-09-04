@@ -6,16 +6,18 @@ import './_color-spectrum.styl'
 
 type Props = {
   saturated: { h: number, s:number, l: number },
+  isOpen: boolean,
   onSaturatedClb: (saturated: { h: number, s:number, l: number }) => void
 }
 
-const ColorSpectrum: FunctionComponent<Props> = ({ saturated, onSaturatedClb}) => {
+const ColorSpectrum: FunctionComponent<Props> = ({ saturated, onSaturatedClb, isOpen}) => {
 
   const spectrumRef = useRef<HTMLCanvasElement>(null)
   const spectrumWrapperRef = useRef<HTMLDivElement>(null)
 
   const [cursorPos, setCursorPos] = useState<{x: number}>({x: 0})
   const [isMouseDown, setIsMouseDown] = useState<boolean>(false)
+  const [positions, setPositions] = useState<{minX: number, minY: number, maxX: number, maxY: number}>({minX: 0, minY: 0, maxX: 0, maxY: 0})
 
   const [ctx, setCtx] = useState<any>(null)
 
@@ -62,18 +64,28 @@ const ColorSpectrum: FunctionComponent<Props> = ({ saturated, onSaturatedClb}) =
     setIsMouseDown(false)
   }
 
-  const onMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+  const onMouseMove = (e: MouseEvent) => {
     if (isMouseDown) {
       getSaturated(e)
     }
   }
 
-  const getSaturated = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (spectrumWrapperRef.current) {
-      const x = Math.round(e.nativeEvent.offsetX)
+  const getSaturated = (e: MouseEvent) => {
+    const cursorX =  e.pageX
+    const cursorY = e.pageY
+
+    if (spectrumWrapperRef.current &&
+      cursorX >= positions.minX &&
+      cursorX <= positions.maxX &&
+      cursorY >= positions.minY &&
+      cursorY <= positions.maxY
+      ) {
+      const x = Math.round(e.pageX - positions.minX)
       const selectedSaturated = ctx.getImageData(x, (spectrum.height / 2), 1, 1).data
 
       onSaturated(rgbToHsl(selectedSaturated[0], selectedSaturated[1], selectedSaturated[2]))
+    } else {
+      onMouseUp()
     }
   }
 
@@ -85,9 +97,26 @@ const ColorSpectrum: FunctionComponent<Props> = ({ saturated, onSaturatedClb}) =
     }
   }
 
+  const setSpectrumPositions = () => {
+    if (spectrumRef && spectrumRef.current && isOpen) {
+      const bounding = spectrumRef.current.getBoundingClientRect()
+      setPositions({
+        minX: bounding.left,
+        minY: bounding.top,
+        maxX: bounding.right,
+        maxY: bounding.bottom
+      })
+    }
+  }
+
+  const onTransitionEnd = () => {
+    setSpectrumPositions()
+  }
+
   useEffect(() => {
     if (spectrumRef && spectrumRef.current) {
       createSpectrum()
+      setSpectrumPositions()
       moveCursor()
     }
   }, [spectrumRef, spectrum.width])
@@ -96,9 +125,18 @@ const ColorSpectrum: FunctionComponent<Props> = ({ saturated, onSaturatedClb}) =
     moveCursor()
   }, [saturated])
 
+
+  useEffect(() => {
+    if (isMouseDown)
+      document.addEventListener('mousemove', onMouseMove)
+    return () => {
+      document.removeEventListener('mousemove', onMouseMove)
+    }
+  }, [isMouseDown])
+
   return(
-    <div className="color__spectrum--gradient" ref={spectrumWrapperRef} onMouseDown={onMouseDown} onMouseUp={onMouseUp} onMouseMove={onMouseMove} >
-      <canvas className="color__spectrum" ref={spectrumRef} />
+    <div className={`color__spectrum--gradient ${isOpen ? 'is-open' : ''}`} ref={spectrumWrapperRef} onMouseDown={onMouseDown} onMouseUp={onMouseUp} >
+      <canvas className="color__spectrum" ref={spectrumRef} onTransitionEnd={onTransitionEnd} />
       <span className="color__cursor" style={{left: cursorPos.x}} />
     </div>
   )

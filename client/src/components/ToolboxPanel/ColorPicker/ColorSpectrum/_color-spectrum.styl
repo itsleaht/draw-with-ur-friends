@@ -4,6 +4,11 @@
   position relative
   height 2rem
 
+  &.is-open
+    .color__spectrum
+      transition transform $t-duration
+      transform translateY(0)
+
   .color__cursor
     position absolute
     top 50%
@@ -33,5 +38,8 @@
     width 100%
     height 2rem
     border-radius 1rem
+    transform translateY(.1rem)
+    pointer-events all
+    cursor pointer
 
 
