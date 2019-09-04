@@ -19,7 +19,9 @@ export interface Point {
   color: Color,
   pos: {
     x: number,
-    y: number
+    y: number,
+    pX: number,
+    pY: number
   }
 }
 

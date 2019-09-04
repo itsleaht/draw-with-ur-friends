@@ -30,7 +30,6 @@ class DrawingManager {
   setSketch(sketch: any) {
     this.sketch = sketch
     this.setBrushes()
-    console.log('SKETCH', sketch.canvas, this.sketch.canvas)
   }
 
   setBrush(brush: Brush) {
@@ -39,7 +38,6 @@ class DrawingManager {
 
   setBrushes() {
     const formerBrushes = this.brushes
-    console.log(this.sketch.canvas)
     Object.keys(formerBrushes).forEach( (key: string) => {
       const brush = baseBrush[key]
       const screenRatio = window.innerWidth / window.innerHeight
@@ -52,20 +50,23 @@ class DrawingManager {
   }
 
   draw (point: Point) {
-    this.sketch.fill(point.color.hex)
-    this.sketch.noStroke()
-    this.sketch.circle(point.pos.x, point.pos.y, this.brushes[point.brush.index])
+    this.sketch.stroke(point.color.hex)
+    this.sketch.strokeWeight(this.brushes[point.brush.index])
+    this.sketch.line(point.pos.x, point.pos.y, point.pos.pX, point.pos.pY)
   }
 
   onMouseDragged () {
-    this.draw({
+    const point: Point = {
       color: this.color,
       brush: this.brush,
       pos: {
         x: this.sketch.mouseX,
-        y: this.sketch.mouseY
+        y: this.sketch.mouseY,
+        pX: this.sketch.pmouseX,
+        pY: this.sketch.pmouseY
       }
-    })
+    }
+    this.draw(point)
   }
 
   onResize() {
