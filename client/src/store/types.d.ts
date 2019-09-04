@@ -22,6 +22,12 @@ export interface Point {
     y: number,
     pX: number,
     pY: number
+  },
+  posRatio: {
+    x: number,
+    y: number,
+    pX: number,
+    pY: number
   }
 }
 
@@ -55,11 +61,17 @@ export interface SetIsRoomPanelOpenAction {
   payload: boolean
 }
 
+export interface SetDrawPoints {
+  type: typeof ActionTypes.SetDrawPoints,
+  payload: Point
+}
+
 export interface AppState {
   user: User,
   room: IRoom,
   rooms: IRoom[],
-  isRoomPanelOpen: boolean
+  isRoomPanelOpen: boolean,
+  drawPoints: Point[]
 }
 
 export interface DrawState {

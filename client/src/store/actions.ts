@@ -1,4 +1,4 @@
-import { setUserAction, User, setRoomAction, setRoomsAction, Brush, setBrushAction, setColorAction, Color, SetIsRoomPanelOpenAction } from './types'
+import { setUserAction, User, setRoomAction, setRoomsAction, Brush, setBrushAction, setColorAction, Color, SetIsRoomPanelOpenAction, Point } from './types'
 import { IRoom } from './../@types'
 
 import { ActionTypes } from './actionTypes'
@@ -42,5 +42,12 @@ export function setColor(color: Color): setColorAction {
   return {
     type: ActionTypes.SetColor,
     payload: color
+  }
+}
+
+export function setDrawPoints(drawPoint: Point) {
+  return {
+    type: ActionTypes.SetDrawPoints,
+    payload: drawPoint
   }
 }

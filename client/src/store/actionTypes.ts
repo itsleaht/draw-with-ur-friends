@@ -4,5 +4,6 @@ export enum ActionTypes {
   SetRooms = 'SET_ROOMS',
   SetBrush = 'SET_BRUSH',
   SetColor = 'SET_COLOR',
-  SetIsRoomPanelOpen = 'SET_IS_ROOM_PANEL_OPEN'
+  SetIsRoomPanelOpen = 'SET_IS_ROOM_PANEL_OPEN',
+  SetDrawPoints = 'SET_DRAW_POINTS'
 }

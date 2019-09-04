@@ -6,7 +6,8 @@ const initialState: AppState = {
   user: {id: '',},
   room: {id: '', name: '', users: []},
   rooms: [],
-  isRoomPanelOpen: false
+  isRoomPanelOpen: false,
+  drawPoints: []
 }
 
 const appReducer = (state = initialState, action: any) => {
@@ -42,6 +43,14 @@ const appReducer = (state = initialState, action: any) => {
       return {
         ...state,
         isRoomPanelOpen: action.payload
+      }
+
+    case ActionTypes.SetDrawPoints:
+      const formerDrawPoints = state.drawPoints
+      formerDrawPoints.push(action.payload.drawPoint)
+      return {
+        ...state,
+        drawPoints: formerDrawPoints
       }
 
     default:
