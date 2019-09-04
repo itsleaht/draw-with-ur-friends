@@ -5,10 +5,16 @@
   cursor pointer
   margin-bottom 2rem
 
+  &.is-open
+    .color__gradient
+      transition transform $t-duration
+      transform translateY(0)
+
   .color__gradient
     width 100%
     height 21rem
     border-radius .3rem
+    transform translateY(.1rem)
 
 
   .color__cursor

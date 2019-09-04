@@ -83,7 +83,7 @@ const ColorPicker: FunctionComponent<Props> = ({ color, onColorClb, onCloseClb, 
     <div className={`color--picker ${isOpen ? 'is-open' : ''} `} ref={colorPickerRef}>
       <div className={`color__overlay`} onClick={onCloseClb} />
       <div className="color__inner">
-        <ColorGradient color={currentColor} saturated={saturated} onColorClb={onChildColorClb} />
+        <ColorGradient color={currentColor} saturated={saturated} onColorClb={onChildColorClb} isOpen={isOpen} />
         <ColorSpectrum saturated={saturated} onSaturatedClb={onChildSaturatedClb} />
         <ColorSwatches color={currentColor.rgb} mustSwatchColor={!isOpen} />
       </div>
