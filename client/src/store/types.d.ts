@@ -17,12 +17,6 @@ export interface Color {
 export interface Point {
   brush: Brush,
   color: Color,
-  pos: {
-    x: number,
-    y: number,
-    pX: number,
-    pY: number
-  },
   posRatio: {
     x: number,
     y: number,

@@ -9,15 +9,16 @@ const baseBrush:  {[key: string]: number}  = {
   md: 15,
   lg: 20
 }
+const refHeight = 576
+const refWidth = refHeight / (9 / 16)
+const refRatio = refWidth / refHeight
+
 class DrawingManager {
   private sketch: any = new p5(() => {})
+  private sketchSize: { width: number, height : number } = { width : 0, height : 0 }
   private brush: Brush = { index: '' }
   private color: Color = { hex: '' }
   private brushes: {[key: string]: number} = { ...baseBrush }
-  private refRatio: number = 1024 / 576 // TODO use real ratio
-  private refWidthRatio: number = 1024 // TODO  define width with height ratio
-  private refHeightRatio = 576
-
 
   constructor() {
     this.init()
@@ -35,6 +36,10 @@ class DrawingManager {
     this.setBrushes()
   }
 
+  onSetup() {
+    this.setSketchSize()
+  }
+
   setBrush(brush: Brush) {
     this.brush = brush
   }
@@ -43,23 +48,50 @@ class DrawingManager {
     Object.keys(baseBrush).forEach( (key: string) => {
       const brush = baseBrush[key]
       const screenRatio = window.innerWidth / window.innerHeight
-      this.brushes[key] = ( brush * screenRatio ) / this.refRatio
+      this.brushes[key] = ( brush * screenRatio ) / refRatio
     })
+  }
+
+  setSketchSize() {
+    if (this.sketch && this.sketch.canvas) {
+      this.sketchSize = {
+        width: this.sketch.canvas.clientWidth,
+        height: this.sketch.canvas.clientHeight
+      }
+    }
   }
 
   setColor(color: Color) {
     this.color = color
   }
 
+  createPoint() {
+    const point: Point = {
+      color: this.color,
+      brush: this.brush,
+      posRatio : {
+        x: ( this.sketch.mouseX * refWidth ) / this.sketchSize.width,
+        y: ( this.sketch.mouseY * refHeight ) / this.sketchSize.height,
+        pX: ( this.sketch.pmouseX * refWidth ) / this.sketchSize.width,
+        pY: ( this.sketch.pmouseY * refHeight ) / this.sketchSize.height
+      }
+    }
+
+    this.draw(point)
+    store.dispatch({ type: ActionTypes.SetDrawPoints, payload: { drawPoint: point }})
+  }
+
   draw (point: Point) {
     this.sketch.stroke(point.color.hex)
     this.sketch.strokeWeight(this.brushes[point.brush.index])
 
+    // TODO line interpolation if sketchHeight > than refHeight
+
     this.sketch.line(
-      point.posRatio.x * window.innerWidth / this.refWidthRatio,
-      point.posRatio.y * window.innerHeight / this.refHeightRatio,
-      point.posRatio.pX * window.innerWidth / this.refWidthRatio,
-      point.posRatio.pY * window.innerHeight / this.refHeightRatio
+      ( point.posRatio.x * this.sketchSize.width ) / refWidth,
+      ( point.posRatio.y * this.sketchSize.height ) / refHeight,
+      ( point.posRatio.pX * this.sketchSize.width ) / refWidth,
+      ( point.posRatio.pY * this.sketchSize.height ) / refHeight
     )
   }
 
@@ -69,30 +101,17 @@ class DrawingManager {
     })
   }
 
+  onMouseClicked() {
+    this.createPoint()
+  }
+
   onMouseDragged () {
-    const ratio =  window.innerWidth / window.innerHeight
-    const point: Point = {
-      color: this.color,
-      brush: this.brush,
-      pos: {
-        x: this.sketch.mouseX,
-        y: this.sketch.mouseY,
-        pX: this.sketch.pmouseX,
-        pY: this.sketch.pmouseY
-      },
-      posRatio : {
-        x: ( this.sketch.mouseX * this.refWidthRatio ) / window.innerWidth,
-        y: ( this.sketch.mouseY * this.refHeightRatio ) / window.innerHeight,
-        pX: ( this.sketch.pmouseX * this.refWidthRatio ) / window.innerWidth,
-        pY: ( this.sketch.pmouseY * this.refHeightRatio ) / window.innerHeight
-      }
-    }
-    this.draw(point)
-    store.dispatch({ type: ActionTypes.SetDrawPoints, payload: { drawPoint: point }})
+    this.createPoint()
   }
 
   onResize() {
     this.setBrushes()
+    this.setSketchSize()
     this.drawAll(store.getState().app.drawPoints)
   }
 }

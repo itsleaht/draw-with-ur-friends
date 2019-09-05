@@ -22,8 +22,10 @@ const DrawCanvas: FunctionComponent = () => {
         s.setup = () => {
           s.createCanvas(size.width, size.height)
           s.canvas.classList.add('canvas')
+          DrawingManager.onSetup()
         }
         s.mouseDragged = () => DrawingManager.onMouseDragged()
+        s.mouseClicked = () => DrawingManager.onMouseClicked()
 
         s.windowResized = () => {
           s.resizeCanvas(containerRef.current!.clientWidth, containerRef.current!.clientHeight)
