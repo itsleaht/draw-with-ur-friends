@@ -1,4 +1,4 @@
-import Room from './../models/Room';
+import Room, { IPoint } from './../models/Room';
 import User from './../models/User';
 
 import { Events, IRoomJoin } from './../events';

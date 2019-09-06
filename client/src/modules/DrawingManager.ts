@@ -9,7 +9,7 @@ const baseBrush:  {[key: string]: number}  = {
   md: 15,
   lg: 20
 }
-const refHeight = 576
+const refHeight = 698
 const refWidth = refHeight / (9 / 16)
 const refRatio = refWidth / refHeight
 

@@ -1,6 +1,6 @@
 import { Socket } from 'socket.io';
 
-import { Events, IRoomJoin } from './../events';
+import { Events, IAddDrawPoint, IRoomJoin } from './../events';
 
 import { addLog } from './../helpers/Utils';
 
@@ -39,6 +39,16 @@ export default class RoomHandler {
         user!.addToRoom(room!);
 
         RoomManager.joinRoom(socket, user!, event);
+      });
+
+      io.in(event.to.id).on(Events.RoomAddDrawPoint, (newEvent: IAddDrawPoint) => {
+        const roomId = event.to.id ? event.to.id : '';
+        io.in(roomId).emit(Events.RoomAddDrawPoint, newEvent.point);
+      });
+
+      io.in(event.to.id).on(Events.RoomGetDrawPoints, (roomId: string) => {
+        const room = RoomManager.getRoom(roomId);
+        io.in(roomId).emit(Events.RoomAddDrawPoint, room!.getDrawPoints());
       });
 
       MessageHandler.handle({io, socket, roomId: event.to.id});
