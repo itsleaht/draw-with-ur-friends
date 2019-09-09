@@ -1,6 +1,6 @@
 import { Socket } from 'socket.io';
 
-import { Events, IAddDrawPoint, IRoomJoin } from './../events';
+import { Events, IAddDrawLine, IRoomJoin } from './../events';
 
 import { addLog } from './../helpers/Utils';
 
@@ -20,7 +20,7 @@ export default class RoomHandler {
     const io = handler.io;
 
     socket.on(Events.RoomJoin, (event: IRoomJoin) => {
-      addLog('on', Events.RoomJoin, JSON.stringify(event));
+      // addLog('on', Events.RoomJoin, JSON.stringify(event));
 
       const previousRoom = event.from;
 
@@ -41,17 +41,21 @@ export default class RoomHandler {
         RoomManager.joinRoom(socket, user!, event);
       });
 
-      io.in(event.to.id).on(Events.RoomAddDrawPoint, (newEvent: IAddDrawPoint) => {
-        const roomId = event.to.id ? event.to.id : '';
-        io.in(roomId).emit(Events.RoomAddDrawPoint, newEvent.point);
-      });
-
-      io.in(event.to.id).on(Events.RoomGetDrawPoints, (roomId: string) => {
-        const room = RoomManager.getRoom(roomId);
-        io.in(roomId).emit(Events.RoomAddDrawPoint, room!.getDrawPoints());
-      });
-
       MessageHandler.handle({io, socket, roomId: event.to.id});
+    });
+
+    socket.on(Events.RoomAddDrawLine, (event: IAddDrawLine) => {
+      const roomId = event.room.id ? event.room.id : '';
+      const room = RoomManager.getRoom(roomId);
+      if (room) {
+        room.addDrawLine(event.drawLine);
+        io.in(roomId).emit(Events.RoomAddDrawLine, event.drawLine);
+      }
+    });
+
+    socket.on(Events.RoomGetDrawLines, (roomId: string) => {
+      const room = RoomManager.getRoom(roomId);
+      io.in(roomId).emit(Events.RoomGetDrawLines, room!.getDrawLines());
     });
   }
 

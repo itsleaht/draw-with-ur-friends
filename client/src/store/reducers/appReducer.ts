@@ -4,7 +4,7 @@ import { AppState } from '../types'
 
 const initialState: AppState = {
   user: {id: '',},
-  room: {id: '', name: '', users: []},
+  room: {id: '', name: '', users: [], drawLines: []},
   rooms: [],
   isRoomPanelOpen: false,
   drawPoints: []
@@ -29,7 +29,8 @@ const appReducer = (state = initialState, action: any) => {
           ...state.room,
           id: action.payload.id,
           name: action.payload.name,
-          users: action.payload.users ? action.payload.users : []
+          users: action.payload.users ? action.payload.users : [],
+          drawLines: action.payload.drawLines
         }
       }
 
@@ -45,12 +46,15 @@ const appReducer = (state = initialState, action: any) => {
         isRoomPanelOpen: action.payload
       }
 
-    case ActionTypes.SetDrawPoints:
-      const formerDrawPoints = state.drawPoints
-      formerDrawPoints.push(action.payload.drawPoint)
+    case ActionTypes.SetRoomDrawLine:
+      const drawLines = state.room.drawLines
+      drawLines!.push(action.payload.drawLine)
       return {
         ...state,
-        drawPoints: formerDrawPoints
+        room: {
+          ...state.room,
+          drawLines: drawLines
+        }
       }
 
     default:

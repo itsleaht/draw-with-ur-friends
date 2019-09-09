@@ -1,5 +1,5 @@
-import { setUserAction, User, setRoomAction, setRoomsAction, Brush, setBrushAction, setColorAction, Color, SetIsRoomPanelOpenAction, Point } from './types'
-import { IRoom } from './../@types'
+import { setUserAction, User, setRoomAction, setRoomsAction, Brush, setBrushAction, setColorAction, Color, SetIsRoomPanelOpenAction, setRoomDrawLineAction } from './types'
+import { IRoom, Line } from './../@types'
 
 import { ActionTypes } from './actionTypes'
 
@@ -24,6 +24,13 @@ export function setRooms(rooms: IRoom[]): setRoomsAction {
   }
 }
 
+export function setRoomDrawLine(line: Line[]): setRoomDrawLineAction {
+  return {
+    type: ActionTypes.SetRoomDrawLine,
+    payload: line
+  }
+}
+
 export function SetIsRoomPanelOpen(isRoomPanelOpen: boolean): SetIsRoomPanelOpenAction {
   return {
     type: ActionTypes.SetIsRoomPanelOpen,
@@ -42,12 +49,5 @@ export function setColor(color: Color): setColorAction {
   return {
     type: ActionTypes.SetColor,
     payload: color
-  }
-}
-
-export function setDrawPoints(drawPoint: Point) {
-  return {
-    type: ActionTypes.SetDrawPoints,
-    payload: drawPoint
   }
 }

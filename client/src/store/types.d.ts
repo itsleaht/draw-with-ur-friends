@@ -45,6 +45,12 @@ export interface setBrushAction {
   payload: Brush
 }
 
+export interface setRoomDrawLineAction {
+  type: typeof ActionTypes.SetRoomDrawLine,
+  payload: Line
+}
+
+
 export interface setColorAction {
   type: typeof ActionTypes.SetColor
   payload: Color
@@ -53,11 +59,6 @@ export interface setColorAction {
 export interface SetIsRoomPanelOpenAction {
   type: typeof ActionTypes.SetIsRoomPanelOpen,
   payload: boolean
-}
-
-export interface SetDrawPoints {
-  type: typeof ActionTypes.SetDrawPoints,
-  payload: Point
 }
 
 export interface AppState {

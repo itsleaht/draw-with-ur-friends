@@ -1,4 +1,4 @@
-import Room, { IPoint } from './../models/Room';
+import Room from './../models/Room';
 import User from './../models/User';
 
 import { Events, IRoomJoin } from './../events';
@@ -57,7 +57,11 @@ class RoomManager {
       if (room) {
         room!.addUser(user);
 
-        addLog('func', 'join:room', JSON.stringify(room));
+        const logRoom = {
+          ...room,
+          drawLines: []
+        };
+        addLog('func', 'join:room', JSON.stringify(logRoom));
 
         const roomJoined = {
           ...event,
@@ -73,7 +77,7 @@ class RoomManager {
 
         this.io.to(socket.id).emit(Events.RoomJoined, roomJoined);
 
-        addLog('emit', Events.RoomJoined, JSON.stringify(roomJoined));
+        addLog('emit', Events.RoomJoined, JSON.stringify(logRoom));
 
         this.io.emit(Events.RoomsGet, this.serialize);
         this.io.in(event.to.id).emit(Events.UsersGet, this.getUserSerialize(room));

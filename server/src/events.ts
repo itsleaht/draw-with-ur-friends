@@ -1,4 +1,4 @@
-import { IPoint } from './models/Room';
+import { ILine } from './models/Room';
 
 export enum SocketEvents {
   Connect = 'connect',
@@ -12,8 +12,8 @@ export enum Events {
   RoomDefault = 'room:default',
   RoomJoin = 'room:join',
   RoomJoined = 'room:joined',
-  RoomAddDrawPoint = 'room:add:drawPoint',
-  RoomGetDrawPoints = 'room:get:drawPoints',
+  RoomAddDrawLine = 'room:add:drawLine',
+  RoomGetDrawLines = 'room:get:drawLines',
   ServerGetEvents = 'server:get:events',
   UsersGet = 'users:get',
   UserConnection = 'user:connection',
@@ -43,7 +43,7 @@ export interface IRoomJoin {
   to: IRoom;
 }
 
-export interface IAddDrawPoint {
+export interface IAddDrawLine {
   room: IRoom;
-  point: IPoint;
+  drawLine: ILine;
 }

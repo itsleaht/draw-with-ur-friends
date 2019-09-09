@@ -1,7 +1,9 @@
-import { Brush, Color, Point } from "../store/types"
+import { Brush, Color } from "../store/types"
 import { store } from "../store"
 import p5 from 'p5'
-import { ActionTypes } from "../store/actionTypes";
+import { Events } from "../config/events";
+import SocketManager from "./SocketManager";
+import { Line } from "../@types";
 
 const baseBrush:  {[key: string]: number}  = {
   xs: 5,
@@ -22,6 +24,15 @@ class DrawingManager {
 
   constructor() {
     this.init()
+
+    SocketManager.setClbs({
+      drawLineClb: (drawLine: Line) => {
+        this.draw(drawLine)
+      },
+      getRoomClb: (drawLines: Line[]) => {
+        // this.drawAll(drawLines)
+      }
+    })
   }
 
   init() {
@@ -38,6 +49,10 @@ class DrawingManager {
 
   onSetup() {
     this.setSketchSize()
+
+    const drawLines = store.getState().app.room.drawLines
+    if (drawLines)
+      this.drawAll(drawLines)
   }
 
   setBrush(brush: Brush) {
@@ -65,8 +80,8 @@ class DrawingManager {
     this.color = color
   }
 
-  createPoint() {
-    const point: Point = {
+  createLine() {
+    const line: Line = {
       color: this.color,
       brush: this.brush,
       posRatio : {
@@ -77,42 +92,50 @@ class DrawingManager {
       }
     }
 
-    this.draw(point)
-    store.dispatch({ type: ActionTypes.SetDrawPoints, payload: { drawPoint: point }})
+    this.draw(line)
+    // store.dispatch({ type: ActionTypes.SetRoomDrawLine, payload: { drawPoint: line }})
+    SocketManager.emit(Events.RoomAddDrawLine, {
+      room: { id: store.getState().app.room!.id },
+      drawLine: line
+    })
   }
 
-  draw (point: Point) {
-    this.sketch.stroke(point.color.hex)
-    this.sketch.strokeWeight(this.brushes[point.brush.index])
+  draw (line: Line) {
+    this.sketch.stroke(line.color.hex)
+    this.sketch.strokeWeight(this.brushes[line.brush.index])
 
     // TODO line interpolation if sketchHeight > than refHeight
 
     this.sketch.line(
-      ( point.posRatio.x * this.sketchSize.width ) / refWidth,
-      ( point.posRatio.y * this.sketchSize.height ) / refHeight,
-      ( point.posRatio.pX * this.sketchSize.width ) / refWidth,
-      ( point.posRatio.pY * this.sketchSize.height ) / refHeight
+      ( line.posRatio.x * this.sketchSize.width ) / refWidth,
+      ( line.posRatio.y * this.sketchSize.height ) / refHeight,
+      ( line.posRatio.pX * this.sketchSize.width ) / refWidth,
+      ( line.posRatio.pY * this.sketchSize.height ) / refHeight
     )
   }
 
-  drawAll (points: Point[]) {
-    points.forEach((point) => {
-      this.draw(point)
+  drawAll (lines: Line[]) {
+    this.sketch.clear()
+
+    lines.forEach((line) => {
+      this.draw(line)
     })
   }
 
   onMouseClicked() {
-    this.createPoint()
+    this.createLine()
   }
 
   onMouseDragged () {
-    this.createPoint()
+    this.createLine()
   }
 
   onResize() {
     this.setBrushes()
     this.setSketchSize()
-    this.drawAll(store.getState().app.drawPoints)
+    const drawLines = store.getState().app.room.drawLines
+    if (drawLines)
+      this.drawAll(drawLines)
   }
 }
 

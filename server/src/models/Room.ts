@@ -1,7 +1,7 @@
 import Utils from '../helpers/Utils';
 import User from './User';
 
-export interface IPoint {
+export interface ILine {
   brush: IBrush;
   color: IColor;
   posRatio: {
@@ -28,7 +28,7 @@ export default class Room {
   private id: string = Utils.uuid();
   private name: string = '';
   private users = new Map<string, User>();
-  private drawPoints: IPoint[] = [];
+  private drawLines: ILine[] = [];
 
   constructor(room: IRoom) {
     this.name = room.name;
@@ -46,16 +46,16 @@ export default class Room {
     return this.users;
   }
 
-  public getDrawPoints(): IPoint[] {
-    return this.drawPoints;
+  public getDrawLines(): ILine[] {
+    return this.drawLines;
   }
 
   public addUser(user: User): void {
     this.users.set(user.getId(), user);
   }
 
-  public addDrawPoint(point: IPoint): void {
-    this.drawPoints.push(point);
+  public addDrawLine(line: ILine): void {
+    this.drawLines.push(line);
   }
 
   public removeUser(id: string): void {
@@ -64,9 +64,10 @@ export default class Room {
 
   public get serialize(): {} {
     return {
+      drawLines: this.drawLines,
       id: this.id,
       name: this.name,
-      users: Array.from(this.users.values())
+      users: Array.from(this.users.values()),
     };
   }
 }

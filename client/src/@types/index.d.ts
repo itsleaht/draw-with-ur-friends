@@ -12,12 +12,22 @@ export interface IMessage {
   roomId: string
 }
 
+export interface Line {
+  brush: Brush,
+  color: Color,
+  posRatio: {
+    x: number,
+    y: number,
+    pX: number,
+    pY: number
+  }
+}
+
 export interface IRoom {
   id: string,
-  // createdAt: number,
-  // host: UserI,
   name: string,
-  users?: IUser[]
+  users?: IUser[],
+  drawLines?: Line[]
 }
 
 export interface IRoomJoin {
