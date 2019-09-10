@@ -74,7 +74,7 @@ const ColorToolbox: FunctionComponent = () => {
 
   return(
     <ToolBox type="color">
-      <Icon name="color" width={30} height={29} fill="#3514FF"></Icon>
+      <span className="toolbox__title heading-6">Color</span>
       <div className="toolbox__body">
         <button className="toolbox__color" style={{backgroundColor: `${color}`}} onClick={onClickColorButton}></button>
         <input type="text" value={colorInput} className="toolbox__hexa" onChange={onChangeInputColor} onKeyPress={onKeyPress} onBlur={onBlurInputColor} />

@@ -115,11 +115,11 @@ class DrawingManager {
   }
 
   drawAll (lines: Line[]) {
-    this.sketch.clear()
+    // this.sketch.clear()
 
-    lines.forEach((line) => {
-      this.draw(line)
-    })
+    // lines.forEach((line) => {
+    //   this.draw(line)
+    // })
   }
 
   onMouseClicked() {

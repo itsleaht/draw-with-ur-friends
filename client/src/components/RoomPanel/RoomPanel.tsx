@@ -76,7 +76,7 @@ const RoomPanel: FunctionComponent = () => {
       <div className={`panel panel--room ${isMinified ? 'is-minified' : ''}`}>
         <div className="panel__inner">
           <div className="panel__top">
-            <h1 className="panel__title heading-1">Artboards</h1>
+            <h1 className="panel__title heading-2">Artboards</h1>
               <BadgeNumber number={rooms.length}/>
           </div>
           <div className="panel__body">
@@ -88,7 +88,7 @@ const RoomPanel: FunctionComponent = () => {
                   </span>
                 </div>
                   <div className="card__right">
-                    <ButtonPrimary text={'Create'} className={`card__button ${isFocusing ? 'is-focusing' : ''}`} onClickClb={onClickCreateRoom} />
+                    <ButtonPrimary text={'Create'} isDisabled={!isFocusing} className={`card__button ${isFocusing ? 'is-focusing' : ''}`} onClickClb={onClickCreateRoom} />
                   </div>
               </div>
           </div>

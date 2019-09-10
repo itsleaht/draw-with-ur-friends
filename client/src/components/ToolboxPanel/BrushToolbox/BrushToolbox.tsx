@@ -34,7 +34,8 @@ const BrushToolbox: FunctionComponent = () => {
 
   return(
     <ToolBox type="brush">
-      <Icon name="pencil" width={24} height={24} fill="#3514FF"></Icon>
+      <span className="toolbox__title heading-6">Brush</span>
+      {/* <Icon name="pencil" width={24} height={24} fill="#3514FF"></Icon> */}
       <div className="toolbox__body">
         {brushes.map(item => {
           return (

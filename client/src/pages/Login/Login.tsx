@@ -74,7 +74,7 @@ const Login = ({ history }: RouteComponentProps<Props>) => {
               </div>
             </div>
             <div className="box__bottom">
-              <ButtonPrimary className={''} isBig={true} isAbled={isJoinAllowed} text={'Join the party'} onClickClb={onClickBtn} />
+              <ButtonPrimary className={''} isBig={true} isDisabled={!isJoinAllowed} text={'Join the party'} onClickClb={onClickBtn} />
             </div>
           </div>
         </div>

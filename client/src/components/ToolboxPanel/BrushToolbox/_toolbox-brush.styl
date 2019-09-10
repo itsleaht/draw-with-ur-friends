@@ -6,7 +6,6 @@
     &__body
       display flex
       align-items center
-      margin-left spacer(2)
 
     &__button
       position relative
@@ -16,18 +15,6 @@
       padding 0
       opacity .3
       transition opacity .3s
-
-      &:after
-        content ''
-        position absolute
-        top -.6rem
-        left -.6rem
-        bottom -.6rem
-        right -.6rem
-        border 1px solid $c-pink
-        border-radius 3rem
-        opacity 0
-        transition opacity .3s
 
       &--xs
         width 1rem
@@ -47,6 +34,3 @@
 
       &.is-active
         opacity 1
-
-        &:after
-          opacity 1

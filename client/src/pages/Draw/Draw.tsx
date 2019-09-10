@@ -12,17 +12,17 @@ import Chat from '../../components/Chat/Chat'
 type Props = {}
 
 const Draw = ({ history } : RouteComponentProps<Props>) => {
-  const user = useSelector<State, {id: string}>(state => state.app.user)
+  // const user = useSelector<State, {id: string}>(state => state.app.user)
 
-  const checkUserId = () => {
-    if ( !user || !user.id || user.id.length <= 0) {
-      history.push('/')
-    }
-  }
+  // const checkUserId = () => {
+  //   if ( !user || !user.id || user.id.length <= 0) {
+  //     history.push('/')
+  //   }
+  // }
 
-  useEffect(() => {
-    checkUserId()
-  }, [user])
+  // useEffect(() => {
+  //   checkUserId()
+  // }, [user])
 
   return (
     <div className="page page--draw">
