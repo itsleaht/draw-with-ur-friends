@@ -10,10 +10,12 @@ import Header from './components/Header/Header';
 import RoomPanel from './components/RoomPanel/RoomPanel';
 import DrawCanvas from './components/DrawCanvas/DrawCanvas';
 
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+
 const App: FunctionComponent = () => {
 
   const [showDrawComponents, setShowDrawComponents] = useState<boolean>(false);
-
+@types/react-router-dom
   const onStoreUpdate = () => {
     const state = store.getState().app;
     if (state.user.id.length > 0 && state.room.id.length > 0 && !showDrawComponents) {
@@ -33,6 +35,9 @@ const App: FunctionComponent = () => {
   return (
     <Provider store={store}>
       <SocketProvider url={process.env.REACT_APP_SOCKET_API_URL ? process.env.REACT_APP_SOCKET_API_URL : ''}>
+        <Router>
+
+        </Router>
         <div className="App">
             <Header />
             <main className="main">
