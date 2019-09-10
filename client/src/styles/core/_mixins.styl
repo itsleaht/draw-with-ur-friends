@@ -1,2 +1,11 @@
 spacer(i)
   return (($base-spacer * i / 10)rem)
+
+
+mq-tablet-lg-below()
+  @media (max-width: $mq-tablet-lg)
+    {block}
+
+mq-mobile-lg-below()
+  @media (max-width: $mq-mobile-lg)
+    {block}

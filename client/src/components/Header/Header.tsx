@@ -3,7 +3,11 @@ import ToolboxPanel from '../ToolboxPanel/ToolboxPanel'
 
 import './_header.styl'
 
-const Header: FunctionComponent = () => {
+type Props = {
+  isFull: boolean
+}
+
+const Header: FunctionComponent<Props> = ({isFull}) => {
   return (
     <header className="header">
       <div className="header__inner">
@@ -12,10 +16,14 @@ const Header: FunctionComponent = () => {
             <img src={`${process.env.PUBLIC_URL}/assets/logo.svg`} className="header__logo__image" alt="logo" />
           </a>
         </div>
-        <div className="header__middle">
-          <ToolboxPanel />
-        </div>
-        <div className="header__right"></div>
+        { isFull &&
+          <>
+            <div className="header__middle">
+              <ToolboxPanel />
+            </div>
+            <div className="header__right"></div>
+          </>
+        }
       </div>
     </header>
   )
