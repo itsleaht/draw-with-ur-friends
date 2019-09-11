@@ -21,6 +21,10 @@ body
   background $c-purple-pale
   overflow hidden
 
+  +mq-tablet-lg-below()
+    height auto
+    overflow auto
+
 p
   margin 0
   padding 0
@@ -63,3 +67,19 @@ input
 .highlight
   background linear-gradient(180deg, $c-purple-pale-2, $c-purple-pale-2)
   background-position 0 100%
+
+.link--primary
+  color $c-blue-light
+  border-bottom .2rem solid $c-blue-light
+  text-decoration none
+
+.link--secondary
+  color $c-black
+  border-bottom .2rem solid $c-black
+  text-decoration none
+  cursor pointer
+  font-weight bold
+
+  &:hover
+    color $c-blue-light
+    border-color $c-blue-light

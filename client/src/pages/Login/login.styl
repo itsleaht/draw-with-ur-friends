@@ -109,11 +109,6 @@
       opacity 1
       pointer-events all
 
-  .link--primary
-    color $c-blue-light
-    border-bottom .2rem solid $c-blue-light
-    text-decoration none
-
   +mq-tablet-lg-below()
     .box--login
       width 64%
@@ -123,8 +118,9 @@
       position static
 
     .page__bottom
-      right spacer(3)
-      bottom spacer(3)
+      position static
+      padding spacer(3)
+      text-align right
 
     .box--login
       width 100%

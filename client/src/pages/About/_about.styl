@@ -1,0 +1,106 @@
+@import '../../styles/global.styl'
+
+.page--about
+  height 100vh
+  background $c-purple-pale
+
+  .page__inner
+    position fixed
+    top spacer(3)
+    left 0
+    bottom spacer(3)
+    right 0
+
+  .page__body
+    height 100%
+    display flex
+    align-items center
+    justify-content center
+
+  .box--about
+    background $c-white
+    width 56%
+    max-height 90%
+    max-width 70rem
+    border-radius 2rem
+    padding spacer(5) spacer(4) spacer(5) spacer(11)
+    overflow hidden
+
+  .box__inner
+    overflow hidden
+
+  .box__body,
+  .box__top
+    padding-right spacer(7)
+
+  .box__body
+    padding-right spacer(7)
+    height 50vh
+    overflow-y scroll
+
+    &::-webkit-scrollbar
+      -webkit-appearance none
+      width .8rem
+
+    &::-webkit-scrollbar-thumb
+      border-radius 0
+      background-color rgba(0, 0, 0, .05)
+      -webkit-box-shadow 0 0 .1rem rgb(255, 255, 255)
+
+
+  .box__bottom
+    padding-top spacer(3)
+    text-align right
+
+  .box__top
+    margin-bottom spacer(6)
+    text-align center
+    color $c-grey-medium
+
+  .box__title
+    margin-bottom spacer(3)
+
+  .box__text
+    margin-bottom spacer(2)
+
+  .box__block
+    margin-bottom spacer(4)
+
+  .list--links
+    font-size 1.6rem
+    .list__item
+      margin spacer(3) spacer(2)
+      &:before
+        content '\0023BC'
+        margin-right spacer(1)
+
+  +mq-tablet-lg-below()
+    .box--login
+      width 64%
+
+  +mq-mobile-lg-below()
+    .page__inner
+      position static
+
+    .page__bottom
+      right spacer(3)
+      bottom spacer(3)
+
+    .page__body
+      margin-bottom spacer(3)
+
+    .box--about
+      max-height none
+      width 100%
+      margin 0 spacer(3)
+      padding spacer(4) spacer(4)
+
+    .box__inner,
+    .box--about
+      overflow auto
+
+    .box__body,
+    .box__top
+      overflow auto
+      padding-right 0
+      height auto

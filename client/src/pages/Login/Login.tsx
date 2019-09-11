@@ -81,7 +81,7 @@ const Login = ({ history }: RouteComponentProps<Props>) => {
               <div className="form">
                 <div className="form__group">
                   <label className="form__label heading-6" htmlFor="username">Username</label>
-                  <input className="form__input" id="username" name="username" type="text" placeholder="John Doe" value={username} onChange={onInputChange} onKeyPress={onInputKeyPress} />
+                  <input className="form__input" id="username" name="name" type="text" placeholder="John Doe" value={username} onChange={onInputChange} onKeyPress={onInputKeyPress} />
                 </div>
               </div>
               <div className="box__bottom">
@@ -97,7 +97,7 @@ const Login = ({ history }: RouteComponentProps<Props>) => {
           </div>
         </div>
         <div className="page__bottom">
-          <a href="#" className="link link--primary">About</a>
+          <a href="/about" className="link link--primary">About</a>
         </div>
       </div>
     </div>
