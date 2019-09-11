@@ -34,11 +34,10 @@ npm run start
 * :email: Send messages to your friends in a room
 * :black_nib: Pick a brush size
 * :art: Pick a brush color
+* :pencil: Draw on canvas
+* :feet: See your friends drawing on the same canvas
+* :raising_hand: Add your username
 
 ## Next & current focuses
-
-- [ ] Draw on canvas
-- [ ] See friends drawings on the same canvas
-- [ ] Change username
-- [ ] Make a room private
-- [ ] Interface for room & user creation
+- [ ] Fix color picker
+- [ ] Save messages in a room
