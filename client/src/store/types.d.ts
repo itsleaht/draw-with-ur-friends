@@ -61,11 +61,21 @@ export interface SetIsRoomPanelOpenAction {
   payload: boolean
 }
 
+export interface SetIsServerReadyAction {
+  type: typeof ActionTypes.SetIsServerReady,
+  payload: boolean
+}
+
 export interface AppState {
   user: User,
   room: IRoom,
   rooms: IRoom[],
-  isRoomPanelOpen: boolean,
+  ui: {
+    isRoomPanelOpen: boolean,
+  },
+  server: {
+    isReady: boolean
+  },
   drawPoints: Point[]
 }
 

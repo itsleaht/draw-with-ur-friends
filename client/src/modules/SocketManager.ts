@@ -39,6 +39,14 @@ class SocketManager {
   }
 
   private listen () {
+
+    this.socket!.on(Events.ServerGetIsReady, (isReady: {isReady: boolean}) => {
+      const log = getLog('on', Events.ServerGetIsReady, isReady)
+      console.log(log.key, log.value)
+
+      store.dispatch({type: ActionTypes.SetIsServerReady, payload: true})
+    })
+
     this.socket!.on(Events.UserGet, (user: IUser) => {
       const log = getLog('on', Events.UserGet, user)
       console.log(log.key, log.value)

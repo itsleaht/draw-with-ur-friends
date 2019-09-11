@@ -35,6 +35,9 @@ class DrawingManager {
     })
   }
 
+  //Todo: room change = clear canvas + drawAll
+
+
   init() {
     store.subscribe(() => {
       this.setBrush(store.getState().draw.brush)

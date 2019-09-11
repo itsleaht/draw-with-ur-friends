@@ -17,6 +17,8 @@ const MessageList: FunctionComponent<Props> = ({userId}) => {
 
   const [messages, setMessages] = useState<IMessage[]>([])
 
+  //todo : retrieve room messages when changing room
+
   const addNewMessage = (newMessage: IMessage) => {
     const messageList: IMessage[] = [...messages, newMessage]
     setMessages(messageList)

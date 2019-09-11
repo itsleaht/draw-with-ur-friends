@@ -1,4 +1,4 @@
-import { setUserAction, User, setRoomAction, setRoomsAction, Brush, setBrushAction, setColorAction, Color, SetIsRoomPanelOpenAction, setRoomDrawLineAction } from './types'
+import { setUserAction, User, setRoomAction, setRoomsAction, Brush, setBrushAction, setColorAction, Color, SetIsRoomPanelOpenAction, setRoomDrawLineAction, SetIsServerReadyAction } from './types'
 import { IRoom, Line } from './../@types'
 
 import { ActionTypes } from './actionTypes'
@@ -35,6 +35,13 @@ export function SetIsRoomPanelOpen(isRoomPanelOpen: boolean): SetIsRoomPanelOpen
   return {
     type: ActionTypes.SetIsRoomPanelOpen,
     payload: isRoomPanelOpen
+  }
+}
+
+export function setIsServerReady(isServerReady: boolean): SetIsServerReadyAction {
+  return  {
+    type: ActionTypes.SetIsServerReady,
+    payload: isServerReady
   }
 }
 

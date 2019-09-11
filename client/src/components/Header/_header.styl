@@ -4,10 +4,13 @@
   position relative
   padding spacer(3) spacer(4)
   z-index 3
-  // margin-right $aside-size
+
+  &__logo
+    display inline-block
 
   &__logo__image
     height 6rem
+    transition transform .3s
 
   &__inner
     display flex
@@ -19,3 +22,7 @@
 
   &__right
     width spacer(7)
+
+  +mq-mobile-lg-below()
+    &__logo__image
+      transform scale(0.85)

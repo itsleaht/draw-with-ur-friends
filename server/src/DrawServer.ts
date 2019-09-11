@@ -30,6 +30,8 @@ export class DrawServer {
     this.io.on(SocketEvents.Connect, (socket: any) => {
       addLog('func', SocketEvents.Connect, `Connected client on port ${this.port}`);
 
+      socket.emit(Events.ServerGetIsReady, { isReady: true });
+
       const user: User = UserManager.connect(socket);
 
       RoomManager.connect(socket);

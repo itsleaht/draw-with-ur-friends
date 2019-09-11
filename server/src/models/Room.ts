@@ -34,6 +34,8 @@ export default class Room {
     this.name = room.name;
   }
 
+  // todo: store room messages & handle retrieving
+
   public getId(): string {
     return this.id;
   }

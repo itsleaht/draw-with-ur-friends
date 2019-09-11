@@ -23,7 +23,7 @@ const Chat: FunctionComponent = () => {
 
   const room = useSelector<State, IRoom>(state => state.app.room)
   const user = useSelector<State, User>(state => state.app.user)
-  const isRoomPanelOpened = useSelector<State, boolean>(state => state.app.isRoomPanelOpen)
+  const isRoomPanelOpened = useSelector<State, boolean>(state => state.app.ui.isRoomPanelOpen)
 
   const onClickToggle = () => {
     setisMinified(!isMinified)

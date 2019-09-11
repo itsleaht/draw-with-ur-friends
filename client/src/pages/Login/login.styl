@@ -28,6 +28,21 @@
     max-width 70rem
     border-radius 2rem
     padding spacer(5) spacer(11)
+    transform scaleX(0) scaleY(0.8)
+    transition transform ($t-duration * 2)
+    pointer-events none
+
+    .box__inner
+      opacity 0
+      transition opacity $t-duration ($t-duration * 2)
+
+    .box__emoji
+      display inline-block
+      opacity 0
+      animation-name wave
+      animation-duration ($t-duration * 2)
+      animation-fill-mode forwards
+      animation-delay  ($t-duration * 2)
 
     .box__top
       margin-bottom spacer(6)
@@ -39,23 +54,60 @@
 
     .box__text
       margin-bottom spacer(2)
+      transform translateY(3rem)
+      opacity 0
+      transition transform ($t-duration * 2), opacity ($t-duration * 2)
+
+      for i in (0..2)
+        &:nth-of-type({i})
+          transition-delay (($t-duration * 2) + (i * $t-duration))
 
     .box__bottom
       display flex
       justify-content flex-end
       margin-top spacer(3)
+      opacity 0
+      transform translateY(2rem)
+      transition transform ($t-duration * 2) ($t-duration * 5), opacity ($t-duration * 2) ($t-duration * 5)
 
-  .form
-    .form__label
-      color $c-grey-dark
+    .form
+      opacity 0
+      transform translateY(2rem)
+      transition transform ($t-duration * 2) ($t-duration * 4), opacity ($t-duration * 2) ($t-duration * 4)
 
-    .form__input
-      width 100%
-      display block
-      border-bottom .2rem solid $c-black
+      .form__label
+        color $c-grey-dark
 
-      &:placeholder
-        opacity .2
+      .form__input
+        width 100%
+        display block
+        border-bottom .2rem solid $c-black
+
+        &:placeholder
+          opacity .2
+
+    &.is-visible
+      pointer-events all
+      transform scaleX(1) scaleY(1)
+
+      .box__inner
+        opacity 1
+
+      .box__text,
+      .form,
+      .box__bottom
+        opacity 1
+        transform translateY(0)
+
+  .box--loading
+    position fixed
+    opacity 0
+    pointer-events none
+    transition opacity $t-duration
+
+    &.is-visible
+      opacity 1
+      pointer-events all
 
   .link--primary
     color $c-blue-light
@@ -78,3 +130,15 @@
       width 100%
       margin 0 spacer(3)
       padding spacer(4) spacer(4)
+
+@keyframes wave
+  0%
+    transform rotate(-25deg)
+  25%
+    opacity 1
+  50%
+    opacity 1
+    transform rotate(25deg)
+  100%
+    opacity 1
+    transform rotate(0deg)

@@ -6,7 +6,12 @@ const initialState: AppState = {
   user: {id: '',},
   room: {id: '', name: '', users: [], drawLines: []},
   rooms: [],
-  isRoomPanelOpen: false,
+  ui: {
+    isRoomPanelOpen: false,
+  },
+  server: {
+    isReady: false
+  },
   drawPoints: []
 }
 
@@ -43,7 +48,19 @@ const appReducer = (state = initialState, action: any) => {
     case ActionTypes.SetIsRoomPanelOpen:
       return {
         ...state,
-        isRoomPanelOpen: action.payload
+        ui: {
+          ...state.ui,
+          isRoomPanelOpen: action.payload
+        }
+      }
+
+    case ActionTypes.SetIsServerReady:
+      return {
+        ...state,
+        server: {
+          ...state.server,
+          isReady: action.payload
+        }
       }
 
     case ActionTypes.SetRoomDrawLine:
