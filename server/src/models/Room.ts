@@ -52,6 +52,10 @@ export default class Room {
     return this.drawLines;
   }
 
+  public getUser(userId: string): User {
+    return this.users.get(userId)!;
+  }
+
   public addUser(user: User): void {
     this.users.set(user.getId(), user);
   }
@@ -62,6 +66,10 @@ export default class Room {
 
   public removeUser(id: string): void {
     this.users.delete(id);
+  }
+
+  public updateUser(user: User): void {
+    this.addUser(user);
   }
 
   public get serialize(): {} {

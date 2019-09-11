@@ -16,6 +16,16 @@ export default class UserHandler {
 
     socket.on(Events.UserName, (event: IUserNameEvent) => {
       UserManager.getUser(event.id)!.setName(event.name);
+      const user = UserManager.getUser(socket.id);
+      const rooms = user!.getRooms();
+
+      if (user && rooms)  {
+        for (const [id, room] of rooms.entries()) {
+          room.updateUser(user);
+          RoomManager.handleDelete(id);
+        }
+      }
+
       addLog('on', Events.UserName, JSON.stringify(UserManager.getUser(event.id)!.serialize));
     });
 

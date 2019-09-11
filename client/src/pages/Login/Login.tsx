@@ -10,6 +10,7 @@ import ButtonPrimary from '../../components/UI/buttons/ButtonPrimary/ButtonPrima
 import SocketManager from '../../modules/SocketManager'
 
 import './login.styl'
+import { IRoom } from '../../@types'
 
 type Props = {}
 
@@ -17,7 +18,9 @@ const Login = ({ history }: RouteComponentProps<Props>) => {
 
   const [username, setUsername] = useState<string>('')
   const [isJoinAllowed, setIsJoinAllowed] = useState<boolean>(false)
+  const [isUserReady, setIsUserReady] = useState<boolean>(false)
   const user = useSelector<State, {id: string}>(state => state.app.user)
+  const room = useSelector<State, IRoom>(state => state.app.room)
   const isServerReady = useSelector<State, boolean>(state => state.app.server.isReady)
 
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -52,6 +55,12 @@ const Login = ({ history }: RouteComponentProps<Props>) => {
     checkUsername()
   }, [username])
 
+  useEffect(() => {
+    if (user.id && user.id.length > 0 && room.id && room.id.length > 0) {
+      setIsUserReady(true)
+    }
+  }, [user, room])
+
   return (
     <div className="page page--login">
       <Header isFull={false} />
@@ -59,7 +68,7 @@ const Login = ({ history }: RouteComponentProps<Props>) => {
         <div className="page__top">
         </div>
         <div className="page__body">
-          <div className={`box box--login ${isServerReady ? 'is-visible' : ''}`}>
+          <div className={`box box--login ${isServerReady && isUserReady ? 'is-visible' : ''}`}>
             <div className="box__inner">
               <div className="box__top">
                 <span className="heading-5 box__type">DWUF | Log in</span>
@@ -80,7 +89,7 @@ const Login = ({ history }: RouteComponentProps<Props>) => {
               </div>
             </div>
           </div>
-          <div className={`box box--loading ${isServerReady ? '' : 'is-visible'}`}>
+          <div className={`box box--loading ${isServerReady && isUserReady ? '' : 'is-visible'}`}>
               <div className="box__top">
                 <span className="heading-5 box__type">DWUF | Loading</span>
               </div>
