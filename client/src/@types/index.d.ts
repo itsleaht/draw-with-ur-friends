@@ -31,13 +31,14 @@ export interface IRoom {
 }
 
 export interface IRoomJoin {
-  id?: string;
-  name?: string;
+  id?: string,
+  name?: string,
+  drawLines?: Line[]
 }
 
 export interface IRoomJoined {
-  from: IRoomJoin;
-  to: IRoomJoin;
+  from: IRoom,
+  to: IRoom
 }
 
 export interface IRGB {

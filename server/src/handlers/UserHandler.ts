@@ -26,7 +26,8 @@ export default class UserHandler {
         }
       }
 
-      addLog('on', Events.UserName, JSON.stringify(UserManager.getUser(event.id)!.serialize));
+      const userLog: any = UserManager.getUser(event.id)!.serialize;
+      addLog('on', Events.UserName, JSON.stringify({id: userLog.id, name: userLog.name}));
     });
 
     socket.on(SocketEvents.Disconnect, () => {

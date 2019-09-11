@@ -12,28 +12,33 @@ import Chat from '../../components/Chat/Chat'
 type Props = {}
 
 const Draw = ({ history } : RouteComponentProps<Props>) => {
-  // const user = useSelector<State, {id: string}>(state => state.app.user)
+  const user = useSelector<State, {id: string}>(state => state.app.user)
+  const isServerReady = useSelector<State, boolean>(state => state.app.server.isReady)
 
-  // const checkUserId = () => {
-  //   if ( !user || !user.id || user.id.length <= 0) {
-  //     history.push('/')
-  //   }
-  // }
+  const checkUserId = () => {
+    if ( !isServerReady || !user || !user.id || user.id.length <= 0) {
+      history.push('/')
+    }
+  }
 
-  // useEffect(() => {
-  //   checkUserId()
-  // }, [user])
+  useEffect(() => {
+    checkUserId()
+  }, [user])
 
   return (
     <div className="page page--draw">
       <Header isFull={true} />
-      <main className="main">
-        <DrawCanvas />
-      </main>
-      <div className="aside">
-        <RoomPanel />
-        <Chat />
-      </div>
+      {(isServerReady && user.id.length > 0) &&
+        <>
+          <main className="main">
+            <DrawCanvas />
+          </main>
+          <div className="aside">
+            <RoomPanel />
+            <Chat />
+          </div>
+        </>
+      }
     </div>
   )
 }

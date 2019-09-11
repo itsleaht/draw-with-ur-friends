@@ -1,5 +1,6 @@
 import { setUserAction, User, setRoomAction, setRoomsAction, Brush, setBrushAction, setColorAction, Color, SetIsRoomPanelOpenAction, setRoomDrawLineAction, SetIsServerReadyAction } from './types'
 import { IRoom, Line } from './../@types'
+import { DrawState } from './types'
 
 import { ActionTypes } from './actionTypes'
 

@@ -14,7 +14,7 @@ interface ISocketManager {
 class SocketManager {
   private socket: SocketIOClient.Socket | null = null
   private drawLineClb: Function = () => {}
-  private getRoomClb: Function = () => {}
+  private changeRoomClb: Function = () => {}
 
   constructor () {
   }
@@ -24,12 +24,12 @@ class SocketManager {
     this.init()
   }
 
-  public setClbs (params: {drawLineClb?: Function, getRoomClb?: Function}) {
+  public setClbs (params: {drawLineClb?: Function, changeRoomClb?: Function}) {
     if (params.drawLineClb)
       this.drawLineClb = params.drawLineClb
 
-    if (params.getRoomClb)
-    this.getRoomClb = params.getRoomClb
+    if (params.changeRoomClb)
+    this.changeRoomClb = params.changeRoomClb
   }
 
   private init() {
@@ -58,8 +58,6 @@ class SocketManager {
       const log = getLog('on', Events.RoomDefault, room)
       console.log(log.key, log.value)
 
-      this.getRoomClb(room.drawLines)
-
       store.dispatch({type: ActionTypes.SetRoom, payload: room})
       this.socket!.emit(Events.RoomJoin, { from: room, to: {id: room.id} })
     })
@@ -69,12 +67,14 @@ class SocketManager {
       const log = getLog('on', Events.RoomJoined, roomJoined)
       console.log(log.key, log.value)
 
+      this.changeRoomClb(roomJoined.to.drawLines)
+      console.log(roomJoined)
       store.dispatch({type: ActionTypes.SetRoom, payload: roomJoined.to})
     })
 
     this.socket!.on(Events.RoomAddDrawLine, (drawLine: Line) => {
-      const log = getLog('on', Events.RoomAddDrawLine, drawLine)
-      console.log(log.key, log.value)
+      // const log = getLog('on', Events.RoomAddDrawLine, drawLine)
+      // console.log(log.key, log.value)
 
       this.drawLineClb(drawLine)
       store.dispatch({type: ActionTypes.SetRoomDrawLine, payload: drawLine})

@@ -19,6 +19,7 @@ const DrawCanvas: FunctionComponent = () => {
           width: containerRef.current!.clientWidth,
           height: containerRef.current!.clientHeight
         }
+        s.draw = () => {}
         s.setup = () => {
           s.createCanvas(size.width, size.height)
           s.canvas.classList.add('canvas')
