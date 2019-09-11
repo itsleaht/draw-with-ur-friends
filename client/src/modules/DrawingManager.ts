@@ -37,6 +37,11 @@ class DrawingManager {
 
   //Todo: room change = clear canvas + drawAll
 
+  public kill () {
+    if (this.sketch) {
+      this.sketch.remove()
+    }
+  }
 
   init() {
     store.subscribe(() => {

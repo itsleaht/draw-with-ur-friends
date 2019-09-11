@@ -39,6 +39,12 @@ const DrawCanvas: FunctionComponent = () => {
     }
   }, [containerRef])
 
+  useEffect(() =>  {
+    return () => {
+      DrawingManager.kill()
+    }
+  }, [])
+
   return (
     <div className="draw--canvas">
       <div className="draw__inner" ref={containerRef} />
