@@ -20,6 +20,10 @@ const About: FunctionComponent<Props> = () => {
                 <span className="heading-5 box__type">DWUF | About</span>
               </div>
               <div className="box__body">
+                <div className="box__block box__block--quote">
+                  <h2 className="box__title heading-1">" Nice, fun, jeune et friendly "</h2>
+                  <span className="teasing-1 box__author">Mathilde Garde, designer</span>
+                </div>
                 <div className="box__block">
                   <h2 className="box__title heading-2">Genesis</h2>
                   <p className="box__text teasing-1"><span className="highlight">Draw with your friends</span> is a personal project. It is inspired by <a href="https://medium.com/better-programming/building-a-realtime-drawing-app-using-socket-io-and-p5-js-86f979285b12" className="link link--primary" target="_blank" rel="noopener noreferrer">this article</a> written by Gabriel Tanner.</p>
