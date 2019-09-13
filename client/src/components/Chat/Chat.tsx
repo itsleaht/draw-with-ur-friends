@@ -54,7 +54,7 @@ const Chat: FunctionComponent = () => {
             </div>
             <div className="chat__header__center">
               <span className="heading-3 chat__title">{room.name}</span>
-              <span className="heading-5 chat__subtitle">{room.users!.length} members</span>
+              <span className="tag chat__subtitle">{room.users!.length} members</span>
             </div>
             <div className="chat__header__right">
               <button className="chat__toggle" onClick={onClickToggle}>

@@ -17,7 +17,7 @@ const About: FunctionComponent<Props> = () => {
           <div className={`box box--about`}>
             <div className="box__inner">
               <div className="box__top">
-                <span className="heading-5 box__type">DWUF | About</span>
+                <span className="tag box__type">DWUF | About</span>
               </div>
               <div className="box__body">
                 <div className="box__block box__block--quote">
@@ -36,7 +36,7 @@ const About: FunctionComponent<Props> = () => {
                   <h2 className="box__title heading-2">Links</h2>
                   <ul className="list--links">
                     <li className="list__item"><a href="https://github.com/itsleaht/draw-with-ur-friends" className="link link--primary" target="_blank" rel="noopener noreferrer">Github Project</a></li>
-                    <li className="list__item">Styleguide <span className="heading-6">( soon )</span></li>
+                    <li className="list__item">Styleguide <span className="tag">( soon )</span></li>
                   </ul>
                 </div>
                 <div className="box__block">

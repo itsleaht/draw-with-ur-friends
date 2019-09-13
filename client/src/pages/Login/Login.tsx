@@ -71,7 +71,7 @@ const Login = ({ history }: RouteComponentProps<Props>) => {
           <div className={`box box--login ${isServerReady && isUserReady ? 'is-visible' : ''}`}>
             <div className="box__inner">
               <div className="box__top">
-                <span className="heading-5 box__type">DWUF | Log in</span>
+                <span className="tag box__type">DWUF | Log in</span>
               </div>
               <div className="box__body">
                 <h1 className="box__title heading-1">Hi friend ! <span className="box__emoji">👋</span> </h1>
@@ -80,7 +80,7 @@ const Login = ({ history }: RouteComponentProps<Props>) => {
               </div>
               <div className="form">
                 <div className="form__group">
-                  <label className="form__label heading-6" htmlFor="username">Username</label>
+                  <label className="form__label tag" htmlFor="username">Username</label>
                   <input className="form__input" id="username" name="name" type="text" placeholder="John Doe" value={username} onChange={onInputChange} onKeyPress={onInputKeyPress} />
                 </div>
               </div>
@@ -91,7 +91,7 @@ const Login = ({ history }: RouteComponentProps<Props>) => {
           </div>
           <div className={`box box--loading ${isServerReady && isUserReady ? '' : 'is-visible'}`}>
               <div className="box__top">
-                <span className="heading-5 box__type">DWUF | Loading</span>
+                <span className="tag box__type">DWUF | Loading</span>
               </div>
             <h1 className="heading-2">Please wait for the servers dinos to wake...</h1>
           </div>
