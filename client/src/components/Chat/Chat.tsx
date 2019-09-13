@@ -35,7 +35,7 @@ const Chat: FunctionComponent = () => {
     }, 350)
   }
 
-  useSocketOn(Events.ChatUserMessage, () => {
+  useSocketOn(Events.RoomGetNewMessage, () => {
     if (isMinified && counterNotification <= maxCounterNotification) {
       setCounterNotification(counterNotification + 1)
       if (!isNotified) {

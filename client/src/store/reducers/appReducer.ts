@@ -4,7 +4,7 @@ import { AppState } from '../types'
 
 const initialState: AppState = {
   user: {id: '',},
-  room: {id: '', name: '', users: [], drawLines: []},
+  room: {id: '', name: '', users: [], drawLines: [], messages: []},
   rooms: [],
   ui: {
     isRoomPanelOpen: false,
@@ -35,7 +35,19 @@ const appReducer = (state = initialState, action: any) => {
           id: action.payload.id,
           name: action.payload.name,
           users: action.payload.users ? action.payload.users : [],
-          drawLines: action.payload.drawLines
+          drawLines: action.payload.drawLines,
+          messages: action.payload.messages
+        }
+      }
+
+    case ActionTypes.SetRoomMessage:
+      const messages = state.room.messages
+      messages.push(action.payload.message)
+      return {
+        ...state,
+        room: {
+          ...state.room,
+          messages: messages
         }
       }
 

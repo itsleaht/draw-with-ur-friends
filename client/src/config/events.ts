@@ -1,5 +1,7 @@
 export enum Events {
-  ChatUserMessage = 'chat:message',
+  RoomAddMessage = 'room:add:message',
+  RoomGetMessages = 'rooms:get:messages',
+  RoomGetNewMessage = 'rooms:get:new:message',
   RoomsGet = 'rooms:get',
   RoomCreate = 'room:create',
   RoomDefault = 'room:default',

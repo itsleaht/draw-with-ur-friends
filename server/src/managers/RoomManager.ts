@@ -59,7 +59,8 @@ class RoomManager {
 
         const logRoom = {
           ...room,
-          drawLines: []
+          drawLines: [],
+          messages: []
         };
         addLog('func', 'join:room', JSON.stringify(logRoom));
 
@@ -83,6 +84,7 @@ class RoomManager {
         addLog('emit', Events.RoomJoined, JSON.stringify(logRoom));
 
         this.io.emit(Events.RoomsGet, this.serialize);
+        this.io.emit(Events.RoomGetMessages, room.getMessages());
         this.io.in(event.to.id).emit(Events.UsersGet, this.getUserSerialize(room));
       }
     });

@@ -4,43 +4,35 @@ import Message from '../Message/Message'
 
 import useSocketOn from '../../../hooks/useSocketOn'
 
-import { IMessage } from '../../../@types'
+import { IMessage, IRoomJoined } from '../../../@types'
 import { Events } from '../../../config/events'
 
 import './_message-list.styl'
+import { useSelector } from 'react-redux'
+import { State } from '../../../store/types'
 
 type Props = {
   userId: string
 }
 
 const MessageList: FunctionComponent<Props> = ({userId}) => {
-
-  const [messages, setMessages] = useState<IMessage[]>([])
   const messageListRef = useRef<HTMLUListElement>(null)
+  const messages = useSelector<State, IMessage[]>(state => state.app.room.messages)
 
-  //todo : retrieve room messages when changing room
-
-  const addNewMessage = (newMessage: IMessage) => {
-    const messageList: IMessage[] = [...messages, newMessage]
-    setMessages(messageList)
+  const scrollDown = () => {
+    if (messageListRef.current) {
+      const height = messageListRef.current.scrollHeight
+      messageListRef.current.scrollTo(0, height)
+    }
   }
 
-  useSocketOn(Events.ChatUserMessage, newMessage => {
-    addNewMessage(newMessage)
-
-  })
-
-  useSocketOn(Events.RoomJoined, () => {
-    setMessages([])
+  useSocketOn(Events.RoomGetNewMessage, () => {
+    scrollDown()
   })
 
   useEffect(() => {
-    if (messageListRef.current) {
-      const height = messageListRef.current.scrollHeight
-      console.log(height)
-      messageListRef.current.scrollTo(0, height)
-    }
-  }, [messages])
+    scrollDown()
+  }, [])
 
   return (
     <ul className="list list--message" ref={messageListRef}>

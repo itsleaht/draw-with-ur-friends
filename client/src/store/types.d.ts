@@ -1,5 +1,5 @@
 import { ActionTypes } from './actionTypes';
-import { IRoom } from './../@types'
+import { IRoom, IMessage } from './../@types'
 
 export interface User {
   id: string,
@@ -48,6 +48,11 @@ export interface setBrushAction {
 export interface setRoomDrawLineAction {
   type: typeof ActionTypes.SetRoomDrawLine,
   payload: Line
+}
+
+export interface setRoomMessageAction {
+  type: typeof ActionTypes.setRoomMessage,
+  payload: IMessage
 }
 
 

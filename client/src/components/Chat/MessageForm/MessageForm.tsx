@@ -26,7 +26,7 @@ const MessageForm: FunctionComponent<Props>  = ({ userId }) => {
   const onFormSubmit = () => {
     addLog('on', 'form:submit', roomId)
     if (content.length > 0) {
-      socket!.emit(Events.ChatUserMessage, { content, userId, roomId })
+      socket!.emit(Events.RoomAddMessage, { content, userId, roomId })
     }
     setContent('')
   }

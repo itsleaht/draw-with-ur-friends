@@ -1,4 +1,6 @@
 import Utils from '../helpers/Utils';
+
+import Message from './Message';
 import User from './User';
 
 export interface ILine {
@@ -29,6 +31,7 @@ export default class Room {
   private name: string = '';
   private users = new Map<string, User>();
   private drawLines: ILine[] = [];
+  private messages: Message[] = [];
 
   constructor(room: IRoom) {
     this.name = room.name;
@@ -56,6 +59,14 @@ export default class Room {
     return this.users.get(userId)!;
   }
 
+  public getMessages(): Message[] {
+    return this.messages;
+  }
+
+  public addMessage(message: Message) {
+    this.messages.push(message);
+  }
+
   public addUser(user: User): void {
     this.users.set(user.getId(), user);
   }
@@ -76,6 +87,7 @@ export default class Room {
     return {
       drawLines: this.drawLines,
       id: this.id,
+      messages: this.messages,
       name: this.name,
       users: Array.from(this.users.values()),
     };

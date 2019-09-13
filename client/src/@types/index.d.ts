@@ -29,7 +29,8 @@ export interface IRoom {
   id: string,
   name: string,
   users?: IUser[],
-  drawLines?: Line[]
+  drawLines?: Line[],
+  messages: IMessage[]
 }
 
 export interface IRoomJoin {
