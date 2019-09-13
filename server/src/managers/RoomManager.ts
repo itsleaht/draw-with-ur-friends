@@ -37,17 +37,38 @@ class RoomManager {
 
   public createRoom(name: string) {
     const room = new Room({name});
-    this.rooms.set(room.getId(), room);
+    this.setRoom(room);
 
-    addLog('func', 'createRoom:name', JSON.stringify(name));
-    addLog('func', 'createRoom', JSON.stringify(room));
+    addLog('func', 'createRoom', JSON.stringify({ name, roomId: room.getId() }));
 
     return room;
+  }
+
+  public setRoom(room: Room) {
+    this.rooms.set(room.getId(), room);
   }
 
   public createDefaultRoom(name: string) {
     this.defaultRoom = this.createRoom(name);
     return this.defaultRoom;
+  }
+
+  public leaveRoom(user: User, roomId: string): Room | undefined {
+    const room = this.rooms.get(roomId);
+
+    if (room) {
+      room.removeUser(user.getId());
+      if (room.getUsers().size > 0 ) {
+        this.setRoom(room);
+      } else {
+        if (roomId !== this.defaultRoom.getId()) {
+          this.handleDelete(roomId);
+        }
+      }
+    }
+
+    return room;
+
   }
 
   public joinRoom(socket: any, user: User, event: IRoomJoin) {
@@ -57,24 +78,15 @@ class RoomManager {
       if (room) {
         room!.addUser(user);
 
-        const logRoom = {
-          ...room,
-          drawLines: [],
-          messages: []
-        };
+        const logRoom = { ...room, drawLines: [], messages: [] };
         addLog('func', 'join:room', JSON.stringify(logRoom));
 
-        const roomJoined = {
-          ...event,
-          user: socket.id
-        };
-
-        const previousRoom = this.rooms.get(event.from.id!);
-        if (event.from.id && (room.getId() !== event.from.id)) {
-          if (previousRoom) {
-            previousRoom.removeUser(user.getId());
-          }
+        let previousRoom = null;
+        if (event.from.id) {
+          previousRoom = this.leaveRoom(user, event.from.id);
         }
+
+        this.setRoom(room);
 
         this.io.to(socket.id).emit(Events.RoomJoined, {
           from: previousRoom,
@@ -84,7 +96,6 @@ class RoomManager {
         addLog('emit', Events.RoomJoined, JSON.stringify(logRoom));
 
         this.io.emit(Events.RoomsGet, this.serialize);
-        this.io.emit(Events.RoomGetMessages, room.getMessages());
         this.io.in(event.to.id).emit(Events.UsersGet, this.getUserSerialize(room));
       }
     });

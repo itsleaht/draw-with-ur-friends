@@ -37,4 +37,8 @@ export default class MessageHandler {
       addLog('emit', Events.RoomGetNewMessage, `${JSON.stringify(event)} - ${event.roomId}`);
     });
   }
+
+  public static unhandle(socket: Socket) {
+    socket.removeAllListeners(Events.RoomAddMessage);
+  }
 }

@@ -20,11 +20,10 @@ export default class RoomHandler {
     const io = handler.io;
 
     socket.on(Events.RoomJoin, (event: IRoomJoin) => {
-      // addLog('on', Events.RoomJoin, JSON.stringify(event));
-
       const previousRoom = event.from;
 
       this.removeListeners(socket);
+      MessageHandler.unhandle(socket);
 
       if (!event.to.id || !RoomManager.exists(event.to.id)) { // Create a room
         const newRoom = RoomManager.createRoom(event.to.name ? event.to.name : 'Automatic Named Room');

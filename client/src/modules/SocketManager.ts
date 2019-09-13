@@ -40,7 +40,7 @@ class SocketManager {
 
   private listen () {
 
-    this.socket!.on(Events.ServerGetIsReady, (isReady: {isReady: boolean}) => {
+    this.socket!.on(Events.ServerGetIsReady, () => {
       store.dispatch({type: ActionTypes.SetIsServerReady, payload: true})
     })
 
@@ -50,9 +50,8 @@ class SocketManager {
 
     this.socket!.on(Events.RoomDefault, (room: IRoom) => {
       store.dispatch({type: ActionTypes.SetRoom, payload: room})
-      this.socket!.emit(Events.RoomJoin, { from: room, to: {id: room.id} })
+      this.socket!.emit(Events.RoomJoin, { from: room, to: { id: room.id, name: room.name }})
     })
-
 
     this.socket!.on(Events.RoomJoined, (roomJoined: IRoomJoined) => {
       this.changeRoomClb(roomJoined.to.drawLines)
@@ -80,9 +79,6 @@ class SocketManager {
   }
 
   public emit(event: string, payload: any) {
-    const log = getLog('emit', event, payload)
-    // console.log(log.key, log.value)
-
     this.socket!.emit(event, payload)
   }
 }
