@@ -11,6 +11,7 @@ import { Events } from '../../../config/events'
 
 import './_message-form.styl'
 import ButtonPrimary from '../../UI/buttons/ButtonPrimary/ButtonPrimary'
+import SocketManager from '../../../modules/SocketManager'
 
 type Props = {
   userId: string
@@ -24,9 +25,8 @@ const MessageForm: FunctionComponent<Props>  = ({ userId }) => {
   const formMessage = createRef<HTMLFormElement>()
 
   const onFormSubmit = () => {
-    addLog('on', 'form:submit', roomId)
     if (content.length > 0) {
-      socket!.emit(Events.RoomAddMessage, { content, userId, roomId })
+      SocketManager.emit(Events.RoomAddMessage, { content, userId, roomId })
     }
     setContent('')
   }

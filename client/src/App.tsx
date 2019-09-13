@@ -5,9 +5,9 @@ import { Provider } from 'react-redux'
 import { store } from './store'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
-import Draw from './pages/Draw/Draw'
-import Login from './pages/Login/Login'
-import About from './pages/About/About'
+import Draw from './pages/DrawPage/Draw'
+import Login from './pages/LoginPage/Login'
+import About from './pages/AboutPage/About'
 import SVGSprite from './components/UI/icons/SVGSprite'
 
 const App: FunctionComponent = () => {

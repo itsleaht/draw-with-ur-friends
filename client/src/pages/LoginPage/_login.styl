@@ -1,0 +1,32 @@
+@import '../../styles/global.styl'
+
+.page--login
+  height 100vh
+  background $c-purple-pale
+
+  .page__inner
+    position fixed
+    top 0
+    left 0
+    bottom 0
+    right 0
+
+  .page__body
+    height 100%
+    display flex
+    align-items center
+    justify-content center
+
+  .page__bottom
+    position absolute
+    bottom spacer(4)
+    right spacer(4)
+
+  +mq-mobile-lg-below()
+    .page__inner
+      position static
+
+    .page__bottom
+      position static
+      padding spacer(3)
+      text-align right
