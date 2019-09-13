@@ -35,3 +35,24 @@
     position relative
     padding 2rem
     z-index 2
+
+  .color__cursor
+    position absolute
+    width 1.2rem
+    height 1.2rem
+    border .2rem solid $c-white
+    border-radius 3rem
+    background none
+    pointer-events none
+
+    &:after
+      content ''
+      position absolute
+      border .1rem solid #dbdbdb
+      border-radius 3rem
+
+    &:after
+      top -.6rem
+      left -.6rem
+      bottom -.6rem
+      right -.6rem
