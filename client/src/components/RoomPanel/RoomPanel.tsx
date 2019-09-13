@@ -77,7 +77,7 @@ const RoomPanel: FunctionComponent = () => {
         <div className="panel__inner">
           <div className="panel__top">
             <h1 className="panel__title heading-2">Artboards</h1>
-              <BadgeNumber number={rooms.length}/>
+              <BadgeNumber number={rooms.length} extraClasses={'panel__badge'}/>
           </div>
           <div className="panel__body">
             <div className={`card card--room-create`}>

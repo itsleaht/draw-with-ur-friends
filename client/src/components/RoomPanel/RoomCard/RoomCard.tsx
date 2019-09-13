@@ -19,8 +19,8 @@ const RoomCard: FunctionComponent<Props> = ({userId, room, isActive, onClickClb}
       <div className="card__inner">
         <div className="card__top">
           <div className="card__top__left">
-            <span className={`card__title ${isActive ? 'heading-3' : ''}`}>{room.name}</span>
             <BadgeNumber number={room.users!.length} extraClasses="card__number" />
+            <span className={`card__title ${isActive ? 'heading-3' : ''}`}>{room.name}</span>
           </div>
           { !isActive &&
             <div className="card__top__right">
@@ -34,7 +34,11 @@ const RoomCard: FunctionComponent<Props> = ({userId, room, isActive, onClickClb}
             <ul className="list list--users">
               { room.users!.map((user, index) => {
                   return (
-                    <li key={`room-card-user-${index}`} className={`list__item tag ${userId === user.id ? 'is-active' : ''}`}>{user.name}</li>
+                    <li key={`room-card-user-${index}`} className={`list__item tag ${userId === user.id ? 'is-active' : ''}`}>
+                      <span className="list__item__icon" style={{background: `${user.color}`}}></span>
+                      <span>{user.name}</span>
+
+                    </li>
                   )
                 })
               }

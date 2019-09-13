@@ -49,8 +49,6 @@ export const rgbToHsl = (r: number, g: number, b: number) => {
   g /= 255;
   b /= 255;
 
-  // console.log(r, g, b)
-
   const max = Math.max(r, g, b),
   min = Math.min(r, g, b);
   const md = (max + min) / 2
@@ -72,8 +70,6 @@ export const rgbToHsl = (r: number, g: number, b: number) => {
     if (h)
       h /= 6;
   }
-
-  // console.log(h, s, l)
 
   return {
     h: Math.round((h! * 360)),
