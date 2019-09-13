@@ -48,7 +48,7 @@ export const getRandom = (min: number, max: number ) => {
   return Math.floor(Math.random() * (max - min)) + min;
 };
 
-const colorList = ['#FB9BD5', '#4A5CFF', '#FFA88C', '#FFE68C', '#E1F885', '#9DEFD2', '#AF93FF', '#9DD2EF', '#FF6F6F'];
+const colorList = ['#FB9BD5', '#FFA88C', '#FFE68C', '#E1F885', '#9DEFD2', '#AF93FF', '#9DD2EF', '#FF6F6F'];
 const colorListLength = colorList.length;
 
 export const getColor = () => {
