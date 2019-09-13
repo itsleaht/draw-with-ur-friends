@@ -10,6 +10,7 @@ import { addLog } from '../../../helpers/utils'
 import { Events } from '../../../config/events'
 
 import './_message-form.styl'
+import ButtonPrimary from '../../UI/buttons/ButtonPrimary/ButtonPrimary'
 
 type Props = {
   userId: string
@@ -55,7 +56,7 @@ const MessageForm: FunctionComponent<Props>  = ({ userId }) => {
       <div className="form__wrapper">
         <textarea onChange={onInputChange} className="form__textarea" value={content} onKeyPress={onTextareaKeyPress}></textarea>
       </div>
-      <button type="submit" className="form__submit" onClick={onClickButton}>Send</button>
+      <button type="submit" className={`form__submit btn--primary ${(content.length > 0 ) ? '' : 'is-disabled'}`} onClick={onClickButton}>Send</button>
     </form>
   )
 }

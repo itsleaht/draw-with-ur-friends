@@ -10,9 +10,8 @@ type Props = {
 }
 
 const ButtonPrimary: FunctionComponent<Props> = ({text, className, isDisabled, isBig, onClickClb = () => {}}) => {
-
   return(
-    <button className={`btn--primary  ${isDisabled ? 'is-disabled' : ''} ${isBig ? 'btn--primary--big' : ''}  ${className}`} onClick={onClickClb}>{text}</button>
+    <button className={`btn--primary ${isDisabled ? 'is-disabled' : ''} ${isBig ? 'btn--primary--big' : ''} ${className}`} onClick={onClickClb}>{text}</button>
   )
 
 }
