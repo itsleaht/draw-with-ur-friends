@@ -6,21 +6,46 @@
   flex-direction column
   align-items flex-start
 
+  &__icon
+    width spacer(3)
+    height spacer(3)
+    margin-right spacer(1)
+    display flex
+    align-items center
+    justify-content center
+    color $c-white
+    border-radius 3rem
+
+  &__inner
+    display flex
+
   &__body
     background $c-grey-medium
-    border-radius 2rem 2rem 2rem 0.5rem
+    border-radius 1rem 2rem 2rem 2rem
     padding 1rem 2rem
     font-size 1.2rem
 
   &__bottom
+    margin-left spacer(4)
     padding .4rem 1rem .8rem
     font-size 1rem
     color $c-grey
 
   &.is-mine
     align-items flex-end
+
     .message
+      &__icon
+        order 2
+        margin-left spacer(1)
+        margin-right 0
+
       &__body
+        order 1
         background $c-blue-medium
         color $c-white
-        border-radius 2rem 2rem 0.5rem 2rem
+        border-radius 2rem 1rem 2rem 2rem
+
+      &__bottom
+        margin-left 0
+        margin-right spacer(4)

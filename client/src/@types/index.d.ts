@@ -2,7 +2,9 @@ export interface IUser {
   id: string,
   createdAt: number,
   name: string,
-  rooms?: []
+  color: string,
+  initial: string,
+  rooms?: [],
 }
 
 export interface IMessage {

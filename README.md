@@ -37,6 +37,7 @@ npm run start
 * :pencil: Draw on canvas
 * :feet: See your friends drawing on the same canvas
 * :raising_hand: Add your username
+* :large_blue_circle: Get assigned an icon
 
 ## Next & current focuses
 - [ ] Fix color picker

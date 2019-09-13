@@ -16,8 +16,11 @@ const Message: FunctionComponent<Props>  = ({ message, isMine }) => {
 
   return (
     <div className={`message ${isMine ? 'is-mine' : ''}`}>
-      <div className="message__body">
-        <p>{message.content}</p>
+      <div className="message__inner">
+        <span className="message__icon tag" style={{background: `${message.from.color}`}}>{message.from.initial}</span>
+        <div className="message__body">
+          <p>{message.content}</p>
+        </div>
       </div>
       <span className="message__bottom">{message.from.name} at {time}</span>
     </div>

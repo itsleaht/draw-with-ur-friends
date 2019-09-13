@@ -1,5 +1,7 @@
 import Room from './Room';
 
+import { getColor } from './../helpers/Utils';
+
 interface IUser {
   id: string;
 }
@@ -8,6 +10,8 @@ export default class User {
   private id: string = '';
   private createdAt: number = Date.now();
   private name: string = 'johndoe';
+  private initial: string = 'J';
+  private color: string = getColor();
   private rooms: Map<string, Room> = new Map();
 
   constructor(user: IUser) {
@@ -22,8 +26,19 @@ export default class User {
     return this.name;
   }
 
+  public getInitialName() {
+    return this.initial;
+  }
+
   public setName(name: string) {
     this.name = name;
+
+    this.setInitial();
+  }
+
+  public setInitial() {
+    const name = this.name;
+    this.initial = name.substr(0, 1).toUpperCase();
   }
 
   public getCreatedAt() {
@@ -44,8 +59,10 @@ export default class User {
 
   public get serialize(): {} {
     return {
+      color: this.color,
       createdAt: this.createdAt,
       id: this.id,
+      initial: this.initial,
       name: this.name,
       rooms: Array.from(this.rooms.values())
     };
