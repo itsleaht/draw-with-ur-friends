@@ -1,5 +1,5 @@
 # Draw with your friends 🖌
-Small web app where you can draw online with your friends.
+Small web app where you can draw online with your friends and others.
 
 Made with **React** (with hooks), **Socket.IO**, **P5.js** and **Typescript**.
 
@@ -25,6 +25,13 @@ cd client
 npm install
 npm run start
 ```
+
+<br>
+
+## Links
+
+* Demo (soon)
+* [UI Styleguide](https://github.com/itsleaht/draw-with-ur-friends/tree/master/client/public/assets/ui_styleguide.svg)
 
 <br>
 

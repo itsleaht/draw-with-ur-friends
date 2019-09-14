@@ -22,7 +22,7 @@ const About: FunctionComponent<Props> = () => {
               <div className="box__body">
                 <div className="box__block box__block--quote">
                   <h2 className="box__title heading-1">" Nice, fun, jeune et friendly "</h2>
-                  <span className="teasing-1 box__author">Mathilde Garde, designer</span>
+                  <span className="teasing-1 box__author"><a href="http://mathildegarde.fr/" className="link link--secondary" target="_blank" rel="noopener noreferrer">Mathilde Garde</a>, designer</span>
                 </div>
                 <div className="box__block">
                   <h2 className="box__title heading-2">Genesis</h2>
@@ -36,7 +36,7 @@ const About: FunctionComponent<Props> = () => {
                   <h2 className="box__title heading-2">Links</h2>
                   <ul className="list--links">
                     <li className="list__item"><a href="https://github.com/itsleaht/draw-with-ur-friends" className="link link--primary" target="_blank" rel="noopener noreferrer">Github Project</a></li>
-                    <li className="list__item">Styleguide <span className="tag">( soon )</span></li>
+                    <li className="list__item"><a href="/assets/ui_styleguide.svg" className="link link--primary" target="_blank" rel="noopener noreferrer">UI Styleguide</a></li>
                   </ul>
                 </div>
                 <div className="box__block">
