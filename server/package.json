@@ -5,9 +5,10 @@
   "main": "index.js",
   "scripts": {
     "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
-    "postinstall": "npm run build",
-    "build": "tsc",
-    "prestart": "npm run build",
+    "postinstall": "yarn build",
+    "clean": "rm -rf dist",
+    "build": "yarn clean && tsc",
+    "prestart": "yarn build",
     "start": "node dist/index.js"
   },
   "author": "",

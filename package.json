@@ -1,0 +1,20 @@
+{
+  "name": "draw-with-your-friends",
+  "version": "1.0.0",
+  "description": "Small web app where you can draw online with your pals.",
+  "main": "index.js",
+  "scripts": {
+    "start": "yarn --cwd server install --production=false && yarn --cwd server start",
+    "build:client": "yarn --cwd client install && yarn --cwd client build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/itsleaht/draw-with-ur-friends.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/itsleaht/draw-with-ur-friends/issues"
+  },
+  "homepage": "https://github.com/itsleaht/draw-with-ur-friends#readme"
+}
