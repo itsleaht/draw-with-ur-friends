@@ -14,15 +14,9 @@ export interface Color {
   hex: string
 }
 
-export interface Point {
-  brush: Brush,
-  color: Color,
-  posRatio: {
-    x: number,
-    y: number,
-    pX: number,
-    pY: number
-  }
+
+export interface Line {
+  [index: number]: number | string;
 }
 
 export interface setUserAction {
@@ -80,8 +74,7 @@ export interface AppState {
   },
   server: {
     isReady: boolean
-  },
-  drawPoints: Point[]
+  }
 }
 
 export interface DrawState {

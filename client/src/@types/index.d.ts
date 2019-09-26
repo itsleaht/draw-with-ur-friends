@@ -15,14 +15,16 @@ export interface IMessage {
 }
 
 export interface Line {
-  brush: Brush,
-  color: Color,
-  posRatio: {
-    x: number,
-    y: number,
-    pX: number,
-    pY: number
-  }
+  [index: number]: number | string;
+}
+
+export interface LineIndex {
+  brush: number,
+  color: number,
+  x: number,
+  y: number,
+  pX: number,
+  pY: number
 }
 
 export interface IRoom {

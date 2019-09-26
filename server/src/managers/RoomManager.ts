@@ -61,9 +61,9 @@ class RoomManager {
       if (room.getUsers().size > 0 ) {
         this.setRoom(room);
       } else {
-        if (roomId !== this.defaultRoom.getId()) {
-          this.handleDelete(roomId);
-        }
+        room.cleaDrawLines();
+        this.rooms.set(roomId, room);
+        this.handleDelete(roomId);
       }
     }
 
@@ -103,11 +103,8 @@ class RoomManager {
 
   public handleDelete(id: string) {
     if (this.exists(id)) {
-      const room = this.rooms.get(id);
-      if (room!.getUsers().size > 0) {
-        if (id !== this.defaultRoom.getId()) {
-          this.rooms.delete(id);
-        }
+      if (id !== this.defaultRoom.getId()) {
+        this.rooms.delete(id);
       }
 
       this.io.emit(Events.RoomsGet, this.serialize);

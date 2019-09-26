@@ -4,22 +4,7 @@ import Message from './Message';
 import User from './User';
 
 export interface ILine {
-  brush: IBrush;
-  color: IColor;
-  posRatio: {
-    x: number,
-    y: number,
-    pX: number,
-    pY: number
-  };
-}
-
-interface IBrush {
-  index: string;
-}
-
-interface IColor {
-  hex: string;
+  [index: number]: number | string;
 }
 
 interface IRoom {
@@ -73,6 +58,10 @@ export default class Room {
 
   public addDrawLine(line: ILine): void {
     this.drawLines.push(line);
+  }
+
+  public cleaDrawLines(): void {
+    this.drawLines = [];
   }
 
   public removeUser(id: string): void {

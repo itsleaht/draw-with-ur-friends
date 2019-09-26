@@ -11,8 +11,7 @@ const initialState: AppState = {
   },
   server: {
     isReady: false
-  },
-  drawPoints: []
+  }
 }
 
 const appReducer = (state = initialState, action: any) => {

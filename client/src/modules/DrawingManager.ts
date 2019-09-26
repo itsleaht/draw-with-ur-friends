@@ -3,7 +3,7 @@ import { store } from "../store"
 import p5 from 'p5'
 import { Events } from "../config/events"
 import SocketManager from "./SocketManager"
-import { Line } from "../@types"
+import { Line, LineIndex } from "../@types"
 import { addLog } from "../helpers/utils"
 
 const baseBrush:  {[key: string]: number}  = {
@@ -14,12 +14,20 @@ const baseBrush:  {[key: string]: number}  = {
 }
 const refHeight = 698
 const refWidth = refHeight / (9 / 16)
+const draw: LineIndex  = {
+  brush: 0,
+  color: 1,
+  x: 2,
+  y: 3,
+  pX: 4,
+  pY: 5
+}
 
 class DrawingManager {
   private sketch: any = new p5(() => {})
   private sketchSize: { width: number, height : number } = { width : 0, height : 0 }
-  private brush: Brush = { index: '' }
-  private color: Color = { hex: '' }
+  private brush: string = ''
+  private color: string = ''
   private brushes: {[key: string]: number} = { ...baseBrush }
 
   constructor() {
@@ -48,11 +56,11 @@ class DrawingManager {
     addLog('on', 'DrawingManager : Init')
     store.subscribe(() => {
       const state = store.getState()
-      if (this.brush !== state.draw.brush) {
-        this.setBrush(state.draw.brush)
+      if (this.brush !== state.draw.brush.index) {
+        this.setBrush(state.draw.brush.index)
       }
-      if (this.color !== state.draw.color ) {
-        this.setColor(state.draw.color)
+      if (this.color !== state.draw.color.hex) {
+        this.setColor(state.draw.color.hex)
       }
     })
   }
@@ -73,7 +81,7 @@ class DrawingManager {
     addLog('on', 'DrawingManager : Setup')
   }
 
-  setBrush(brush: Brush) {
+  setBrush(brush: string) {
     this.brush = brush
   }
 
@@ -97,27 +105,25 @@ class DrawingManager {
     }
   }
 
-  setColor(color: Color) {
+  setColor(color: string) {
     this.color = color
   }
 
   createLine() {
-    const line: Line = {
-      color: this.color,
-      brush: this.brush,
-      posRatio : {
-        x: ( this.sketch.mouseX * refWidth ) / this.sketchSize.width,
-        y: ( this.sketch.mouseY * refHeight ) / this.sketchSize.height,
-        pX: ( this.sketch.pmouseX * refWidth ) / this.sketchSize.width,
-        pY: ( this.sketch.pmouseY * refHeight ) / this.sketchSize.height
-      }
-    }
 
-    this.draw(line)
+    const lineArr: Line = [
+      this.brush,
+      this.color,
+      ( this.sketch.mouseX * refWidth ) / this.sketchSize.width,
+      ( this.sketch.mouseY * refHeight ) / this.sketchSize.height,
+      ( this.sketch.pmouseX * refWidth ) / this.sketchSize.width,
+      ( this.sketch.pmouseY * refHeight ) / this.sketchSize.height
+    ]
+    // this.draw(line)
 
     SocketManager.emit(Events.RoomAddDrawLine, {
       room: { id: store.getState().app.room!.id },
-      drawLine: line
+      drawLine: lineArr
     })
   }
 
@@ -127,20 +133,27 @@ class DrawingManager {
   }
 
   draw (line: Line) {
-    // addLog('on', 'DrawingManager : Draw')
     if (line) {
-      if (line.color.hex && this.brushes[line.brush.index]) {
-        this.sketch.stroke(line.color.hex)
-        this.sketch.strokeWeight(this.brushes[line.brush.index])
+      const drawBrush = line[draw.brush]
+      const drawColor = line[draw.color]
+      if (drawBrush && this.brushes[drawBrush] && drawColor) {
+        this.sketch.stroke(drawColor)
+        this.sketch.strokeWeight(drawBrush)
       }
 
       // TODO line interpolation if sketchHeight > than refHeight
-      if (line.posRatio.x && line.posRatio.y && line.posRatio.pX && line.posRatio.pY) {
+      const drawPos: {x: number, y: number, pX: number, pY: number} = {
+        x: Number(line[draw.x]),
+        y:  Number(line[draw.y]),
+        pX:  Number(line[draw.pX]),
+        pY:  Number(line[draw.pY])
+      }
+      if (drawPos.x && drawPos.y && drawPos.pX && drawPos.pY) {
         this.sketch.line(
-          ( line.posRatio.x * this.sketchSize.width ) / refWidth,
-          ( line.posRatio.y * this.sketchSize.height ) / refHeight,
-          ( line.posRatio.pX * this.sketchSize.width ) / refWidth,
-          ( line.posRatio.pY * this.sketchSize.height ) / refHeight
+          ( drawPos.x * this.sketchSize.width ) / refWidth,
+          ( drawPos.y * this.sketchSize.height ) / refHeight,
+          ( drawPos.pX * this.sketchSize.width ) / refWidth,
+          ( drawPos.pY * this.sketchSize.height ) / refHeight
         )
       }
     }
@@ -149,7 +162,7 @@ class DrawingManager {
   drawAll (lines: Line[]) {
     addLog('on', 'DrawingManager : DrawAll')
     this.clear()
-    lines.forEach((line) => {
+    lines.forEach((line: Line) => {
       this.draw(line)
     })
   }

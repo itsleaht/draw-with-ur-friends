@@ -1,6 +1,5 @@
 import { setUserAction, User, setRoomAction, setRoomsAction, Brush, setBrushAction, setColorAction, Color, setRoomMessageAction, SetIsRoomPanelOpenAction, setRoomDrawLineAction, SetIsServerReadyAction } from './types'
 import { IRoom, Line, IMessage } from './../@types'
-import { DrawState } from './types'
 
 import { ActionTypes } from './actionTypes'
 
@@ -25,7 +24,7 @@ export function setRooms(rooms: IRoom[]): setRoomsAction {
   }
 }
 
-export function setRoomDrawLine(line: Line[]): setRoomDrawLineAction {
+export function setRoomDrawLine(line: Line): setRoomDrawLineAction {
   return {
     type: ActionTypes.SetRoomDrawLine,
     payload: line
