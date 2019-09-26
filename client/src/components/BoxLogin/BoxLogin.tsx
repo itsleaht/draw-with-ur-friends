@@ -40,11 +40,13 @@ const BoxLogin: FunctionComponent<Props> = ({user, isServerReady, isUserReady, o
   }
 
   const onClickBtn = () => {
-    SocketManager.emit(Events.UserName, {
-      id: user.id,
-      name: username
-    })
-    onValidateBox()
+    if (isJoinAllowed) {
+      SocketManager.emit(Events.UserName, {
+        id: user.id,
+        name: username
+      })
+      onValidateBox()
+    }
   }
 
   useEffect(() => {

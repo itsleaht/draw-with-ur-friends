@@ -28,7 +28,10 @@ const RoomPanel: FunctionComponent = () => {
   const [isFocusing, setIsFocusing] = useState<Boolean>(false)
 
   const onClickCreateRoom = () => {
-    joinRoom({id: '', name: roomName})
+    if (roomName.length > 0) {
+      joinRoom({id: '', name: roomName})
+      setRoomName('')
+    }
   }
 
   const joinRoom = (to: IRoomJoin) => {

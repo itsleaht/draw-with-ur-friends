@@ -86,8 +86,15 @@
         transition opacity .2s
         opacity .7
 
+        &.is-disabled
+          opacity .2
+
         &:hover,
         &.is-focusing
           opacity 1
+
+        &.is-disabled
+          &:hover
+            opacity .2
 
 
