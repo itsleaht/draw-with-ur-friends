@@ -85,6 +85,10 @@ const ColorGradient: FunctionComponent<Props> = ({ color, saturated, onColorClb,
     }
   }
 
+  const onClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    getColor(e.nativeEvent)
+  }
+
   const onTransitionEnd = () => {
     if (gradientRef && gradientRef.current && isOpen) {
       const bounding = gradientRef.current.getBoundingClientRect()
@@ -117,7 +121,7 @@ const ColorGradient: FunctionComponent<Props> = ({ color, saturated, onColorClb,
   }, [gradientWrapperRef, saturated])
 
   return (
-    <div className={`color__wrapper--gradient ${isOpen ? 'is-open' : ''}`} ref={gradientWrapperRef} onMouseDown={onMouseDown} onMouseUp={onMouseUp}>
+    <div className={`color__wrapper--gradient ${isOpen ? 'is-open' : ''}`} ref={gradientWrapperRef} onMouseDown={onMouseDown} onMouseUp={onMouseUp} onClick={onClick}>
       <canvas className="color__gradient" ref={gradientRef} onTransitionEnd={onTransitionEnd} />
       <span className="color__cursor" style={{top: cursorPos.y, left: cursorPos.x}} />
     </div>

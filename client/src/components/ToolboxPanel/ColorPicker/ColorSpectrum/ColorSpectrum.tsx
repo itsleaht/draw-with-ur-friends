@@ -70,6 +70,11 @@ const ColorSpectrum: FunctionComponent<Props> = ({ saturated, onSaturatedClb, is
     }
   }
 
+  const onClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    getSaturated(e.nativeEvent)
+  }
+
+
   const getSaturated = (e: MouseEvent) => {
     const cursorX =  e.pageX
     const cursorY = e.pageY
@@ -135,7 +140,7 @@ const ColorSpectrum: FunctionComponent<Props> = ({ saturated, onSaturatedClb, is
   }, [isMouseDown])
 
   return(
-    <div className={`color__spectrum--gradient ${isOpen ? 'is-open' : ''}`} ref={spectrumWrapperRef} onMouseDown={onMouseDown} onMouseUp={onMouseUp} >
+    <div className={`color__spectrum--gradient ${isOpen ? 'is-open' : ''}`} ref={spectrumWrapperRef} onMouseDown={onMouseDown} onMouseUp={onMouseUp} onClick={onClick}>
       <canvas className="color__spectrum" ref={spectrumRef} onTransitionEnd={onTransitionEnd} />
       <span className="color__cursor" style={{left: cursorPos.x}} />
     </div>
