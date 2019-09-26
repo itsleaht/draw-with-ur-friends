@@ -61,7 +61,8 @@ class RoomManager {
       if (room.getUsers().size > 0 ) {
         this.setRoom(room);
       } else {
-        room.cleaDrawLines();
+        room.clearDrawLines();
+        room.clearMessages();
         this.rooms.set(roomId, room);
         this.handleDelete(roomId);
       }

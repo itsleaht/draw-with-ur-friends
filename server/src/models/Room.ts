@@ -60,8 +60,12 @@ export default class Room {
     this.drawLines.push(line);
   }
 
-  public cleaDrawLines(): void {
+  public clearDrawLines(): void {
     this.drawLines = [];
+  }
+
+  public clearMessages(): void {
+    this.messages = [];
   }
 
   public removeUser(id: string): void {
