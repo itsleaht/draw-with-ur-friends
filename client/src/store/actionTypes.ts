@@ -7,5 +7,6 @@ export enum ActionTypes {
   SetBrush = 'SET_BRUSH',
   SetColor = 'SET_COLOR',
   SetIsRoomPanelOpen = 'SET_IS_ROOM_PANEL_OPEN',
+  SetCanDraw = 'SET_CAN_DRAW',
   SetIsServerReady = 'SET_IS_SERVER_READY'
 }

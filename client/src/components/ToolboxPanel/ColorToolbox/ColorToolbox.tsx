@@ -55,8 +55,10 @@ const ColorToolbox: FunctionComponent = () => {
     if (isColorPickerOpen) {
       storeColor()
       setIsColorPickerOpen(false)
+      dispatch({type: ActionTypes.SetCanDraw, payload: true})
     } else {
       setIsColorPickerOpen(true)
+      dispatch({type: ActionTypes.SetCanDraw, payload: false})
     }
   }
 

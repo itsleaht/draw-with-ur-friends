@@ -1,4 +1,4 @@
-import { setUserAction, User, setRoomAction, setRoomsAction, Brush, setBrushAction, setColorAction, Color, setRoomMessageAction, SetIsRoomPanelOpenAction, setRoomDrawLineAction, SetIsServerReadyAction } from './types'
+import { setUserAction, User, setRoomAction, setRoomsAction, Brush, setBrushAction, setColorAction, Color, setRoomMessageAction, SetIsRoomPanelOpenAction, setRoomDrawLineAction, SetIsServerReadyAction, SetCanDraw } from './types'
 import { IRoom, Line, IMessage } from './../@types'
 
 import { ActionTypes } from './actionTypes'
@@ -42,6 +42,13 @@ export function SetIsRoomPanelOpen(isRoomPanelOpen: boolean): SetIsRoomPanelOpen
   return {
     type: ActionTypes.SetIsRoomPanelOpen,
     payload: isRoomPanelOpen
+  }
+}
+
+export function setCanDraw(canDraw: boolean): SetCanDraw {
+  return {
+    type: ActionTypes.SetCanDraw,
+    payload: canDraw
   }
 }
 

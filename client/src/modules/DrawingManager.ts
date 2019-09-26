@@ -25,6 +25,7 @@ const draw: LineIndex  = {
 class DrawingManager {
   private sketch: any = new p5(() => {})
   private sketchSize: { width: number, height : number } = { width : 0, height : 0 }
+  private canDraw: boolean = store.getState().app.ui.canDraw
   private brush: string = ''
   private color: string = ''
   private brushes: {[key: string]: number} = { ...baseBrush }
@@ -60,6 +61,9 @@ class DrawingManager {
       }
       if (this.color !== state.draw.color.hex) {
         this.setColor(state.draw.color.hex)
+      }
+      if (this.canDraw !== state.app.ui.canDraw) {
+        this.setCanDraw(state.app.ui.canDraw)
       }
     })
   }
@@ -108,6 +112,10 @@ class DrawingManager {
     this.color = color
   }
 
+  setCanDraw(canDraw: boolean) {
+    this.canDraw = canDraw
+  }
+
   createLine() {
 
     const lineArr: Line = [
@@ -136,7 +144,6 @@ class DrawingManager {
       const drawBrush = line[draw.brush]
       const drawColor = line[draw.color]
       if (drawBrush && this.brushes[drawBrush] && drawColor) {
-        console.log(drawBrush)
         this.sketch.stroke(drawColor)
         this.sketch.strokeWeight(this.brushes[drawBrush])
       }
@@ -168,11 +175,15 @@ class DrawingManager {
   }
 
   onMouseClicked() {
-    this.createLine()
+    if (this.canDraw) {
+      this.createLine()
+    }
   }
 
   onMouseDragged () {
-    this.createLine()
+    if (this.canDraw) {
+      this.createLine()
+    }
   }
 
   retrieveDraw () {

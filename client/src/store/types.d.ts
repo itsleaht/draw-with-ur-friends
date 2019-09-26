@@ -60,6 +60,11 @@ export interface SetIsRoomPanelOpenAction {
   payload: boolean
 }
 
+export interface SetCanDraw {
+  type: typeof ActionTypes.SetCanDraw,
+  payload: boolean
+}
+
 export interface SetIsServerReadyAction {
   type: typeof ActionTypes.SetIsServerReady,
   payload: boolean
@@ -71,6 +76,7 @@ export interface AppState {
   rooms: IRoom[],
   ui: {
     isRoomPanelOpen: boolean,
+    canDraw: boolean
   },
   server: {
     isReady: boolean

@@ -7,6 +7,7 @@ const initialState: AppState = {
   room: {id: '', name: '', users: [], drawLines: [], messages: []},
   rooms: [],
   ui: {
+    canDraw: false,
     isRoomPanelOpen: false,
   },
   server: {
@@ -68,9 +69,22 @@ const appReducer = (state = initialState, action: any) => {
     case ActionTypes.SetIsServerReady:
       return {
         ...state,
+        ui: {
+          ...state.ui,
+          canDraw: action.payload
+        },
         server: {
           ...state.server,
           isReady: action.payload
+        }
+      }
+
+    case ActionTypes.SetCanDraw:
+      return {
+        ...state,
+        ui: {
+          ...state.ui,
+          canDraw: action.payload
         }
       }
 
