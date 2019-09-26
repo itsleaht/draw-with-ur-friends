@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react'
+import React, { FunctionComponent, useState, useEffect } from 'react'
 import RoomList from './RoomList/RoomList'
 import Icon from '../UI/icons/Icon'
 import ButtonPrimary from '../UI/buttons/ButtonPrimary/ButtonPrimary'
@@ -13,12 +13,14 @@ import { State, User } from '../../store/types'
 import BadgeNumber from '../UI/misc/BadgeNumber/BadgeNumber'
 
 import './_room-panel.styl'
+import appSelector from '../../store/selectors/appSelector'
 
 const RoomPanel: FunctionComponent = () => {
   const socket = useSocket()
-  const room = useSelector<State, IRoom>(state => state.app.room)
-  const rooms = useSelector<State, IRoom[]>(state => state.app.rooms)
-  const user = useSelector<State, User>(state => state.app.user)
+  const user = useSelector<State, User>(state => appSelector.user(state))
+  const room = useSelector<State, IRoom>(state =>  appSelector.room(state))
+  const rooms = useSelector<State, IRoom[]>(state => appSelector.roomsOrdered(state, room.id))
+  // const rooms = useSelector<State, IRoom[]>(state => appSelector.rooms(state))
   const dispatch = useDispatch()
 
   const defaultRoomName = 'New room'
@@ -71,6 +73,9 @@ const RoomPanel: FunctionComponent = () => {
     setRoomName(e.target.value)
   }
 
+  useEffect(() => {
+    console.log('update rooms')
+  }, [rooms])
   return (
     <>
       <button onClick={onClickBtnClb} className="panel--room__trigger">

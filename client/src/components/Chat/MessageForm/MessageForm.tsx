@@ -12,6 +12,7 @@ import { Events } from '../../../config/events'
 import './_message-form.styl'
 import ButtonPrimary from '../../UI/buttons/ButtonPrimary/ButtonPrimary'
 import SocketManager from '../../../modules/SocketManager'
+import appSelector from '../../../store/selectors/appSelector'
 
 type Props = {
   userId: string
@@ -19,8 +20,7 @@ type Props = {
 
 const MessageForm: FunctionComponent<Props>  = ({ userId }) => {
   const [content, setContent] = useState<string>('')
-  const roomId = useSelector<State, string>(state => state.app.room.id)
-  const socket = useSocket()
+  const roomId = useSelector<State, string>(state => appSelector.roomId(state))
 
   const formMessage = createRef<HTMLFormElement>()
 

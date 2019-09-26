@@ -1,6 +1,5 @@
-import { setUserAction, User, setRoomAction, setRoomsAction, Brush, setBrushAction, setColorAction, Color, setRoomMessageAction, SetIsRoomPanelOpenAction, setRoomDrawLineAction, SetIsServerReadyAction, SetCanDraw } from './types'
+import { setUserAction, User, setRoomAction, setRoomsAction, Brush, setBrushAction, setColorAction, Color, setRoomMessageAction, SetIsRoomPanelOpenAction, setRoomDrawLineAction, SetIsServerReadyAction, SetCanDraw, State } from './types'
 import { IRoom, Line, IMessage } from './../@types'
-
 import { ActionTypes } from './actionTypes'
 
 export function setUser(user: User): setUserAction {
@@ -72,3 +71,5 @@ export function setColor(color: Color): setColorAction {
     payload: color
   }
 }
+
+

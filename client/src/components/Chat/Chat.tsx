@@ -13,6 +13,7 @@ import { IRoom } from './../../@types'
 import { Events } from '../../config/events'
 
 import './_chat.styl'
+import appSelector from '../../store/selectors/appSelector'
 
 const Chat: FunctionComponent = () => {
   const [isMinified, setisMinified] = useState<boolean>(true)
@@ -21,9 +22,9 @@ const Chat: FunctionComponent = () => {
 
   const maxCounterNotification = 99
 
-  const room = useSelector<State, IRoom>(state => state.app.room)
-  const user = useSelector<State, User>(state => state.app.user)
-  const isRoomPanelOpened = useSelector<State, boolean>(state => state.app.ui.isRoomPanelOpen)
+  const room = useSelector<State, IRoom>(state => appSelector.room(state))
+  const user = useSelector<State, User>(state => appSelector.room(state))
+  const isRoomPanelOpened = useSelector<State, boolean>(state => appSelector.isRoomPanelOpen(state))
 
   const onClickToggle = () => {
     setisMinified(!isMinified)

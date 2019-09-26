@@ -10,6 +10,7 @@ import { Events } from '../../../config/events'
 import './_message-list.styl'
 import { useSelector } from 'react-redux'
 import { State } from '../../../store/types'
+import appSelector from '../../../store/selectors/appSelector'
 
 type Props = {
   userId: string
@@ -17,7 +18,7 @@ type Props = {
 
 const MessageList: FunctionComponent<Props> = ({userId}) => {
   const messageListRef = useRef<HTMLUListElement>(null)
-  const messages = useSelector<State, IMessage[]>(state => state.app.room.messages)
+  const messages = useSelector<State, IMessage[]>(state => appSelector.messages(state))
 
   const scrollDown = () => {
     if (messageListRef.current) {

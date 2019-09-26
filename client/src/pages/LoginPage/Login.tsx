@@ -10,15 +10,16 @@ import Header from '../../components/Header/Header'
 import BoxLogin from '../../components/BoxLogin/BoxLogin'
 
 import './_login.styl'
+import appSelector from '../../store/selectors/appSelector'
 
 type Props = {}
 
 const Login = ({ history }: RouteComponentProps<Props>) => {
   const [isUserReady, setIsUserReady] = useState<boolean>(false)
-  const user = useSelector<State, {id: string}>(state => state.app.user)
-  const room = useSelector<State, IRoom>(state => state.app.room)
+  const user = useSelector<State, {id: string}>(state => appSelector.user(state))
+  const room = useSelector<State, IRoom>(state => appSelector.room(state))
 
-  const isServerReady = useSelector<State, boolean>(state => state.app.server.isReady)
+  const isServerReady = useSelector<State, boolean>(state => appSelector.isServerReady(state))
 
   const checkUser = () => {
     return (user.id && user.id.length > 0 && room.id && room.id.length > 0)
