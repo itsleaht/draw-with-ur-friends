@@ -1,4 +1,3 @@
-import { Brush, Color } from "../store/types"
 import { store } from "../store"
 import p5 from 'p5'
 import { Events } from "../config/events"

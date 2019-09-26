@@ -1,6 +1,6 @@
 import { Events } from "../config/events"
 
-import { addLog, getLog } from "../helpers/utils"
+import { addLog } from "../helpers/utils"
 
 import { store } from './../store'
 import { ActionTypes } from '../store/actionTypes'
@@ -60,7 +60,7 @@ class SocketManager {
 
     this.socket!.on(Events.RoomAddDrawLine, (drawLine: Line) => {
       this.drawLineClb(drawLine)
-      store.dispatch({type: ActionTypes.SetRoomDrawLine, payload: drawLine})
+      store.dispatch({type: ActionTypes.SetRoomDrawLine, payload: {drawLine: drawLine}})
     })
 
     this.socket!.on(Events.RoomsGet, (rooms: IRoom[]) => {
