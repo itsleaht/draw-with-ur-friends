@@ -30,7 +30,7 @@ npm run start
 
 ## Links
 
-* Demo (soon)
+* [Demo](https://draw-with-your-friends.netlify.com/)
 * [UI Styleguide](https://github.com/itsleaht/draw-with-ur-friends/tree/master/client/public/assets/ui_styleguide.svg)
 
 <br>
