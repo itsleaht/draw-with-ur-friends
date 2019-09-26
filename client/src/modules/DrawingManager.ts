@@ -137,8 +137,9 @@ class DrawingManager {
       const drawBrush = line[draw.brush]
       const drawColor = line[draw.color]
       if (drawBrush && this.brushes[drawBrush] && drawColor) {
+        console.log(drawBrush)
         this.sketch.stroke(drawColor)
-        this.sketch.strokeWeight(drawBrush)
+        this.sketch.strokeWeight(this.brushes[drawBrush])
       }
 
       // TODO line interpolation if sketchHeight > than refHeight
