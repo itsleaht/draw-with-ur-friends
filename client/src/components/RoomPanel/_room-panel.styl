@@ -22,12 +22,14 @@
       position relative
       top -.5rem
       transform skewY(5deg)
+      transition transform $t-duration $t-duration
 
     &__badge
       opacity .2
       position relative
       top .5rem
-      transform skewY(5deg)
+      transform skewY(5deg) scale(1)
+      transition transform $t-duration ($t-duration + .2s)
 
     &__top
       display flex
@@ -35,21 +37,79 @@
 
     &__body
       margin-top spacer(7)
+      opacity 1
+      transition opacity $t-duration $t-duration
 
     &__bottom
       margin-top spacer(7)
       margin-right -(spacer(1))
+      opacity 1
+      transition opacity $t-duration $t-duration
 
   &__trigger
     position absolute
     top 4rem
     right 4rem
+    width 4rem
+    height spacer(4)
     z-index 2
+
+    &:before,
+    &:after
+      content ''
+      position absolute
+      left spacer(1)
+      height .6rem
+      border-radius 1rem
+      background $c-blue-brand
+      transition width $t-duration, transform $t-duration
+
+    &:before
+      top spacer(1)
+      width spacer(2)
+
+    &:after
+      top spacer(2.4)
+      width spacer(3.4)
+
+    &:hover
+      &:before
+        width spacer(3.4)
+
+      &:after
+        width spacer(2)
+
+    &.is-unminified
+      &:before
+        width spacer(3.4)
+        transform rotate(45deg) translateY(.4rem) translateX(.2rem)
+
+      &:after
+        transform rotate(-45deg) translateY(-.6rem) translateX(.4rem)
+
+      &:hover
+        &:before
+          transform scale(1.2) rotate(45deg) translateY(.4rem) translateX(.2rem)
+          width spacer(3.4)
+
+        &:after
+          transform scale(1.2) rotate(-45deg) translateY(-0.5rem) translateX(0.2rem)
+          width spacer(3.4)
 
   &.is-minified
     transform translateX(30rem)
     opacity 0
 
+    .panel
+      &__title
+        transform skewY(0)
+
+      &__badge
+        transform skewY(5deg) scale(0)
+
+      &__bottom,
+      &__body
+        opacity 0
 
   .card--room-create
     padding spacer(2) spacer(3)

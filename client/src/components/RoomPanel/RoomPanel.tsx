@@ -1,6 +1,5 @@
 import React, { FunctionComponent, useState } from 'react'
 import RoomList from './RoomList/RoomList'
-import Icon from '../UI/icons/Icon'
 import ButtonPrimary from '../UI/buttons/ButtonPrimary/ButtonPrimary'
 
 import { useSelector, useDispatch } from 'react-redux'
@@ -20,7 +19,6 @@ const RoomPanel: FunctionComponent = () => {
   const user = useSelector<State, User>(state => appSelector.user(state))
   const room = useSelector<State, IRoom>(state =>  appSelector.room(state))
   const rooms = useSelector<State, IRoom[]>(state => appSelector.roomsOrdered(state, room.id))
-  // const rooms = useSelector<State, IRoom[]>(state => appSelector.rooms(state))
   const dispatch = useDispatch()
 
   const defaultRoomName = 'New room'
@@ -75,9 +73,7 @@ const RoomPanel: FunctionComponent = () => {
 
   return (
     <>
-      <button onClick={onClickBtnClb} className="panel--room__trigger">
-        <Icon name="menu" width={26} height={28}  fill="#3514FF" />
-      </button>
+      <button onClick={onClickBtnClb} className={`panel--room__trigger ${isMinified ? '' : 'is-unminified'}`}></button>
       <div className={`panel panel--room ${isMinified ? 'is-minified' : ''}`}>
         <div className="panel__inner">
           <div className="panel__top">
