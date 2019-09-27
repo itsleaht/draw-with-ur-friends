@@ -9,11 +9,13 @@
       margin 0 1rem
       border-radius 3rem
       border none
-      transition opacity .3s
-      box-shadow 0 .4rem .8rem rgba(162, 160, 160, 0.25)
+      transition transform $t-duration
+
+      &:hover
+        transform scale(1.1)
 
     &__hexa
-      width 6.5rem
+      width 7rem
       border-top none
       border-right none
       border-left none
@@ -25,6 +27,7 @@
       line-height 1.2rem
       text-transform uppercase
       letter-spacing .1rem
+      outline none
 
     &__body
       position relative
