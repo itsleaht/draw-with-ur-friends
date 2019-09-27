@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, useEffect } from 'react'
+import React, { FunctionComponent, useState } from 'react'
 import RoomList from './RoomList/RoomList'
 import Icon from '../UI/icons/Icon'
 import ButtonPrimary from '../UI/buttons/ButtonPrimary/ButtonPrimary'
@@ -73,9 +73,6 @@ const RoomPanel: FunctionComponent = () => {
     setRoomName(e.target.value)
   }
 
-  useEffect(() => {
-    console.log('update rooms')
-  }, [rooms])
   return (
     <>
       <button onClick={onClickBtnClb} className="panel--room__trigger">
