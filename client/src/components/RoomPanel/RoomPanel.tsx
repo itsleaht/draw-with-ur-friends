@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from 'react'
+import React, { FunctionComponent, useState, useEffect } from 'react'
 import RoomList from './RoomList/RoomList'
 import ButtonPrimary from '../UI/buttons/ButtonPrimary/ButtonPrimary'
 
@@ -19,6 +19,7 @@ const RoomPanel: FunctionComponent = () => {
   const user = useSelector<State, User>(state => appSelector.user(state))
   const room = useSelector<State, IRoom>(state =>  appSelector.room(state))
   const rooms = useSelector<State, IRoom[]>(state => appSelector.roomsOrdered(state, room.id))
+  const canDraw = useSelector<State, boolean>(appSelector.canDraw)
   const dispatch = useDispatch()
 
   const defaultRoomName = 'New room'
@@ -48,8 +49,7 @@ const RoomPanel: FunctionComponent = () => {
   }
 
   const onClickBtnClb = () => {
-    setIsMinified(!isMinified)
-    dispatch({type: ActionTypes.SetIsRoomPanelOpen, payload: isMinified})
+    closePanel()
   }
 
   const onFocusRoomName = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -70,6 +70,17 @@ const RoomPanel: FunctionComponent = () => {
   const onChangeRoomName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setRoomName(e.target.value)
   }
+
+  const closePanel = () => {
+    setIsMinified(!isMinified)
+    dispatch({type: ActionTypes.SetIsRoomPanelOpen, payload: isMinified})
+  }
+
+  useEffect(() => {
+    if (!canDraw && !isMinified) {
+      closePanel()
+    }
+  }, [canDraw])
 
   return (
     <>

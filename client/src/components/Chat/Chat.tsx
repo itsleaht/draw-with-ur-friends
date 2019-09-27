@@ -1,5 +1,5 @@
 
-import React, { FunctionComponent, useState } from 'react'
+import React, { FunctionComponent, useState, useEffect } from 'react'
 import MessageList from './MessageList/MessageList'
 import MessageForm from './MessageForm/MessageForm'
 import ChatNotification from './ChatNotification/ChatNotification'
@@ -16,9 +16,10 @@ import './_chat.styl'
 import appSelector from '../../store/selectors/appSelector'
 
 const Chat: FunctionComponent = () => {
-  const [isMinified, setisMinified] = useState<boolean>(true)
-  const [isNotified, setisNotified] = useState<boolean>(false)
+  const [isMinified, setIsMinified] = useState<boolean>(true)
+  const [isNotified, setIsNotified] = useState<boolean>(false)
   const [counterNotification, setCounterNotification] = useState<number>(0)
+  const canDraw = useSelector<State, boolean>(appSelector.canDraw)
 
   const maxCounterNotification = 99
 
@@ -28,12 +29,12 @@ const Chat: FunctionComponent = () => {
   const isRoomPanelOpened = useSelector<State, boolean>(state => appSelector.isRoomPanelOpen(state))
 
   const onClickToggle = () => {
-    setisMinified(!isMinified)
+    setIsMinified(!isMinified)
 
     const timeout = setTimeout(() => {
       clearTimeout(timeout)
       setCounterNotification(0)
-      setisNotified(false)
+      setIsNotified(false)
     }, 350)
   }
 
@@ -41,10 +42,16 @@ const Chat: FunctionComponent = () => {
     if (isMinified && counterNotification <= maxCounterNotification) {
       setCounterNotification(counterNotification + 1)
       if (!isNotified) {
-        setisNotified(true)
+        setIsNotified(true)
       }
     }
   })
+
+  useEffect(() => {
+    if (!canDraw && !isMinified) {
+      setIsMinified(true)
+    }
+  }, [canDraw])
 
   return (
     <div className={`chat ${isMinified ? 'is-minified' : ''} ${isNotified ? 'is-notified' : ''} ${isRoomPanelOpened ? 'is-translated' : ''}`}>
