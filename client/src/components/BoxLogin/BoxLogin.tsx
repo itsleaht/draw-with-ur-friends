@@ -24,9 +24,10 @@ const BoxLogin: FunctionComponent<Props> = ({user, isServerReady, isUserReady, o
   }
 
   const onInputKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if ((e.keyCode || e.which) === 13) {
+    if ((e.nativeEvent.keyCode || e.nativeEvent.which) === 13) {
       e.preventDefault()
       checkUsername()
+      onClickBtn()
       return false
     }
   }
