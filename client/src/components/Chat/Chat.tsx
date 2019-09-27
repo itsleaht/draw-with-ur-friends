@@ -23,7 +23,8 @@ const Chat: FunctionComponent = () => {
   const maxCounterNotification = 99
 
   const room = useSelector<State, IRoom>(state => appSelector.room(state))
-  const user = useSelector<State, User>(state => appSelector.room(state))
+  const user = useSelector<State, User>(state => appSelector.user(state))
+
   const isRoomPanelOpened = useSelector<State, boolean>(state => appSelector.isRoomPanelOpen(state))
 
   const onClickToggle = () => {
