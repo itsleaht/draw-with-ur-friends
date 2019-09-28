@@ -56,6 +56,11 @@ export default class RoomHandler {
       const room = RoomManager.getRoom(roomId);
       io.in(roomId).emit(Events.RoomGetDrawLines, room!.getDrawLines());
     });
+
+    socket.on(Events.RoomClearDraw, (roomId: string) => {
+      const room = RoomManager.clearDraw(roomId);
+      io.in(roomId).emit(Events.RoomClearDraw, room);
+    });
   }
 
   protected static removeListeners(socket: SocketIO.Socket): void {

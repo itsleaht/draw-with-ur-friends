@@ -39,6 +39,9 @@ class DrawingManager {
       },
       changeRoomClb: (drawLines: Line[]) => {
         this.drawAll(drawLines)
+      },
+      clearDrawClb: () => {
+        this.retrieveDraw()
       }
     })
   }

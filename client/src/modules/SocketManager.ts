@@ -15,6 +15,7 @@ class SocketManager {
   private socket: SocketIOClient.Socket | null = null
   private drawLineClb: Function = () => {}
   private changeRoomClb: Function = () => {}
+  private clearDrawClb: Function = () => {}
 
   constructor () {
   }
@@ -24,12 +25,15 @@ class SocketManager {
     this.init()
   }
 
-  public setClbs (params: {drawLineClb?: Function, changeRoomClb?: Function}) {
+  public setClbs (params: {drawLineClb?: Function, changeRoomClb?: Function, clearDrawClb?: Function}) {
     if (params.drawLineClb)
       this.drawLineClb = params.drawLineClb
 
     if (params.changeRoomClb)
     this.changeRoomClb = params.changeRoomClb
+
+    if (params.clearDrawClb)
+      this.clearDrawClb = params.clearDrawClb
   }
 
   private init() {
@@ -63,6 +67,11 @@ class SocketManager {
       store.dispatch({type: ActionTypes.SetRoomDrawLine, payload: {drawLine: drawLine}})
     })
 
+    this.socket!.on(Events.RoomClearDraw, (room: IRoom) => {
+      store.dispatch({type: ActionTypes.SetRoom, payload: room})
+      this.clearDrawClb()
+    })
+
     this.socket!.on(Events.RoomsGet, (rooms: IRoom[]) => {
       rooms.forEach((room: IRoom) => {
         if (room.id === store.getState().app.room.id) {
@@ -78,7 +87,7 @@ class SocketManager {
     })
   }
 
-  public emit(event: string, payload: any) {
+  public emit(event: string, payload?: any) {
     this.socket!.emit(event, payload)
   }
 }

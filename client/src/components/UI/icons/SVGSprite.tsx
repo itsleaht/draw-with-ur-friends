@@ -56,6 +56,11 @@ const SVGSprite: FunctionComponent = () => {
         <symbol id="icon-menu" viewBox="0 0 30 15">
           <path d="M0 12.37A2.37 2.37 0 0 1 2.37 10h25.26a2.37 2.37 0 0 1 0 4.74H2.37A2.37 2.37 0 0 1 0 12.37zM0 2.5A2.5 2.5 0 0 1 2.5 0h12a2.5 2.5 0 0 1 0 5h-12A2.5 2.5 0 0 1 0 2.5z"/>
         </symbol>
+
+        <symbol id="icon-close" viewBox="0 0 24 24">
+          <path fillRule="evenodd" clipRule="evenodd" d="M1.393 22.662a2.348 2.348 0 0 1 0-3.333L19.257 1.554a2.377 2.377 0 0 1 3.35 0c.924.92.924 2.412 0 3.333L4.742 22.662c-.925.92-2.425.92-3.35 0z" />
+          <path fillRule="evenodd" clipRule="evenodd" d="M1.394 1.554a2.377 2.377 0 0 1 3.35 0l17.863 17.775c.925.92.925 2.413 0 3.333-.925.92-2.424.92-3.35 0L1.395 4.886a2.348 2.348 0 0 1 0-3.332z" />
+        </symbol>
       </defs>
     </svg>
   );

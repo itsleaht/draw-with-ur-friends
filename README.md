@@ -42,10 +42,11 @@ npm run start
 * :black_nib: Pick a brush size
 * :art: Pick a brush color
 * :pencil: Draw on canvas
+* :recycle: Clear canvas
 * :feet: See your friends drawing on the same canvas
 * :raising_hand: Add your username
 * :large_blue_circle: Get assigned an icon
 
 ## Next & current focuses
 - [ ] Fix color picker
-- [ ] Save messages in a room
+- [ ] Notification system

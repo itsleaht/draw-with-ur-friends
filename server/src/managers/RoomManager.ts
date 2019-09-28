@@ -35,6 +35,19 @@ class RoomManager {
     }
   }
 
+  public clearDraw(roomId: string): Room {
+    const room = this.getRoom(roomId);
+
+    if (room) {
+      room.clearDrawLines();
+      this.setRoom(room);
+
+      addLog('func', 'clearDraw', JSON.stringify({ roomId: room.getId(), drawLines: room.getDrawLines().length }));
+    }
+
+    return this.getRoom(roomId)!;
+  }
+
   public createRoom(name: string) {
     const room = new Room({name});
     this.setRoom(room);

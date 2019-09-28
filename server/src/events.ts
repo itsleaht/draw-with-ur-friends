@@ -16,6 +16,7 @@ export enum Events {
   RoomJoined = 'room:joined',
   RoomAddDrawLine = 'room:add:drawLine',
   RoomGetDrawLines = 'room:get:drawLines',
+  RoomClearDraw = 'room:clear:draw',
   ServerGetEvents = 'server:get:events',
   ServerGetIsReady = 'server:get:isReady',
   UsersGet = 'users:get',
