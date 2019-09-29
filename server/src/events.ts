@@ -23,7 +23,8 @@ export enum Events {
   UserConnection = 'user:connection',
   UserGet = 'user:get',
   UserLogin = 'user:login',
-  UserName = 'user:name'
+  UserName = 'user:name',
+  AlertNew = 'alert:new'
 }
 
 interface IRoom {

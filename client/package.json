@@ -96,6 +96,7 @@
     "autoprefixer": "^9.6.0",
     "autoprefixer-stylus": "^0.14.0",
     "poststylus": "^1.0.0",
+    "redux-devtools-extension": "^2.13.8",
     "stylus": "^0.54.5",
     "stylus-loader": "^3.0.2",
     "typescript": "3.5.2"

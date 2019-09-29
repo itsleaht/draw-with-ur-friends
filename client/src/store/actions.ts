@@ -1,4 +1,4 @@
-import { setUserAction, User, setRoomAction, setRoomsAction, Brush, setBrushAction, setColorAction, Color, setRoomMessageAction, SetIsRoomPanelOpenAction, setRoomDrawLineAction, SetIsServerReadyAction, SetCanDraw, State } from './types'
+import { setUserAction, User, setRoomAction, setRoomsAction, Brush, setBrushAction, setColorAction, Color, setRoomMessageAction, SetIsRoomPanelOpenAction, setRoomDrawLineAction, SetIsServerReadyAction, SetCanDraw, State, addAlert, removeAlert, Alert } from './types'
 import { IRoom, Line, IMessage } from './../@types'
 import { ActionTypes } from './actionTypes'
 
@@ -57,6 +57,22 @@ export function setIsServerReady(isServerReady: boolean): SetIsServerReadyAction
     payload: isServerReady
   }
 }
+
+export function addAlert(alert: Alert): addAlert {
+  return {
+    type: ActionTypes.AddAlert,
+    payload: alert
+  }
+}
+
+export function removeAlert(id: string): removeAlert {
+  return {
+    type: ActionTypes.RemoveAlert,
+    payload: id
+  }
+}
+
+
 
 export function setBrush(brush: Brush): setBrushAction {
   return {

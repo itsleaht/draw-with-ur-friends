@@ -9,6 +9,7 @@ import DrawCanvas from '../../components/DrawCanvas/DrawCanvas'
 import RoomPanel from '../../components/RoomPanel/RoomPanel'
 import Chat from '../../components/Chat/Chat'
 import appSelector from '../../store/selectors/appSelector'
+import AlertList from '../../components/AlertList/AlertList'
 
 type Props = {}
 
@@ -37,6 +38,7 @@ const Draw = ({ history } : RouteComponentProps<Props>) => {
           <div className="aside">
             <RoomPanel />
             <Chat />
+            <AlertList />
           </div>
         </>
       }

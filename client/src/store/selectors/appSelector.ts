@@ -29,6 +29,7 @@ const appSelector = {
   messages: createSelector((state: State) => state.app.room.messages, (value) => value),
   isRoomPanelOpen: createSelector((state: State) => state.app.ui.isRoomPanelOpen, (value) => value),
   isServerReady: createSelector((state: State) => state.app.server.isReady, (value) => value),
+  alerts: createSelector((state: State) => state.app.server.alerts, (value) => value),
   canDraw: createSelector((state: State) => state.app.ui.canDraw, (value) => value)
 }
 

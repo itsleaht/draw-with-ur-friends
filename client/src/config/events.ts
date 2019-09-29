@@ -16,5 +16,6 @@ export enum Events {
   UsersGet = 'users:get',
   UserGet = 'user:get',
   UserLogin = 'user:login',
-  UserName = 'user:name'
+  UserName = 'user:name',
+  AlertNew = 'alert:new'
 }

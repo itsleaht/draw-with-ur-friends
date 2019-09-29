@@ -1,6 +1,6 @@
 import { ActionTypes } from '../actionTypes'
 
-import { AppState } from '../types'
+import { AppState, Alert } from '../types'
 
 const initialState: AppState = {
   user: {id: '',},
@@ -11,7 +11,8 @@ const initialState: AppState = {
     isRoomPanelOpen: false,
   },
   server: {
-    isReady: false
+    isReady: false,
+    alerts: []
   }
 }
 
@@ -96,6 +97,35 @@ const appReducer = (state = initialState, action: any) => {
         room: {
           ...state.room,
           drawLines: drawLines
+        }
+      }
+
+    case ActionTypes.AddAlert:
+      return {
+        ...state,
+        server: {
+          ...state.server,
+          alerts: [
+            ...state.server.alerts,
+            action.payload.alert
+          ]
+        }
+      }
+
+    case ActionTypes.RemoveAlert:
+      const alertList: Alert[] = [...state.server.alerts]
+      let index = -1
+      alertList.forEach((alert, aIndex) =>  {
+        if (alert.id === action.payload.id) {
+          index = aIndex
+        }
+      })
+      alertList.splice(index, 1)
+      return {
+        ...state,
+        server: {
+          ...state.server,
+          alerts: alertList
         }
       }
 

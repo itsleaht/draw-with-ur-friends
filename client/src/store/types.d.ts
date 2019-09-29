@@ -19,6 +19,22 @@ export interface Line {
   [index: number]: number | string;
 }
 
+export interface Alert {
+  id: string,
+  type: string,
+  content: string
+}
+
+export interface addAlert {
+  type: typeof ActionTypes.AddAlert
+  payload: Alert
+}
+
+export interface removeAlert {
+  type: typeof ActionTypes.RemoveAlert
+  payload: string
+}
+
 export interface setUserAction {
   type: typeof ActionTypes.SetUser
   payload: User
@@ -79,7 +95,8 @@ export interface AppState {
     canDraw: boolean
   },
   server: {
-    isReady: boolean
+    isReady: boolean,
+    alerts: array
   }
 }
 

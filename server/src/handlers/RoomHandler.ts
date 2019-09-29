@@ -7,6 +7,7 @@ import { addLog } from './../helpers/Utils';
 import RoomManager from './../managers/RoomManager';
 import UserManager from './../managers/UserManager';
 
+import Alert from './../models/Alert';
 import MessageHandler from './MessageHandler';
 
 interface IRoomHandler {
@@ -31,6 +32,7 @@ export default class RoomHandler {
       }
 
       socket.leave(previousRoom.id!, () => {
+
         const user = UserManager.getUser(socket.id);
         const room = RoomManager.getRoom(event.to.id ? event.to.id : '');
         event.to.name = room!.getName();
@@ -38,6 +40,15 @@ export default class RoomHandler {
         user!.addToRoom(room!);
 
         RoomManager.joinRoom(socket, user!, event);
+
+        const leaveAlert: Alert = new Alert('leave',
+        `<strong>${user!.getName()}</strong> has left the artboard !`);
+        socket.broadcast.to(previousRoom.id!).emit(Events.AlertNew, leaveAlert);
+
+        const joinAlert: Alert = new Alert('join',
+        `<strong>${user!.getName()}</strong> has join the artboard !`);
+        socket.broadcast.to(room!.getId()).emit(Events.AlertNew, joinAlert);
+
       });
 
       MessageHandler.handle({io, socket, roomId: event.to.id});
@@ -58,8 +69,13 @@ export default class RoomHandler {
     });
 
     socket.on(Events.RoomClearDraw, (roomId: string) => {
+      const user = UserManager.getUser(socket.id);
+      const alert: Alert = new Alert('clear',
+      `<strong>${user!.getName()}</strong> has cleared the artboard !`);
+
       const room = RoomManager.clearDraw(roomId);
       io.in(roomId).emit(Events.RoomClearDraw, room);
+      socket.broadcast.to(roomId).emit(Events.AlertNew, alert);
     });
   }
 

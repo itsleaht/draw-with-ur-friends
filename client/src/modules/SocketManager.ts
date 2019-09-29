@@ -6,6 +6,7 @@ import { store } from './../store'
 import { ActionTypes } from '../store/actionTypes'
 
 import { IUser, IRoomJoined, IRoom, Line, IMessage } from '../@types'
+import { Alert } from '../store/types'
 
 interface ISocketManager {
   socket: SocketIOClient.Socket
@@ -84,6 +85,14 @@ class SocketManager {
 
     this.socket!.on(Events.RoomGetNewMessage, (message: IMessage) => {
       store.dispatch({type: ActionTypes.SetRoomMessage, payload: { message: message }})
+    })
+
+    this.socket!.on(Events.AlertNew, (alert: Alert) => {
+      store.dispatch({type: ActionTypes.AddAlert, payload: { alert: alert }})
+      const timeout = setTimeout(() => {
+        clearTimeout(timeout)
+        store.dispatch({type: ActionTypes.RemoveAlert, payload: { id: alert.id }})
+      }, 3000)
     })
   }
 

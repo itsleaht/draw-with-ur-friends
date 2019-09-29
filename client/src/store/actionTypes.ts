@@ -8,5 +8,7 @@ export enum ActionTypes {
   SetColor = 'SET_COLOR',
   SetIsRoomPanelOpen = 'SET_IS_ROOM_PANEL_OPEN',
   SetCanDraw = 'SET_CAN_DRAW',
-  SetIsServerReady = 'SET_IS_SERVER_READY'
+  SetIsServerReady = 'SET_IS_SERVER_READY',
+  AddAlert = 'ADD_ALERT',
+  RemoveAlert = 'REMOVE_ALERT'
 }

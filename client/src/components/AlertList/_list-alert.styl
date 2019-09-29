@@ -1,0 +1,50 @@
+@import '../../styles/global.styl'
+
+.list--alert
+  position absolute
+  bottom spacer(9)
+  right spacer(4)
+  pointer-events none
+  display flex
+  align-items flex-end
+  flex-direction column
+
+  .alert__item
+    display flex
+    margin-bottom spacer(1)
+    animation-name slideIn
+    animation-duration $t-duration
+
+  .alert__text
+    padding spacer(1) spacer(2)
+    background #a390ff
+    color $c-white
+    white-space nowrap
+    border-radius spacer(2)
+
+  .alert__type
+    display flex
+    align-items center
+    justify-content center
+    width spacer(4)
+    height spacer(4)
+    margin-right spacer(1)
+
+    background $c-white
+    border .2rem solid #a390ff
+    border-radius spacer(4)
+
+    font-size 1.8rem
+
+    box-shadow .2rem .2rem .4rem rgba(0, 0, 0, 0.1)
+
+  .alert__icon
+    display block
+    width 1.8rem
+
+  @keyframes slideIn
+    0%
+      transform translateX(5rem)
+
+    100%
+      transform translateX(0)

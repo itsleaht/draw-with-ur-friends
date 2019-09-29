@@ -3,6 +3,9 @@ import appReducer from './reducers/appReducer';
 import drawReducer from './reducers/drawReducer';
 import { State } from './types';
 
+import { devToolsEnhancer } from 'redux-devtools-extension';
+
+
 
 const rootReducer = combineReducers({
   app: appReducer,
@@ -10,5 +13,6 @@ const rootReducer = combineReducers({
 });
 
 export const store: Store<State, any> = createStore(
-  rootReducer
+  rootReducer,
+  devToolsEnhancer({})
 );
