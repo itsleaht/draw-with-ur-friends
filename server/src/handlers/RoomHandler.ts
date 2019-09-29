@@ -73,11 +73,12 @@ export default class RoomHandler {
 
     socket.on(Events.RoomClearDraw, (roomId: string) => {
       const user = UserManager.getUser(socket.id);
-      const alert: Alert = new Alert('clear',
-      `<strong>${user!.getName()}</strong> has cleared the artboard !`);
 
       const room = RoomManager.clearDraw(roomId);
       io.in(roomId).emit(Events.RoomClearDraw, room);
+
+      const alert: Alert = new Alert('clear',
+      `<strong>${user!.getName()}</strong> has cleared the <strong>${room.getName()}</strong> artboard !`);
       socket.broadcast.to(roomId).emit(Events.AlertNew, alert);
     });
   }

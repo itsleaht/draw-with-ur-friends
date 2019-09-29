@@ -46,7 +46,7 @@ npm run start
 * :feet: See your friends drawing on the same canvas
 * :raising_hand: Add your username
 * :large_blue_circle: Get assigned an icon
+* :exclamation: Alert system
 
 ## Next & current focuses
-- [ ] Fix color picker
-- [ ] Notification system
+- [ ] Fix color picker (swatches, input, light & dark colors)
