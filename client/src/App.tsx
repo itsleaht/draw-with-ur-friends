@@ -19,6 +19,9 @@ const App: FunctionComponent = () => {
             <Route exact path="/" component={Login}/>
             <Route exact path="/draw" component={Draw}/>
             <Route exact path="/about" component={About}/>
+            <div className="warning">
+              <span>⚠️</span> Warning, these website isn't optimized for your screen size. Please come back on your desktop to fully enjoy the experience. <span>⚠️</span>
+            </div>
           </div>
         </Router>
         <SVGSprite />

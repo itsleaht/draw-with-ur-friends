@@ -21,9 +21,10 @@ body
   background $c-purple-pale
   overflow hidden
 
-  +mq-tablet-lg-below()
+  +mq-unsupported()
     height auto
-    overflow auto
+    overflow-y auto
+    overflow-x hidden
 
 p
   margin 0
@@ -73,7 +74,7 @@ input
   border-bottom .2rem solid $c-blue-medium
   text-decoration none
 
-  &:hover
+  &hover
     color $c-blue-light
     border-color $c-blue-light
 
@@ -86,3 +87,34 @@ input
   &:hover
     color $c-black
     border-color $c-black
+
+.warning
+  position fixed
+  bottom spacer(2)
+  left spacer(2)
+  right spacer(2)
+  padding spacer(2) spacer(3)
+
+  background #FF5C5C
+  border-radius spacer(4)
+  z-index 6
+
+  color $c-white
+  font-weight bold
+  font-size 2rem
+  line-height 3rem
+
+  pointer-events none
+
+  transform translateY(6rem)
+  opacity 0
+
+  transition transform $t-duration, opacity $t-duration
+
+  +mq-unsupported()
+    transform translateY(0)
+    opacity 1
+
+  +mq-mobile-lg-below()
+    font-size 1.6rem
+    line-height 2.4rem
