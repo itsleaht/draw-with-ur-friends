@@ -8,6 +8,7 @@
   display flex
   align-items flex-end
   flex-direction column
+  transition transform $t-duration
 
   .alert__item
     display flex
@@ -41,6 +42,15 @@
   .alert__icon
     display block
     width 1.8rem
+
+  &.is-translated-X
+    transform translateX(-($aside-size))
+
+  &.is-translated-Y
+    transform translateY(-($chat-size))
+
+  &.is-translated-X-Y
+    transform translate(-($aside-size), -($chat-size))
 
   @keyframes slideIn
     0%

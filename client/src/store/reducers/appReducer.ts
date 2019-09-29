@@ -9,6 +9,7 @@ const initialState: AppState = {
   ui: {
     canDraw: false,
     isRoomPanelOpen: false,
+    isChatOpen: false
   },
   server: {
     isReady: false,
@@ -66,6 +67,16 @@ const appReducer = (state = initialState, action: any) => {
           isRoomPanelOpen: action.payload
         }
       }
+
+    case ActionTypes.SetIsChatOpen:
+      return {
+        ...state,
+        ui: {
+          ...state.ui,
+          isChatOpen: action.payload
+        }
+      }
+
 
     case ActionTypes.SetIsServerReady:
       return {

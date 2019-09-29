@@ -5,7 +5,7 @@ import MessageForm from './MessageForm/MessageForm'
 import ChatNotification from './ChatNotification/ChatNotification'
 import Icon from '../UI/icons/Icon'
 
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import useSocketOn from '../../hooks/useSocketOn'
 
 import { State, User } from '../../store/types'
@@ -14,12 +14,16 @@ import { Events } from '../../config/events'
 
 import './_chat.styl'
 import appSelector from '../../store/selectors/appSelector'
+import { ActionTypes } from '../../store/actionTypes'
 
 const Chat: FunctionComponent = () => {
   const [isMinified, setIsMinified] = useState<boolean>(true)
   const [isNotified, setIsNotified] = useState<boolean>(false)
   const [counterNotification, setCounterNotification] = useState<number>(0)
   const canDraw = useSelector<State, boolean>(appSelector.canDraw)
+  const isChatOpen = useSelector<State, boolean>(appSelector.isChatOpen)
+
+  const dispatch = useDispatch()
 
   const maxCounterNotification = 99
 
@@ -30,6 +34,8 @@ const Chat: FunctionComponent = () => {
 
   const onClickToggle = () => {
     setIsMinified(!isMinified)
+
+    dispatch({type: ActionTypes.SetIsChatOpen, payload: isMinified})
 
     const timeout = setTimeout(() => {
       clearTimeout(timeout)

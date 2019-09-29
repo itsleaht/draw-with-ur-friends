@@ -71,6 +71,11 @@ export interface setColorAction {
   payload: Color
 }
 
+export interface setIsChatOpen {
+  type: typeof ActionTypes.SetIsChatOpen,
+  payload: boolean
+}
+
 export interface SetIsRoomPanelOpenAction {
   type: typeof ActionTypes.SetIsRoomPanelOpen,
   payload: boolean
@@ -92,6 +97,7 @@ export interface AppState {
   rooms: IRoom[],
   ui: {
     isRoomPanelOpen: boolean,
+    isChatOpen: boolean,
     canDraw: boolean
   },
   server: {

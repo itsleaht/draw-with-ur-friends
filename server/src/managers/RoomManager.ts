@@ -35,6 +35,10 @@ class RoomManager {
     }
   }
 
+  public getDefautRoom() {
+    return this.defaultRoom;
+  }
+
   public clearDraw(roomId: string): Room {
     const room = this.getRoom(roomId);
 

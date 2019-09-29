@@ -16,6 +16,7 @@ export default class User {
 
   constructor(user: IUser) {
     this.id = user.id;
+    this.name = user.id;
   }
 
   public getId() {

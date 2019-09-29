@@ -36,8 +36,7 @@ const RoomCard: FunctionComponent<Props> = ({userId, room, isActive, onClickClb}
                   return (
                     <li key={`room-card-user-${index}`} className={`list__item tag ${userId === user.id ? 'is-active' : ''}`}>
                       <span className="list__item__icon" style={{background: `${user.color}`}}></span>
-                      <span>{user.name}</span>
-
+                      <span>{user.name} {userId === user.id ? '(YOU)' : ''}</span>
                     </li>
                   )
                 })

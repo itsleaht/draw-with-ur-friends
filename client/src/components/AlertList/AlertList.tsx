@@ -6,6 +6,8 @@ import { State, Alert } from '../../store/types'
 import './_list-alert.styl'
 const AlertList: FunctionComponent = () => {
   const alerts = useSelector<State, Alert[]>(state => appSelector.alerts(state))
+  const isRoomPanelOpen = useSelector<State, boolean>(state => appSelector.isRoomPanelOpen(state))
+  const isChatOpen = useSelector<State, boolean>(state => appSelector.isChatOpen(state))
 
   const renderAlert = (type: string) => {
     switch (type) {
@@ -19,7 +21,7 @@ const AlertList: FunctionComponent = () => {
   }
 
   return (
-    <div className="alert list--alert">
+    <div className={`alert list--alert ${isRoomPanelOpen ? 'is-translated-X' : ''} ${isChatOpen ? 'is-translated-Y' : ''} ${isChatOpen && isRoomPanelOpen ? 'is-translated-X-Y' : ''}` }>
      { alerts.map((alert,index) =>
       (
         <div className="alert__item" key={`alert-${index}`}>

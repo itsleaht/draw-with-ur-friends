@@ -41,13 +41,16 @@ export default class RoomHandler {
 
         RoomManager.joinRoom(socket, user!, event);
 
-        const leaveAlert: Alert = new Alert('leave',
-        `<strong>${user!.getName()}</strong> has left the artboard !`);
-        socket.broadcast.to(previousRoom.id!).emit(Events.AlertNew, leaveAlert);
+        if (socket.id !== user!.getName()) {
+          const leaveAlert: Alert = new Alert('leave',
+          `<strong>${user!.getName()}</strong> has left the <strong>${previousRoom.id ? RoomManager.getRoom(previousRoom.id!)!.getName() : ''}</strong>
+          artboard !`);
+          socket.broadcast.to(previousRoom.id!).emit(Events.AlertNew, leaveAlert);
 
-        const joinAlert: Alert = new Alert('join',
-        `<strong>${user!.getName()}</strong> has join the artboard !`);
-        socket.broadcast.to(room!.getId()).emit(Events.AlertNew, joinAlert);
+          const joinAlert: Alert = new Alert('join',
+          `<strong>${user!.getName()}</strong> has join the <strong>${room!.getName()}</strong> artboard !`);
+          socket.broadcast.to(room!.getId()).emit(Events.AlertNew, joinAlert);
+        }
 
       });
 

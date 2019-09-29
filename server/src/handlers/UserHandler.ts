@@ -5,6 +5,7 @@ import { Events, IUserNameEvent, SocketEvents } from './../events';
 import { addLog } from './../helpers/Utils';
 import RoomManager from './../managers/RoomManager';
 import UserManager from './../managers/UserManager';
+import Alert from './../models/Alert';
 
 interface IUserHandler {
   socket: Socket;
@@ -28,6 +29,11 @@ export default class UserHandler {
 
       const userLog: any = UserManager.getUser(event.id)!.serialize;
       addLog('on', Events.UserName, JSON.stringify({id: userLog.id, name: userLog.name}));
+
+      const defaultRoom = RoomManager.getDefautRoom();
+      const joinAlert: Alert = new Alert('join',
+      `<strong>${user!.getName()}</strong> has joined the <strong>${defaultRoom.getName()}</strong> artboard !`);
+      socket.broadcast.to(defaultRoom.getId()).emit(Events.AlertNew, joinAlert);
     });
 
     socket.on(SocketEvents.Disconnect, () => {
