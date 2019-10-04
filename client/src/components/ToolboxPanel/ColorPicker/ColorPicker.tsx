@@ -85,7 +85,7 @@ const ColorPicker: FunctionComponent<Props> = ({ color, onColorClb, onCloseClb, 
       <div className="color__inner">
         <ColorGradient color={currentColor} saturated={saturated} onColorClb={onChildColorClb} isOpen={isOpen} />
         <ColorSpectrum saturated={saturated} onSaturatedClb={onChildSaturatedClb} isOpen={isOpen} />
-        <ColorSwatches color={currentColor.rgb} mustSwatchColor={!isOpen} />
+        <ColorSwatches color={currentColor.rgb} mustSwatchColor={!isOpen} onClickColorClb={onChildColorClb} />
       </div>
     </div>
   )

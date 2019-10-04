@@ -29,6 +29,7 @@ const ColorToolbox: FunctionComponent = () => {
       setDefaultColor(output)
       setColor(output)
     }
+    storeColor()
   }
 
   const onBlurInputColor = (e: React.FocusEvent<HTMLInputElement>) => {

@@ -5,10 +5,11 @@ import './_color-swatches.styl'
 
 type Props = {
   color: {r: number, g: number, b: number},
-  mustSwatchColor: Boolean
+  mustSwatchColor: Boolean,
+  onClickColorClb: Function
 }
 
-const ColorSwatches: FunctionComponent<Props> = ({color, mustSwatchColor}) => {
+const ColorSwatches: FunctionComponent<Props> = ({color, mustSwatchColor, onClickColorClb}) => {
 
   const nbSwatches = 14
   const [swatches, setSwatches] = useState(() => {
@@ -73,6 +74,10 @@ const ColorSwatches: FunctionComponent<Props> = ({color, mustSwatchColor}) => {
     return index
   }
 
+  const onClickColor = (color: {r: number, g: number, b: number}) => {
+    onClickColorClb(rgbToString(color.r, color.g, color.b))
+  }
+
   useEffect(() => {
     if (color && mustSwatchColor) {
       swatchColor()
@@ -86,7 +91,7 @@ const ColorSwatches: FunctionComponent<Props> = ({color, mustSwatchColor}) => {
           swatches.map((swatch, index) => {
             return (
               <li className="list__item" key={`color-swatch-${index}`}>
-                <button className="list__swatch" style={{background: `${rgbToString(swatch.rgb.r, swatch.rgb.g, swatch.rgb.b)}`}} />
+                <button className="list__swatch" style={{background: `${rgbToString(swatch.rgb.r, swatch.rgb.g, swatch.rgb.b)}`}} onClick={() => {onClickColor(swatch.rgb)}} />
               </li>
             )
           })
