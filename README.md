@@ -3,6 +3,11 @@ Small web app where you can draw online with your friends and others.
 
 Made with **React** (with hooks), **Socket.IO**, **P5.js** and **Typescript**.
 
+Hope you'll enjoy !
+<br>
+
+<br>
+
 ![Draw with your friends](https://github.com/itsleaht/draw-with-ur-friends/blob/master/client/public/assets/meta.jpg)
 <br>
 
