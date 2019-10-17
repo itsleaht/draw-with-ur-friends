@@ -47,6 +47,5 @@ npm run start
 * :raising_hand: Add your username
 * :large_blue_circle: Get assigned an icon
 * :exclamation: Alert system
+* :file_folder: Save artboard
 
-## Next & current focuses
-- [ ] Fix color picker (swatches, input, light & dark colors)

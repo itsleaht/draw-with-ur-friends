@@ -46,8 +46,6 @@ class DrawingManager {
     })
   }
 
-  //Todo: room change = clear canvas + drawAll
-
   public kill () {
     addLog('on', 'DrawingManager : Kill')
     if (this.sketch) {
@@ -140,6 +138,7 @@ class DrawingManager {
   clear () {
     addLog('on', 'DrawingManager : Clear')
     this.sketch.clear()
+    this.sketch.background(255)
   }
 
   draw (line: Line) {
