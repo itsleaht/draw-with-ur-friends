@@ -3,11 +3,7 @@ Small web app where you can draw online with your friends and others.
 
 Made with **React** (with hooks), **Socket.IO**, **P5.js** and **Typescript**.
 
-🚧 In progress 🚧
-
-
-![Draw with your friends Logo](https://github.com/itsleaht/draw-with-ur-friends/blob/master/client/public/assets/logo.svg)
-
+![Draw with your friends](https://github.com/itsleaht/draw-with-ur-friends/blob/master/client/public/assets/meta.jpg)
 <br>
 
 ## Project setup
@@ -49,3 +45,6 @@ npm run start
 * :exclamation: Alert system
 * :file_folder: Save artboard
 
+<br>
+
+![Draw with your friends Logo](https://github.com/itsleaht/draw-with-ur-friends/blob/master/client/public/assets/logo.svg)
